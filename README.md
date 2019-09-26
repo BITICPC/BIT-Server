@@ -1,13 +1,34 @@
-## 第一阶段
+# BIT Online Judge 前端
 
-> 完成基本功能，包括但不限于：
->
-> + 注册、登录
-> + 提交、评测题目
-> + 基本网页设计
+> 基于 Vue.js 的迭代开发
 
-（以下设计规划均包括页面设计）
+## Todo List
 
-+ [ ] 基于 Vue.js 实现注册、登录功能
-+ [ ] 题目模块设计：题目列表、题目内容及描述等
-+ [ ] 评测模块设计：评测信息、评测交互等
+https://docs.qq.com/doc/DSmlhbWdZbkpjVkpr
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+
+# run unit tests
+npm run unit
+
+# run e2e tests
+npm run e2e
+
+# run all tests
+npm test
+```
+
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
