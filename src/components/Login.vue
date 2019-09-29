@@ -18,7 +18,7 @@
 
         <div class="col-sl-10">
             <div class="checkbox"><label><input type="checkbox"> 保持登陆状态</label></div>
-            <button type="submit" class="btn btn-primary">登录账号</button>
+            <button type="submit" class="btn btn-success"><i class="fas fa-cloud-upload-alt"></i> Submit</button>
             </div>
     </div>
 </template>

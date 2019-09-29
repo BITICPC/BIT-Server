@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import Login from '@/components/Login'
-import Join from '@/component/Join'
-
+import Join from '@/components/Join'
 
 Vue.use(Router)
 
