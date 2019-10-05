@@ -5,15 +5,28 @@ body {
   padding-bottom: 4em;
 }
 
+ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 /* menu */
 #menuDefault ul li.nav-item {
   white-space: nowrap;
 }
 
-#djlogo {
-  width: 93px; height: 196px;
+.dropdown-menu.pull-right {
+  right: 0;
+  left: auto;
 }
 
+/* settings */
+.nav-link.setting {
+  color: black;
+}
+.nav-link.active.setting {
+  background-color: gray;
+}
 
 .submitform {
   max-width: 450px;

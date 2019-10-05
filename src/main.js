@@ -2,27 +2,28 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 // import $ from 'jquery'
 import Vue from 'vue'
+import Vuex from 'vuex'
+
 import App from './App'
+
 import router from './router'
+import store from './store'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min'
-import fontawesome from '@fortawesome/fontawesome'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import solid from '@fortawesome/fontawesome-free-solid'
-import regular from '@fortawesome/fontawesome-free-regular'
-import brands from '@fortawesome/fontawesome-free-brands'
+
 import '../static/css/style.css'
+import '../static/css/all.css' // for fontawesome
 
-fontawesome.library.add(solid)
-fontawesome.library.add(regular)
-fontawesome.library.add(brands)
+Vue.use(Vuex)
 
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+// Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
