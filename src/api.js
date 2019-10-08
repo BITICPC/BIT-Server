@@ -15,29 +15,48 @@ export default {
       data
     })
   },
-  getUserInfo (username = undefined) {
+  getUserInfo (username, jwt = undefined) {
     let cmd = '/users/' + username
+    if (jwt !== undefined) {
+      return ajax(cmd, 'get', {
+        params: {
+          detailed: true
+        },
+        headers: {
+          Authorization: 'Jwt ' + jwt
+        }
+      })
+    }
     return ajax(cmd, 'get')
   },
-  changeUserInfo (username = undefined, data) {
+  changeUserInfo (username, data, jwt) {
     let cmd = '/users/' + username
     return ajax(cmd, 'put', {
-      data
+      data: data,
+      headers: {
+        Authorization: 'Jwt ' + jwt
+      }
+    })
+  },
+  getRanklist (params) {
+    return ajax('/users/ranklist', 'get', {
+      params
     })
   }
 }
 
 function ajax (url, method, options) {
   if (options !== undefined) {
-    var {params = {}, data = {}} = options
+    var {params = {}, data = {}, headers = {}} = options
   } else {
-    params = data = {}
+    params = data = headers = {}
   }
   return new Promise((resolve, reject) => {
     axios({
       url,
       method,
       params,
+      headers,
       data
     }).then(res => {
       resolve(res)

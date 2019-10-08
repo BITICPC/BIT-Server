@@ -13,33 +13,35 @@
           </ul>
         </div>
 
-        <h2>注册 <small>Registration</small></h2><br>
+        <h2>注册</h2><br>
 
-        <h5 class="control-label">用户名 <small>User Name</small></h5>
+        <h5 class="control-label">用户名</h5>
         <div class="input-group mb-3">
             <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
-            <input type="text" class="form-control" placeholder="User Name" v-model="formRegister.username">
+            <input type="text" class="form-control" placeholder="Username" v-model="formRegister.username">
         </div>
 
-        <h5 class="control-label">手机号 <small>Phone Number</small></h5>
+        <h5 class="control-label">手机号</h5>
         <div class="input-group mb-3">
             <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-phone"></i></span></div>
             <input type="number" maxlength="11" class="form-control" placeholder="Phone Number" v-model="formRegister.phone">
         </div>
 
-        <h5 class="control-label">密码 <small>Password</small></h5>
+        <h5 class="control-label">密码</h5>
         <div class="input-group mb-3">
-            <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-key"></i></span></div>
+            <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-lock"></i></span></div>
             <input type="password" class="form-control" placeholder="Password" v-model="formRegister.password">
         </div>
 
-        <h5 class="control-label">确认密码 <small>Confirmation</small></h5>
+        <h5 class="control-label">确认密码</h5>
         <div class="input-group mb-3">
             <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-question"></i></span></div>
-            <input type="password" class="form-control" placeholder="Confirmation" v-model="confirmPwd">
+            <input type="password" class="form-control" placeholder="Password Confirmation" v-model="confirmPwd">
         </div>
 
-        <button type="submit" class="btn btn-success" @click="register()"><i class="fas fa-registered"></i> Sign up</button>
+        <br>
+
+        <button type="submit" class="btn btn-primary" @click="register()"><i class="fas fa-registered"></i> 注册</button>
 
     </div>
 </template>

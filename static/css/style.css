@@ -28,6 +28,14 @@ ul {
   background-color: gray;
 }
 
+/* ranklist */
+.ranklist {
+  text-align: center;
+}
+.table-head {
+  background-color: #f8f9fa
+}
+
 .submitform {
   max-width: 450px;
 }
