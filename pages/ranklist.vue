@@ -12,7 +12,13 @@
 
       <!-- <b-table style="text-align: center;" primary-key="username" id="table-transition" striped :bordered="true" :items="ranklist" :fields="fields" :tbody-transition-props="transProps" :filter="filter" :per-page="perPage" :current-page="currentPage"> -->
 
-      <b-table style="text-align: center;" striped :bordered="true" :items="ranklist" :fields="fields" :filter="filter" :per-page="perPage" :current-page="currentPage">
+      <b-table style="text-align: center;" striped :bordered="true" :items="ranklist" :fields="fields" :filter="filter" :per-page="perPage" :current-page="currentPage" :busy="isBusy">
+        <template v-slot:table-busy>
+          <div class="text-center text-danger my-2">
+            <b-spinner class="align-middle"></b-spinner>
+            <strong>Loading...</strong>
+          </div>
+        </template>
         <template v-slot:cell(index)="user">{{ (currentPage - 1) * perPage + user.index + 1 }}</template>
         <template v-slot:cell(signature)="user"><span v-html="user.value"></span></template>
       </b-table>
@@ -27,6 +33,7 @@ import api from '@/components/api'
 export default {
   data () {
     return {
+      isBusy: false,
       ranklist: [],
       transProps: {
         name: 'flip-list'
@@ -69,6 +76,7 @@ export default {
     }
   },
   mounted () {
+    this.isBusy = true
     api.getRanklist({
       by: 'TotalProblemsAccepted',
       limit: 20
@@ -81,7 +89,7 @@ export default {
           attempted: user.totalProblemsAttempted
         })
       })
-      // console.log(this.ranklist)
+      this.isBusy = false
     })
   },
   computed: {
