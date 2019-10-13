@@ -67,6 +67,10 @@ body {
 }
 
 /* ranklist */
+table#table-transition .flip-list-move {
+  transition: transform 1s;
+}
+
 ul {
   margin-top: 0;
   margin-bottom: 0;

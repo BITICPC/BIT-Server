@@ -4,13 +4,14 @@
         <b-input-group-prepend>
           <span class="input-group-text"><i class="fas fa-search"></i></span>
         </b-input-group-prepend>
-        <b-form-input type="text" placeholder="用户名"></b-form-input>
+        <b-form-input v-model="filter" type="search" placeholder="请输入查找的用户名"></b-form-input>
         <b-input-group-append>
-          <b-button variant="outline-secondary">查找用户</b-button>
+          <b-button :disabled="!filter" @click="filter = ''" variant="outline-secondary">清除</b-button>
         </b-input-group-append>
       </b-input-group><br>
 
-      <b-table striped :bordered="true" :items="ranklist" :fields="fields" style="text-align: center;">
+      <b-table style="text-align: center;" id="table-transition" primary-key="username"
+        striped :bordered="true" :items="ranklist" :fields="fields" :tbody-transition-props="transProps" :filter="filter">
         <template v-slot:cell(index)="user">{{ user.index + 1 }}</template>
         <template v-slot:cell(signature)="user"><span v-html="user.value"></span></template>
       </b-table>
@@ -24,6 +25,9 @@ export default {
   data () {
     return {
       ranklist: [],
+      transProps: {
+        name: 'flip-list'
+      },
       fields: [
         {
           key: 'index',
@@ -51,7 +55,8 @@ export default {
           label: '尝试数量',
           sortable: true
         }
-      ]
+      ],
+      filter: null
     }
   },
   mounted () {
