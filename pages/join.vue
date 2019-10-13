@@ -3,9 +3,7 @@
 
     <b-alert v-model="formErrors.hasError" variant="warning" dismissible>
       <h5><Strong>登录失败</strong></h5>
-      <ul>
-        <li v-for="errMessage in formErrors.errMessage" :key="errMessage">{{ errMessage }}</li>
-      </ul>
+      <li v-for="errMessage in formErrors.errMessage" :key="errMessage">{{ errMessage }}</li>
     </b-alert>
 
     <h2>注册</h2><br>
@@ -41,9 +39,9 @@
           <span class="input-group-text"><i class="fas fa-question"></i></span>
         </b-input-group-prepend>
         <b-form-input type="password" placeholder="请再次输入密码" v-model="formRegister.confirm" required></b-form-input>
-      </b-input-group><br>
+      </b-input-group>
 
-    <b-button type="submit" variant="primary"><i class="fas fa-registered"></i> 注册</b-button>
+      <b-button type="submit" variant="primary"><i class="fas fa-registered"></i> 注册</b-button>
     </b-form>
   </div>
 </template>
@@ -72,7 +70,7 @@ export default {
       if (this.formRegister.username.length < 3) {
         this.formErrors.errMessage.push('用户名长度必须大于2位')
       }
-      if (this.formRegister.phone.length != 11) {
+      if (this.formRegister.phone.length !== 11) {
         this.formErrors.errMessage.push('手机号格式错误')
       }
       if (this.formRegister.password.length < 6) {
@@ -86,7 +84,7 @@ export default {
     register (event) {
       event.preventDefault()
       if (!this.validation()) {
-        api.register(this.formRegister).then(response => {
+        api.register(this.formRegister).then(() => {
           this.$router.push({
             name: 'login',
             params: { fromSuccReg: true }

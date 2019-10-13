@@ -16,10 +16,10 @@ const getters = {
 
 const mutations = {
   [types.CHANGE_PROFILE] (state, {profile}) {
-    state.profile = profile
+    state.profile = Object.assign({}, profile)
   },
   [types.CHANGE_JWT] (state, {jwt}) {
-    state.jwt = jwt
+    state.jwt = Object.assign({}, jwt)
   }
 }
 
@@ -37,8 +37,8 @@ const actions = {
     })
   },
   setProfile ({state, commit}, payload) {
-    return api.changeUserInfo(state.profile.username, payload, state.jwt).then(response => {
-      let profile = state.profile
+    return api.changeUserInfo(state.profile.username, payload, state.jwt).then(() => {
+      let profile = Object.assign({}, state.profile)
       Object.keys(payload).forEach(element => {
         if (profile[element] !== payload[element]) {
           profile[element] = payload[element]

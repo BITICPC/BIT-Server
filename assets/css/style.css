@@ -57,9 +57,6 @@ body {
   background-color: #563d7c;
   box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,.25), inset 0 -1px 5px rgba(0,0,0,.25);
 }
-.router-link-active {
-  font-weight: 600;
-}
 .nav-link {
   font-size: large;
 }
@@ -67,9 +64,6 @@ body {
 /* settings */
 .nav-link.setting {
   color: black;
-}
-.nav-link.active.setting {
-  background-color: gray;
 }
 
 /* ranklist */
