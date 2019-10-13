@@ -16,10 +16,10 @@ const getters = {
 
 const mutations = {
   [types.CHANGE_PROFILE] (state, {profile}) {
-    state.profile = Object.assign({}, profile)
+    state.profile = profile
   },
   [types.CHANGE_JWT] (state, {jwt}) {
-    state.jwt = Object.assign({}, jwt)
+    state.jwt = jwt
   }
 }
 

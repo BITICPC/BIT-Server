@@ -70,7 +70,6 @@ export default {
       event.preventDefault()
       if (!this.validation()) {
         api.login(this.formLogin).then(response => {
-          // console.log(response)
           this.setJwt(response.data.jwt)
           this.getProfile(response.data.username)
           this.$router.push('/')
