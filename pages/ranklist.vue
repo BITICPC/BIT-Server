@@ -10,11 +10,14 @@
         </b-input-group-append>
       </b-input-group><br>
 
-      <b-table style="text-align: center;" id="table-transition" primary-key="username"
-        striped :bordered="true" :items="ranklist" :fields="fields" :tbody-transition-props="transProps" :filter="filter">
-        <template v-slot:cell(index)="user">{{ user.index + 1 }}</template>
+      <!-- <b-table style="text-align: center;" primary-key="username" id="table-transition" striped :bordered="true" :items="ranklist" :fields="fields" :tbody-transition-props="transProps" :filter="filter" :per-page="perPage" :current-page="currentPage"> -->
+
+      <b-table style="text-align: center;" striped :bordered="true" :items="ranklist" :fields="fields" :filter="filter" :per-page="perPage" :current-page="currentPage">
+        <template v-slot:cell(index)="user">{{ (currentPage - 1) * perPage + user.index + 1 }}</template>
         <template v-slot:cell(signature)="user"><span v-html="user.value"></span></template>
       </b-table>
+
+      <b-pagination v-model="currentPage" align="center" :total-rows="rows" :per-page="perPage"></b-pagination>
     </div>
 </template>
 
@@ -32,12 +35,14 @@ export default {
         {
           key: 'index',
           label: '#',
-          sortable: false
+          sortable: false,
+          thStyle: 'width: 60px;'
         },
         {
           key: 'username',
           label: '用户名',
-          sortable: true
+          sortable: true,
+          thStyle: 'width: 150px;'
           
         },
         {
@@ -48,15 +53,19 @@ export default {
         {
           key: 'accepted',
           label: '通过数量',
-          sortable: true
+          sortable: true,
+          thStyle: 'width: 100px;'
         },
         {
           key: 'attempted',
           label: '尝试数量',
-          sortable: true
+          sortable: false,
+          thStyle: 'width: 100px;'
         }
       ],
-      filter: null
+      filter: null,
+      perPage: 6,
+      currentPage: 1
     }
   },
   mounted () {
@@ -74,6 +83,11 @@ export default {
       })
       // console.log(this.ranklist)
     })
+  },
+  computed: {
+    rows () {
+      return this.ranklist.length
+    }
   }
 }
 </script>
