@@ -28,7 +28,7 @@
       </b-input-group>
 
       <b-input-group class="mb-3">
-        <b-form-checkbox value="rememberMe">保持登陆状态</b-form-checkbox>
+        <b-form-checkbox value="rememberMe" switch>保持登陆状态</b-form-checkbox>
       </b-input-group>
 
       <b-button type="submit" variant="primary"><i class="fas fa-cloud-upload-alt"></i> 登录</b-button>
