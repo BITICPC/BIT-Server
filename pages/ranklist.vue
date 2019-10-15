@@ -14,7 +14,7 @@
 
       <b-table style="text-align: center;" striped :bordered="true" :items="ranklist" :fields="fields" :filter="filter" :per-page="perPage" :current-page="currentPage" :busy="isBusy">
         <template v-slot:table-busy>
-          <div class="text-center text-danger my-2">
+          <div class="text-danger my-2">
             <b-spinner class="align-middle"></b-spinner>
             <strong>Loading...</strong>
           </div>
@@ -33,7 +33,6 @@ import api from '@/components/api'
 export default {
   data () {
     return {
-      isBusy: false,
       ranklist: [],
       transProps: {
         name: 'flip-list'
@@ -70,6 +69,7 @@ export default {
           thStyle: 'width: 100px;'
         }
       ],
+      isBusy: false,
       filter: null,
       perPage: 6,
       currentPage: 1
