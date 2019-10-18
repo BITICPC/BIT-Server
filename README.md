@@ -6,29 +6,7 @@
 
 文档：<https://docs.qq.com/doc/DSmlhbWdZbkpjVkpr>
 
-### UI
-
-- [x] 使用基于 Nuxt.js 的 Bootstrap-Vue
-
-### Login
-
-- [ ] 加入 Session、Cookie 使登录可持久化
-- [x] 前端加入注册、登录和修改信息的错误提示
-
-### Profile
-
-- [x] 支持信息修改并更新
-- [ ] 个性签名
-- [ ] 密码修改
-- [ ] 安全板块
-  - [ ] 邮箱验证
-  - [ ] 手机验证
-
-### Ranklist
-
-- [x] 使用关键字检索
-- [x] 使用关键属性排序
-- [x] 分页
+进度：<https://github.com/BITICPC/BitServer/projects/1>
 
 ## Build Setup
 
