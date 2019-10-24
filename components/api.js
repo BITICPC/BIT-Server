@@ -42,6 +42,11 @@ export default {
     return ajax('/users/ranklist', 'get', {
       params
     })
+  },
+  getPublicProblemset (params) {
+    return ajax('/archive', 'get', {
+      params
+    })
   }
 }
 
