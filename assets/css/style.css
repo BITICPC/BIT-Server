@@ -51,7 +51,6 @@ body {
 }
 
 
-
 /* navbar */
 .bg-purple {
   background-color: #563d7c;
@@ -69,6 +68,42 @@ body {
 /* ranklist */
 table#table-transition .flip-list-move {
   transition: transform 1s;
+}
+
+/* problemset */
+.badge-black {
+  margin: 0 .5em 0 0;
+  font-size: 0.9rem;
+  background-color: #1b1c1d;
+  color: white;
+}
+
+.badge-violet {
+  margin: 0 .5em 0 0;
+  font-size: 0.9rem;
+  background-color: #6435c9;
+  color: white;
+}
+
+.badge-pink {
+  margin: 0 .5em 0 0;
+  font-size: 0.9rem;
+  background-color: #e61a8d;
+  color: white;
+}
+
+.badge-olive {
+  margin: 0 .5em 0 0;
+  font-size: 0.9rem;
+  background-color: #a7bd0d;
+  color: white;
+}
+
+.badge-blue {
+  margin: 0 .5em 0 0;
+  font-size: 0.9rem;
+  background-color: #2185d0;
+  color: white;
 }
 
 ul {
