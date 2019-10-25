@@ -13,11 +13,9 @@ body {
   background-color: white;
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif, Roboto, sans-serif;
   padding-top: 5rem;
-  padding-bottom: 4em;
 }
 
 *, *:before, *:after {
-  box-sizing: border-box;
   margin: 0;
 }
 
@@ -104,6 +102,33 @@ table#table-transition .flip-list-move {
   font-size: 0.9rem;
   background-color: #2185d0;
   color: white;
+}
+
+/* footer */
+.bd-footer {
+  padding: 4rem 0;
+  text-align: center;
+  background-color: #eee;
+  font-size: .875rem;
+}
+
+.docs-border {
+  border-top: 3px solid #dee2e6;
+}
+
+.bd-footer li {
+  font-weight: 600;
+  color: #495057;
+}
+
+/* text */
+.text-muted {
+  color: #6c757d;
+}
+
+.text-purple-bright {
+  color: #7952b3;
+  font-weight: bolder;
 }
 
 ul {
