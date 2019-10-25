@@ -126,11 +126,6 @@ table#table-transition .flip-list-move {
   font-weight: bolder;
 }
 
-ul {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
 .ranklist {
   text-align: center;
 }
@@ -169,9 +164,26 @@ ul {
   font-variant: small-caps;
 }
 
-.sol_correct      { color: green;  }
-.sol_incorrect    { color: red;    }
-.sol_queued       { color: gray;   }
+.sol_correct {
+  color: green !important;
+  font-weight: bold;
+}
+.sol_compiled_failed {
+  color: yellowgreen !important;
+  font-weight: bold;
+}
+.sol_incorrect {
+  color: red !important;
+  font-weight: bold;
+}
+.sol_queued {
+  color: gray !important;
+  font-weight: bold;
+}
+.sol_judging {
+  color: #6666FF !important;
+  font-weight: bold;
+}
 
 .judgetime      { font-size: smaller; font-style: italic; }
 .testcases_prev { font-size: xx-small; }
