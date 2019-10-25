@@ -58,11 +58,6 @@ body {
   font-size: large;
 }
 
-/* settings */
-.nav-link.setting {
-  color: black;
-}
-
 /* ranklist */
 table#table-transition .flip-list-move {
   transition: transform 1s;
