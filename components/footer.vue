@@ -29,7 +29,7 @@
           </div> -->
         </div>
         <hr>
-        <p class="mb-2">Powered by Nuxt.js with Bootstrap-Vue v2.0.4</p>
+        <p class="mb-2">Powered by <a href="https://nuxtjs.org/">Nuxt.js</a> with Bootstrap-Vue v2.0.4</p>
         <p>BIT Online Judge Version: v{{ Version }}</p>
       </div>
     </footer>
