@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid><br><div class="row">
+  <b-container><br><b-row>
     <div class="col-8">
       <b-table striped :bordered="true" :items="problemset" :fields="fields" :filter="filter" :busy="isBusy" :show-empty="true">
         <template v-slot:table-busy>
@@ -44,7 +44,7 @@
         </b-input-group>
       </b-card>
     </div>
-  </div></b-container>
+  </b-row></b-container>
 </template>
 
 <script>
