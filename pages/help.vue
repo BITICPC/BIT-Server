@@ -1,5 +1,5 @@
 <template>
-  <div class="container"><br>
+  <b-container><br>
   <h2>帮助</h2>
   <h4>编译系统</h4>
   <p>C 使用 <code>clang</code> 编译，命令为 <code>clang source_file.c -o exec_file -O2 -lm -DONLINE_JUDGE -mx32</code>；<br>
@@ -26,7 +26,7 @@
   
   <h6><strong>BIT Online Judge 如何计算程序的运行时间？</strong></h6>
   <p>BIT Online Judge 的评测法官 Jury 会使用不同的测试点多次测试运行您代码编译的程序。如果您的程序在每个测试点中都能在时间限制内给出正确答案，则显示的运行时间为所有测试点耗费的运行时间的最大值，否则该属性无意义。</p>
-  </div>
+  </b-container>
 </template>
 <script>
 export default {
