@@ -48,6 +48,22 @@ body {
   background-color: #35495e;
 }
 
+/* footer */
+.bd-footer {
+  padding: 4rem 0;
+  text-align: center;
+  background-color: #eee;
+  font-size: .875rem;
+}
+
+.docs-border {
+  border-top: 3px solid #dee2e6;
+}
+
+.bd-footer li {
+  font-weight: 600;
+  color: #495057;
+}
 
 /* navbar */
 .bg-purple {
@@ -99,21 +115,10 @@ table#table-transition .flip-list-move {
   color: white;
 }
 
-/* footer */
-.bd-footer {
-  padding: 4rem 0;
+/* problem statement */
+h3.problem-title {
   text-align: center;
-  background-color: #eee;
-  font-size: .875rem;
-}
-
-.docs-border {
-  border-top: 3px solid #dee2e6;
-}
-
-.bd-footer li {
-  font-weight: 600;
-  color: #495057;
+  font-weight: bold;
 }
 
 /* text */

@@ -8,7 +8,7 @@
     <li v-for="message in formStatus.message" :key="message">{{ message }}</li>
   </b-alert>
 
-	<b-card title="Card Title" no-body>
+	<!-- <b-card title="Card Title" no-body>
 		<b-card-header header-tag="nav">
       <b-nav card-header pills tabs>
         <b-nav-item to="/settings/profile" exact exact-active-class="active">个人资料</b-nav-item>
@@ -20,7 +20,22 @@
 		<b-card-body>
       <nuxt-child @status="showStatus"/>
     </b-card-body>
-	</b-card>
+	</b-card> -->
+  <b-card>
+    <div class="row"><div class="col-3">
+    <p><b-img thumbnail fluid src="~/static/img/user_ico.jpg" alt="default user"></b-img></p>
+    <b-nav class="flex-column" pills>
+        <b-nav-item to="/settings/profile" exact exact-active-class="active">个人资料</b-nav-item>
+        <b-nav-item to="/settings/account" exact exact-active-class="active">账号信息</b-nav-item>
+        <b-nav-item disabled>安全设置</b-nav-item>
+    </b-nav>
+        </div>
+        <div class="col-9">  
+          <nuxt-child @status="showStatus"/>
+        </div>
+      </div>
+  </b-card>
+    
 	</div>
 </template>
 

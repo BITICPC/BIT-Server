@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <!-- <div class="container"> -->
     <b-form @submit="saveProfile">
       <h5 class="control-label">昵称</h5>
       <b-input-group class="mb-3">
@@ -51,7 +51,7 @@
 
       <b-button type="submit" variant="primary"><i class="fas fa-cloud-upload-alt"></i> 保存</b-button>
     </b-form>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>

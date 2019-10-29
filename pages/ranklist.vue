@@ -23,7 +23,7 @@
         <template v-slot:cell(signature)="user"><span v-html="user.value"></span></template>
       </b-table>
 
-      <b-pagination v-model="currentPage" align="center" :total-rows="rows" :per-page="perPage"></b-pagination>
+      <b-pagination v-model="currentPage" align="center" variant="success" :total-rows="rows" :per-page="perPage"></b-pagination>
     </div>
 </template>
 
