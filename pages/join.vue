@@ -1,5 +1,5 @@
 <template>
-  <div class="container"><br>
+  <b-container><br>
 
     <b-alert v-model="formErrors.hasError" variant="warning" dismissible>
       <h5><Strong>登录失败</strong></h5>
@@ -43,7 +43,7 @@
 
       <b-button type="submit" variant="primary"><i class="fas fa-registered"></i> 注册</b-button>
     </b-form>
-  </div>
+  </b-container>
 </template>
 
 <script>

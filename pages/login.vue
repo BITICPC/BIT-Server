@@ -1,5 +1,5 @@
 <template>
-  <div class="container"><br>
+  <b-container><br>
 
     <b-alert v-model="$route.params.fromSuccReg" variant="success" dismissible>注册成功，欢迎登录！</b-alert>
 
@@ -33,7 +33,7 @@
 
       <b-button type="submit" variant="primary"><i class="fas fa-cloud-upload-alt"></i> 登录</b-button>
     </b-form>
-  </div>
+  </b-container>
 </template>
 <script>
 import { mapActions } from 'vuex'
