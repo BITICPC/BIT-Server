@@ -51,10 +51,10 @@ export default {
   },
   proxy: {
     '/api': {
-      target: 'http://39.97.229.182:5000',
+      target: 'http://10.1.139.91',
       changeOrigin: true,
       pathRewrite: {
-        '^/api': 'http://39.97.229.182:5000'
+        '^/api': 'http://10.1.139.91'
       }
     }
   },
