@@ -22,8 +22,8 @@
             <b-img thumbnail fluid src="~/static/img/user_ico.jpg" alt="default user"></b-img>
           </p>
           <b-nav class="flex-column" id="settings" pills>
-            <b-nav-item to="/settings/profile" exact exact-active-class="active">个人资料</b-nav-item>
-            <b-nav-item to="/settings/account" exact exact-active-class="active">账号信息</b-nav-item>
+            <b-nav-item to="/setting/profile" exact exact-active-class="active">个人资料</b-nav-item>
+            <b-nav-item to="/setting/account" exact exact-active-class="active">账号信息</b-nav-item>
             <b-nav-item disabled>安全设置</b-nav-item>
           </b-nav>
         </div>
