@@ -115,6 +115,18 @@ table#table-transition .flip-list-move {
   color: white;
 }
 
+/* settings */
+#settings a.nav-link {
+  color: dimgrey;
+}
+
+#settings a.nav-link.active {
+  color: white;
+  background-color: dimgrey;
+}
+
+
+
 /* problem statement */
 h3.problem-title {
   text-align: center;
