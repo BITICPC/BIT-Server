@@ -5,20 +5,17 @@
         <div class="text-left col-md-3 col-auto">
           <h5 class="text-purple-bright">服务</h5>
           <div class="list-unstyled">
+            <li><nuxt-link to="/">首页</nuxt-link></li>
             <li>反馈</li>
-            <li>Polygon</li>
+            <li><nuxt-link to="/polygon">Polygon</nuxt-link></li>
             <li>Wiki</li>
           </div>
         </div>
         <div class="text-left col-md-3 col-auto">
           <h5 class="text-purple-bright">开源</h5>
           <div class="list-unstyled">
-            <li>
-              <a href="https://github.com/BITICPC">Github</a>
-            </li>
-            <li>
-              <a href="https://github.com/BITICPC/WaveTestLib">WaveTestlib</a>
-            </li>
+            <li> <a href="https://github.com/BITICPC">Github</a></li>
+            <li> <a href="https://github.com/BITICPC/WaveTestLib">WaveTestlib</a></li>
           </div>
         </div>
         <div class="text-left col-auto">
