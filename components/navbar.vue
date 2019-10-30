@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="purple" fixed="top">
     <b-navbar-brand>
-      <b-navbar-brand><img src="~/static/img/BIT.png" alt="BIT logo" class="mt-0 img-fluid" style="width: 35px;"></b-navbar-brand>
+      <b-navbar-brand class="active"><img src="~/static/img/BIT.png" alt="BIT logo" class="mt-0 img-fluid" style="width: 35px;"></b-navbar-brand>
       <b-navbar-brand tag="h1" class="mb-0">BIT Online Judge</b-navbar-brand>
     </b-navbar-brand>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -33,10 +33,8 @@
      </b-collapse>
   </b-navbar>
 </template>
-
 <script>
 import { mapGetters } from 'vuex'
-
 export default {
   computed: {
     ...mapGetters(['profile', 'isLogin'])
