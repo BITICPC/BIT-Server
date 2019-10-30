@@ -4,7 +4,7 @@
 export default {
     mounted () {
         this.$store.dispatch('clearProfile')
-        this.$router.push('/')
+        this.$router.go(-1)
     }
 }
 </script>

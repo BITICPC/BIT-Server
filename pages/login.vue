@@ -72,7 +72,7 @@ export default {
         api.login(this.formLogin).then(response => {
           this.setJwt(response.data.jwt)
           this.getProfile(response.data.username)
-          this.$router.push('/')
+          this.$router.go(-1)
         }).catch(error => {
           this.formErrors = {
             hasError: true,
