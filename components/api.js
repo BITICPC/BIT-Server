@@ -43,10 +43,22 @@ export default {
       params
     })
   },
-  getPublicProblemset (params) {
+  getProblemList (params, jwt) {
+    return ajax('/problems', 'get', {
+      params: params,
+      headers: {
+        Authorization: 'Jwt ' + jwt
+      }
+    })
+  },
+  getPublicProblemList (params) {
     return ajax('/archive', 'get', {
       params
     })
+  },
+  getPublicProblemDetail (id) {
+    let cmd = '/archive/' + id
+    return ajax(cmd, 'get')
   }
 }
 
