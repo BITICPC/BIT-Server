@@ -6,19 +6,19 @@
         <h3>#{{ $route.params.id }}. {{ problem.title }}</h3>
         <b-row>
           <b-col class="text-right">
-            <strong>时间限制：</strong>
+            <b>时间限制：</b>
           </b-col>
           <b-col class="text-left">{{ problem.timeLimit }} ms</b-col>
         </b-row>
         <b-row>
           <b-col class="text-right">
-            <strong>内存限制：</strong>
+            <b>内存限制：</b>
           </b-col>
           <b-col class="text-left">{{ problem.memoryLimit }} megabytes</b-col>
         </b-row>
         <b-row>
           <b-col class="text-right">
-            <strong>评测模式：</strong>
+            <b>评测模式：</b>
           </b-col>
           <b-col class="text-left">
             <template v-if="problem.judgeMode == 'STANDARD'">Standard I/O</template>
@@ -38,46 +38,46 @@
 
         <b-card>
           <template v-slot:header>
-            <strong>题目描述</strong>
+            <b>题目描述</b>
           </template>
-          <b-card-text>{{ problem.legend }}</b-card-text>
+          <b-card-text v-html="problem.legend" />
         </b-card>
         <br />
 
         <b-card>
           <template v-slot:header>
-            <strong>输入格式</strong>
+            <b>输入格式</b>
           </template>
-          <b-card-text>{{ problem.input }}</b-card-text>
+          <b-card-text v-html="problem.input" />
         </b-card>
         <br />
 
         <b-card>
           <template v-slot:header>
-            <strong>输出格式</strong>
+            <b>输出格式</b>
           </template>
-          <b-card-text>{{ problem.output }}</b-card-text>
+          <b-card-text v-html="problem.output" />
         </b-card>
         <br />
 
         <b-card>
           <template v-slot:header>
-            <strong>样例</strong>
+            <b>样例</b>
           </template>
           <b-card-text v-for="(sample, index) in problem.samples" :key="index">
             <h6>样例 {{ ++index }} 输入</h6>
-            <div class="sample">{{ sample.input }}</div>
+            <div class="sample" v-html="sample.input" />
             <h6>样例 {{ index }} 输出</h6>
-            <div class="sample">{{ sample.output }}</div>
+            <div class="sample" v-html="sample.output" />
           </b-card-text>
         </b-card>
         <br />
 
         <b-card v-if="problem.notes">
           <template v-slot:header>
-            <strong>提示</strong>
+            <b>提示</b>
           </template>
-          <b-card-text>{{ problem.notes }}</b-card-text>
+          <b-card-text v-html="problem.notes" />
         </b-card>
         <br />
       </b-col>
@@ -86,17 +86,18 @@
         <b-card no-body>
           <b-card-body>
             <b-card-text>
-              <strong>{{ problem.acceptedSubmissions }} 份提交通过，</strong>共 {{ problem.totalSubmissions }} 份提交。
+              <b>{{ problem.totalSolvedUsers }} 人解决，</b>{{ problem.totalAttemptedUsers }} 人已尝试。<br>
+              <b>{{ problem.acceptedSubmissions }} 份提交通过，</b>共 {{ problem.totalSubmissions }} 份提交。
             </b-card-text>
           </b-card-body>
           
           <b-list-group flush>
             <b-list-group-item>
               <b-card-text>
-                <strong>创建：</strong><br>
-                <strong>修改：</strong><br>
-                <strong>最后提交: </strong><br>
-                <strong>来源: </strong>
+                <b>创建：</b>{{ problem.creationTime }}<br>
+                <b>修改：</b>{{ problem.lastUpdateTime }}<br>
+                <b>最后提交: </b>{{ problem.lastSubmissionTime }}<br>
+                <b>来源: </b>{{ problem.source }}
               </b-card-text>
             </b-list-group-item>
           </b-list-group>
@@ -112,43 +113,65 @@
   </b-container>
 </template>
 <script>
+import api from '@/components/api'
+
 export default {
   data() {
     return {
-      problem: {
-        title: "诸神眷顾的幻想乡",
-        legend: "hello world",
-        input: "input description",
-        output: "output description",
-        samples: [
-          {
-            input: "1 2",
-            output: "3"
-          }
-        ],
-        notes: "notes",
-        difficulty: 80,
-        tags: ["字符串", "模拟", "数据结构", "生成函数"],
-        timeLimit: 1000,
-        memoryLimit: 256,
-        judgeMode: "STANDARD",
-        totalSubmissions: 100,
-        acceptedSubmissions: 80,
-        testReady: true
-      }
+      problem: []
     };
   },
   methods: {
     getColor (tag) {
       let pink = ['模拟', '构造', '二分', '贪心', '数学', '数论', '数据结构']
       let olive = ['字符串', '平衡树', '矩阵', '最大流', '费用流', '上下界网络流']
+      let black = ['测试']
       if (pink.includes(tag)) {
         return 'pink'
       } else if (olive.includes(tag)) {
         return 'olive'
+      } else if (black.includes(tag)) {
+        return 'black'
       }
       return 'blue'
     }
+  },
+  mounted () {
+    api.getPublicProblemDetail(this.$route.params.id).then(res => {
+      this.problem = res.data
+      console.log(res.data)
+
+      let dateNow = this.$op.moment(new Date())
+      let minutes = dateNow.diff(this.$op.moment(res.data.creationTime), 'minute')
+      let d = Math.floor(minutes / 1440)
+      let h = Math.floor(minutes / 60) % 24
+      let m = minutes % 60
+      if (d > 30) this.problem.creationTime = d + ' 月前'
+      else if (d > 0) this.problem.creationTime = d + ' 天前'
+      else if (h > 0) this.problem.creationTime = h + ' 小时前'
+      else if (m > 0) this.problem.creationTime = m + ' 分钟前'
+      else this.problem.creationTime = '刚刚'
+
+      minutes = dateNow.diff(this.$op.moment(res.data.lastUpdateTime), 'minute')
+      d = Math.floor(minutes / 1440)
+      h = Math.floor(minutes / 60) % 24
+      m = minutes % 60
+      if (d > 30) this.problem.lastUpdateTime = d + ' 月前'
+      else if (d > 0) this.problem.lastUpdateTime = d + ' 天前'
+      else if (h > 0) this.problem.lastUpdateTime = h + ' 小时前'
+      else if (m > 0) this.problem.lastUpdateTime = m + ' 分钟前'
+      else this.problem.lastUpdateTime = '刚刚'
+
+      minutes = dateNow.diff(this.$op.moment(res.data.lastSubmissionTime), 'minute')
+      d = Math.floor(minutes / 1440)
+      h = Math.floor(minutes / 60) % 24
+      m = minutes % 60
+      if (d > 30) this.problem.lastSubmissionTime = d + ' 月前'
+      else if (d > 0) this.problem.lastSubmissionTime = d + ' 天前'
+      else if (h > 0) this.problem.lastSubmissionTime = h + ' 小时前'
+      else if (m > 0) this.problem.lastSubmissionTime = m + ' 分钟前'
+      else this.problem.lastSubmissionTime = '刚刚'
+    })
   }
 };
 </script>
