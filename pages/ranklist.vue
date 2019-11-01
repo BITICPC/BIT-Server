@@ -26,11 +26,22 @@
       :per-page="perPage"
       :current-page="currentPage"
       :busy="isBusy"
+      :show-empty="true"
     >
       <template v-slot:table-busy>
         <div class="text-danger my-2">
           <b-spinner class="align-middle"></b-spinner>
           <strong>Loading...</strong>
+        </div>
+      </template>
+      <template v-slot:emptyfiltered="scope">
+        <div class="text-center text-info my-2">
+          <strong>查询到 0 条结果!</strong>
+        </div>
+      </template>
+      <template v-slot:empty="scope">
+        <div class="text-center text-info my-2">
+          <strong>当前排行榜上没有任何用户!</strong>
         </div>
       </template>
       <template v-slot:cell(index)="user">{{ (currentPage - 1) * perPage + user.index + 1 }}</template>
