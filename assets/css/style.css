@@ -6,6 +6,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  background-color: #eee;
 }
 
 body {
@@ -68,6 +69,19 @@ body {
 .bd-footer li {
   font-weight: 600;
   color: #495057;
+}
+
+.bd-footer div.text-left.col-md-3{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.bd-footer div.text-left.col-md-3:first-child {
+  padding-top: 0;
+}
+
+.bd-footer div.text-left.col-md-3:last-child {
+  padding-bottom: 0;
 }
 
 /* navbar */
@@ -146,6 +160,12 @@ table#table-transition .flip-list-move {
 }
 
 #problem h6 {
+  font-weight: bold;
+}
+
+
+/* polygon */
+#polygon h2, h3, h4 {
   font-weight: bold;
 }
 

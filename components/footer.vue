@@ -1,8 +1,8 @@
 <template>
   <footer class="bd-footer text-muted docs-border">
     <b-container>
-      <div class="row justify-content-center">
-        <div class="text-left col-md-3 col-auto">
+      <b-row class="justify-content-center">
+        <b-col md="3" class="text-left">
           <h5 class="text-purple-bright">服务</h5>
           <div class="list-unstyled">
             <li><nuxt-link to="/">首页</nuxt-link></li>
@@ -10,15 +10,15 @@
             <li><nuxt-link to="/polygon">Polygon</nuxt-link></li>
             <li>Wiki</li>
           </div>
-        </div>
-        <div class="text-left col-md-3 col-auto">
+        </b-col>
+        <b-col md="3" class="text-left">
           <h5 class="text-purple-bright">开源</h5>
           <div class="list-unstyled">
             <li> <a href="https://github.com/BITICPC">Github</a></li>
             <li> <a href="https://github.com/BITICPC/WaveTestLib">WaveTestlib</a></li>
           </div>
-        </div>
-        <div class="text-left col-auto">
+        </b-col>
+        <b-col md="3" class="text-left">
           <h5 class="text-purple-bright">关于我们</h5>
           <div class="list-unstyled">
             <li>
@@ -31,11 +31,11 @@
               <a href="acmsupport@bit.edu.cn">acmsupport@bit.edu.cn</a>
             </li>
           </div>
-        </div>
+        </b-col>
         <!-- <div class="text-center text-sm-right col-sm order-sm-3 col-12">
             <img src="~/static/img/BIT.png" alt="BIT logo" class="mb-4 mt-0 img-fluid" style="width: 100px;">
         </div>-->
-      </div>
+      </b-row>
       <hr />
       <p class="mb-2">
         Powered by
