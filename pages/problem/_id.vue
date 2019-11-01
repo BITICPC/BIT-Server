@@ -105,7 +105,7 @@
 
         <b-card sub-title="题目标签">
           <b-card-text >
-            <b-badge :variant="`${getColor(tag)}`" v-for="tag in problem.tags" :key="tag">{{ tag }}</b-badge>
+            <b-badge :variant="`${getTagColor(tag)}`" v-for="tag in problem.tags" :key="tag">{{ tag }}</b-badge>
           </b-card-text>
         </b-card>
       </b-col>
@@ -114,6 +114,7 @@
 </template>
 <script>
 import api from '@/components/api'
+import problem from "@/components/problem";
 
 export default {
   data() {
@@ -121,25 +122,9 @@ export default {
       problem: []
     };
   },
-  methods: {
-    getColor (tag) {
-      let pink = ['模拟', '构造', '二分', '贪心', '数学', '数论', '数据结构']
-      let olive = ['字符串', '平衡树', '矩阵', '最大流', '费用流', '上下界网络流']
-      let black = ['测试']
-      if (pink.includes(tag)) {
-        return 'pink'
-      } else if (olive.includes(tag)) {
-        return 'olive'
-      } else if (black.includes(tag)) {
-        return 'black'
-      }
-      return 'blue'
-    }
-  },
   mounted () {
     api.getPublicProblemDetail(this.$route.params.id).then(res => {
       this.problem = res.data
-      console.log(res.data)
 
       let dateNow = this.$op.moment(new Date())
       let minutes = dateNow.diff(this.$op.moment(res.data.creationTime), 'minute')
@@ -172,6 +157,9 @@ export default {
       else if (m > 0) this.problem.lastSubmissionTime = m + ' 分钟前'
       else this.problem.lastSubmissionTime = '刚刚'
     })
+  },
+  methods: {
+    getTagColor: problem.getTagColor
   }
 };
 </script>

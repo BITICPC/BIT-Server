@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import moment from 'moment'
+
 let common = {
   install (Vue) {
     Vue.prototype.$op = {
