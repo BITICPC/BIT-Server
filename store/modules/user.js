@@ -11,6 +11,9 @@ const getters = {
 
   isLogin: (state, getters) => {
     return !!getters.profile.username
+  },
+  isAdmin: (state, getters) => {
+    return getters.profile.isAdmin
   }
 }
 
