@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <br />
-    <b-input-group style="width: 20em; margin-right: 77px;">
+    <b-input-group style="width: 20em;">
       <b-input-group-prepend>
         <span class="input-group-text">
           <i class="fas fa-search"></i>
@@ -42,7 +42,7 @@
       <template v-slot:cell(problem)="data">
         <b-link :to="`/problem/${data.value.id}`">{{ data.value.name }}</b-link>
         <div style="float:right;">
-          <b-badge :variant="`${getColor(tag)}`" v-for="tag in data.value.tags" :key="tag">{{ tag }}</b-badge>
+          <b-badge :variant="`${getTagColor(tag)}`" v-for="tag in data.value.tags" :key="tag">{{ tag }}</b-badge>
         </div>
       </template>
       <template v-slot:cell(problem.totalAccepted)="data">
@@ -58,6 +58,7 @@
 
 <script>
 import api from "@/components/api";
+import problem from "@/components/problem";
 
 export default {
   data() {
@@ -97,8 +98,7 @@ export default {
   },
   mounted() {
     this.isBusy = true;
-    api
-      .getPublicProblemList({
+    api.getPublicProblemList({
         by: "Id",
         limit: 20
       })
@@ -118,26 +118,7 @@ export default {
       });
   },
   methods: {
-    getColor(tag) {
-      let pink = ["模拟", "构造", "二分", "贪心", "数学", "数论", "数据结构"];
-      let olive = [
-        "字符串",
-        "平衡树",
-        "矩阵",
-        "最大流",
-        "费用流",
-        "上下界网络流"
-      ];
-      let black = ["测试"];
-      if (pink.includes(tag)) {
-        return "pink";
-      } else if (olive.includes(tag)) {
-        return "olive";
-      } else if (black.includes(tag)) {
-        return "black";
-      }
-      return "blue";
-    }
+    getTagColor: problem.getTagColor
   }
 };
 </script>

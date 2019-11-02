@@ -1,7 +1,7 @@
 <template>
   <b-container><br>
-    <b-row align-h="between">
-      <b-input-group style="width: 20em;">
+    <b-row align-h="between" style="margin-left: auto; ">
+      <b-input-group style="width: 20em; padding-bottom: 15px">
         <b-input-group-prepend>
           <span class="input-group-text"><i class="fas fa-search"></i></span>
         </b-input-group-prepend>
@@ -10,7 +10,7 @@
           <b-button :disabled="!filter" @click="filter = ''" variant="outline-secondary">清除</b-button>
         </b-input-group-append>
       </b-input-group>
-      <b-button variant="secondary"><i class="fas fa-plus-circle"></i> 添加题目</b-button>
+      <div style="padding-bottom: 15px"><b-button variant="secondary"><i class="fas fa-plus-circle"></i> 添加题目</b-button></div>
     </b-row>
 
     
@@ -27,7 +27,12 @@ export default {
     }
   },
   mounted () {
-    
+    api.getProblemList({
+      page: 0,
+      itemsPerPage: 20
+    }, this.$store.state.user.jwt).then(res => {
+      console.log(res.data)
+    })
   }
 }
 </script>
