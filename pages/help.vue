@@ -159,15 +159,18 @@ export default {
         {
           key: "environment",
           label: "环境",
+          thStyle: "width: 70px;"
         },
         {
           key: "version",
           label: "版本",
-          class: "text-center"
+          class: "text-center",
+          thStyle: "width: 50px;"
         },
         {
           key: "identification",
           label: "标识",
+          thStyle: "width: 125px;"
         },
         {
           key: "comment",
