@@ -103,7 +103,6 @@ export default {
         limit: 20
       })
       .then(res => {
-        this.isBusy = false;
         res.data.forEach(problem => {
           this.problemset.push({
             problem: {
@@ -114,6 +113,7 @@ export default {
               totalAccepted: problem.acceptedSubmissions
             }
           });
+          this.isBusy = false;
         });
       });
   },
