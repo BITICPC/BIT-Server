@@ -53,7 +53,7 @@ export default {
     }
   },
   mounted () {
-    if (true) {
+    if (this.$route.params.fromSuccReg) {
       this.$bvToast.toast('注册成功，欢迎登录！', {
         title: '系统提示',
         toaster: 'b-toaster-bottom-right',
