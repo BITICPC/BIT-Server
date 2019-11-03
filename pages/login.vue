@@ -1,7 +1,7 @@
 <template>
   <b-container><br>
 
-    <b-alert v-model="$route.params.fromSuccReg" variant="success" dismissible>注册成功，欢迎登录！</b-alert>
+    <!-- <b-alert v-model="$route.params.fromSuccReg" variant="success" dismissible>注册成功，欢迎登录！</b-alert> -->
 
     <b-alert v-model="formErrors.hasError" variant="warning" dismissible>
       <h5><Strong>登录失败</strong></h5>
@@ -52,6 +52,16 @@ export default {
       }
     }
   },
+  mounted () {
+    if (true) {
+      this.$bvToast.toast('注册成功，欢迎登录！', {
+        title: '系统提示',
+        toaster: 'b-toaster-bottom-right',
+        variant: 'warning',
+        solid: true
+      })
+    }
+  },
   methods: {
     ...mapActions(['setJwt', 'getProfile']),
     validation () {
@@ -73,6 +83,12 @@ export default {
           this.setJwt(response.data.jwt)
           this.getProfile(response.data.username)
           this.$router.go(-1)
+          this.$root.$bvToast.toast('登录成功，欢迎回来！', {
+            title: '系统提示',
+            toaster: 'b-toaster-bottom-right',
+            variant: 'success',
+            solid: true
+          })
         }).catch(error => {
           this.formErrors = {
             hasError: true,
