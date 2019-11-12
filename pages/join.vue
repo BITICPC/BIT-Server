@@ -2,7 +2,7 @@
   <b-container><br>
 
     <b-alert v-model="formErrors.hasError" variant="warning" dismissible>
-      <h5><Strong>登录失败</strong></h5>
+      <h5><strong>登录失败</strong></h5>
       <li v-for="errMessage in formErrors.errMessage" :key="errMessage">{{ errMessage }}</li>
     </b-alert>
 
