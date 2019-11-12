@@ -16,13 +16,13 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item to="/polygon" active-class="active" exact>
-            <i class="fas fa-home"></i> 主页
+            <i class="fas fa-home"></i> Home
           </b-nav-item>
           <b-nav-item to="/polygon/problem" active-class="active">
-            <i class="fas fa-code-branch"></i> 题目管理
+            <i class="fas fa-code-branch"></i> Problem
           </b-nav-item>
           <b-nav-item to="/polygon/contest" active-class="active">
-            <i class="fas fa-flag"></i> 比赛管理
+            <i class="fas fa-flag"></i> Contest
           </b-nav-item>
           <!-- <b-nav-item to="/" exact-active-class="active"><i class="fas fa-arrow-right"></i> 返回首页</b-nav-item> -->
         </b-navbar-nav>
@@ -30,10 +30,10 @@
           <template v-if="!isLogin">
             <b-nav-form>
               <b-button variant="success" to="/login">
-                <i class="fas fa-sign-in-alt"></i> 登录
+                <i class="fas fa-sign-in-alt"></i> Login
               </b-button>
               <b-button variant="info" to="/join">
-                <i class="fas fa-user-plus"></i> 注册
+                <i class="fas fa-user-plus"></i> Sign up
               </b-button>
             </b-nav-form>
           </template>
