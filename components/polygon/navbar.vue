@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="lg" type="dark" variant="purple" fixed="top">
+  <b-navbar toggleable="lg" type="dark" variant="purple" fixed="top" id="navbar">
     <b-container>
       <b-navbar-brand>
         <b-navbar-brand class="active">
