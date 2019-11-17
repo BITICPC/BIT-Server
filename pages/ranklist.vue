@@ -27,6 +27,7 @@
       :current-page="currentPage"
       :busy="isBusy"
       :show-empty="true"
+      :sticky-header="true"
     >
       <template v-slot:table-busy>
         <div class="text-danger my-2">
