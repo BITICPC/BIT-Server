@@ -51,6 +51,26 @@ export default {
       }
     })
   },
+  getProblemDetail (id, jwt) {
+    let cmd = '/problems/' + id
+    return ajax(cmd, 'get', {
+      params: {
+         id: id
+      },
+      headers: {
+        Authorization: 'Jwt ' + jwt
+      }
+    })
+  },
+  editProblemDetail (id, data, jwt) {
+    let cmd = '/problems/' + id
+    return ajax(cmd, 'put', {
+      data: data,
+      headers: {
+        Authorization: 'Jwt ' + jwt
+      }
+    })
+  },
   getPublicProblemList (params) {
     return ajax('/archive', 'get', {
       params
