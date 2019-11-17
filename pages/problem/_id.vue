@@ -131,7 +131,7 @@ export default {
       let d = Math.floor(minutes / 1440)
       let h = Math.floor(minutes / 60) % 24
       let m = minutes % 60
-      if (d > 30) this.problem.creationTime = d + ' 月前'
+      if (d > 30) this.problem.creationTime = d + ' 个月前'
       else if (d > 0) this.problem.creationTime = d + ' 天前'
       else if (h > 0) this.problem.creationTime = h + ' 小时前'
       else if (m > 0) this.problem.creationTime = m + ' 分钟前'
@@ -141,7 +141,7 @@ export default {
       d = Math.floor(minutes / 1440)
       h = Math.floor(minutes / 60) % 24
       m = minutes % 60
-      if (d > 30) this.problem.lastUpdateTime = d + ' 月前'
+      if (d > 30) this.problem.lastUpdateTime = d + ' 个月前'
       else if (d > 0) this.problem.lastUpdateTime = d + ' 天前'
       else if (h > 0) this.problem.lastUpdateTime = h + ' 小时前'
       else if (m > 0) this.problem.lastUpdateTime = m + ' 分钟前'
@@ -151,7 +151,7 @@ export default {
       d = Math.floor(minutes / 1440)
       h = Math.floor(minutes / 60) % 24
       m = minutes % 60
-      if (d > 30) this.problem.lastSubmissionTime = d + ' 月前'
+      if (d > 30) this.problem.lastSubmissionTime = d + ' 个月前'
       else if (d > 0) this.problem.lastSubmissionTime = d + ' 天前'
       else if (h > 0) this.problem.lastSubmissionTime = h + ' 小时前'
       else if (m > 0) this.problem.lastSubmissionTime = m + ' 分钟前'
