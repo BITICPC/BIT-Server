@@ -30,7 +30,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/common.js', ssr: false }
+    { src: '@/plugins/common.js', ssr: false },
+    { src: '@/plugins/vue-mavon-editor', srr: false }
   ],
   /*
   ** Nuxt.js dev-modules
