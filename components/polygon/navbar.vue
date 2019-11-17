@@ -30,7 +30,7 @@
           <template v-if="!isLogin">
             <b-nav-form>
               <b-button variant="success" to="/login">
-                <i class="fas fa-sign-in-alt"></i> Login
+                <i class="fas fa-sign-in-alt"></i> Sign in
               </b-button>
               <b-button variant="info" to="/join">
                 <i class="fas fa-user-plus"></i> Sign up
