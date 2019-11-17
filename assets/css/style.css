@@ -100,36 +100,43 @@ table#table-transition .flip-list-move {
 
 /* problemset */
 .badge-black {
-  margin: 0 .5em 0 0;
-  font-size: 0.9rem;
+  margin: 0 .2em 0 0;
+  font-size: 15px;
   background-color: #1b1c1d;
   color: white;
 }
 
+.badge-maroon {
+  margin: 0 .2em 0 0;
+  font-size: 15px;
+  background-color: #800000;
+  color: white;
+}
+
 .badge-violet {
-  margin: 0 .5em 0 0;
-  font-size: 0.9rem;
+  margin: 0 .2em 0 0;
+  font-size: 15px;
   background-color: #6435c9;
   color: white;
 }
 
 .badge-pink {
-  margin: 0 .5em 0 0;
-  font-size: 0.9rem;
+  margin: 0 .2em 0 0;
+  font-size: 15px;
   background-color: #e61a8d;
   color: white;
 }
 
 .badge-olive {
-  margin: 0 .5em 0 0;
-  font-size: 0.9rem;
+  margin: 0 .2em 0 0;
+  font-size: 15px;
   background-color: #a7bd0d;
   color: white;
 }
 
 .badge-blue {
-  margin: 0 .5em 0 0;
-  font-size: 0.9rem;
+  margin: 0 .2em 0 0;
+  font-size: 15px;
   background-color: #2185d0;
   color: white;
 }
@@ -180,6 +187,18 @@ table#table-transition .flip-list-move {
   font-weight: bold;
 }
 
+#polygon .close {
+  float: right;
+  margin-left: 3px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+  position: relative;
+  padding: 0.25px 0.25px;
+}
+
 .sample {
   position: relative;
   background: #fff;
@@ -207,6 +226,12 @@ table#table-transition .flip-list-move {
 
 .table tbody tr td{
   vertical-align: middle;
+}
+
+/* mavonEditor */
+.mavonEditor {
+  z-index: 1000;
+  position: relative;
 }
 
 .ranklist {
