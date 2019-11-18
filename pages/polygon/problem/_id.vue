@@ -112,8 +112,8 @@
   </b-container>
 </template>
 <script>
-import api from '@/components/api'
-import problem from '@/components/problem'
+import api from '@/components/common/api'
+import problem from '@/components/common/problem'
 import mavon from '@/plugins/vue-mavon-editor'
 
 export default {
