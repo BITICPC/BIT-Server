@@ -146,8 +146,7 @@ export default {
       markdownOption: mavon.markdownOption,
       tagOptions: problem.tags,
       tagSelected: null,
-      judgeOptions: problem.judgeMode,
-      judgeSelected: null
+      judgeOptions: problem.judgeMode
     }
   },
   mounted () {
