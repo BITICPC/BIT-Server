@@ -41,7 +41,7 @@
   </b-container>
 </template>
 <script>
-import api from '@/components/api'
+import api from '@/components/common/api'
 
 export default {
   layout: 'polygon',

@@ -37,7 +37,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
-import api from '@/components/api'
+import api from '@/components/common/api'
 
 export default {
   data () {

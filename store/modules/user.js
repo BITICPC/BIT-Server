@@ -1,4 +1,4 @@
-import api from '@/components/api'
+import api from '@/components/common/api'
 import types from '../types'
 
 const state = () => ({
