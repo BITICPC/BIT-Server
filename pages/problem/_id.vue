@@ -40,7 +40,7 @@
           <template v-slot:header>
             <b>题目描述</b>
           </template>
-          <b-card-text v-html="problem.legend" />
+          <b-card-text v-html="problem.legend" v-katex/>
         </b-card>
         <br />
 
@@ -48,7 +48,7 @@
           <template v-slot:header>
             <b>输入格式</b>
           </template>
-          <b-card-text v-html="problem.input" />
+          <b-card-text v-html="problem.input" v-katex/>
         </b-card>
         <br />
 
@@ -56,7 +56,7 @@
           <template v-slot:header>
             <b>输出格式</b>
           </template>
-          <b-card-text v-html="problem.output" />
+          <b-card-text v-html="problem.output" v-katex/>
         </b-card>
         <br />
 
@@ -77,7 +77,7 @@
           <template v-slot:header>
             <b>提示</b>
           </template>
-          <b-card-text v-html="problem.notes" />
+          <b-card-text v-html="problem.notes" v-katex/>
         </b-card>
         <br />
       </b-col>
@@ -113,9 +113,9 @@
   </b-container>
 </template>
 <script>
-import api from '@/components/api'
-import problem from "@/components/problem";
-
+import api from '@/components/common/api'
+import problem from "@/components/common/problem";
+  
 export default {
   data() {
     return {
@@ -125,6 +125,10 @@ export default {
   mounted () {
     api.getPublicProblemDetail(this.$route.params.id).then(res => {
       this.problem = res.data
+      this.problem.legend = md.render(res.data.legend)
+      this.problem.input = md.render(res.data.input)
+      this.problem.output = md.render(res.data.output)
+      if (!!res.data.notes) this.problem.notes = md.render(res.data.notes)
 
       let dateNow = this.$op.moment(new Date())
       let minutes = dateNow.diff(this.$op.moment(res.data.creationTime), 'minute')

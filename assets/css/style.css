@@ -170,6 +170,10 @@ table#table-transition .flip-list-move {
   font-weight: bold;
 }
 
+#problem p:last-child {
+  margin-bottom: 0;
+}
+
 /* polygon */
 #polygon h2 {
   font-weight: bold;
