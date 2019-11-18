@@ -62,6 +62,14 @@ export default {
       }
     })
   },
+  createProblem (data, jwt) {
+    return ajax('/problems', 'post', {
+      data: data,
+      headers: {
+        Authorization: 'Jwt ' + jwt
+      }
+    })
+  },
   editProblemDetail (id, data, jwt) {
     let cmd = '/problems/' + id
     return ajax(cmd, 'put', {

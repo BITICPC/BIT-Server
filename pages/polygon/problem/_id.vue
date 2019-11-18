@@ -27,9 +27,9 @@
               </b-form-group>
               <b-form-group label="Judge Mode:" description='The mode to judge the problem (from "standard I/O" or "interactive" or "special judge")'>
                 <b-form-select v-model="problem.judgeMode" :options="judgeOptions">
-                  <template v-slot:first>
+                  <!-- <template v-slot:first>
                     <option :value="null" disabled>-- Please select one mode --</option>
-                  </template>
+                  </template> -->
                 </b-form-select>
               </b-form-group>
               <b-button type="submit" variant="success"><i class="fas fa-check"></i> Save</b-button>
@@ -152,7 +152,7 @@ export default {
   mounted () {
     api.getProblemDetail(this.$route.params.id, this.$store.state.user.jwt).then(res => {
       Object.keys(this.problem).forEach(element => {
-        if (res.data[element] !== undefined) {
+        if (res.data[element] !== null) {
           this.problem[element] = res.data[element]
         }
       })
