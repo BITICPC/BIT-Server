@@ -20,10 +20,7 @@
           <b-col class="text-right">
             <b>评测模式：</b>
           </b-col>
-          <b-col class="text-left">
-            <template v-if="problem.judgeMode == 'STANDARD'">Standard I/O</template>
-            <template v-else>Special Judge</template>
-          </b-col>
+          <b-col class="text-left">{{ problem.judgeMode }}</b-col>
         </b-row>
 
         <div class="mt-3">
@@ -115,7 +112,10 @@
 <script>
 import api from '@/components/common/api'
 import problem from "@/components/common/problem";
-  
+
+let MarkdownIt = require('markdown-it'),
+    md = new MarkdownIt()
+
 export default {
   data() {
     return {
@@ -128,6 +128,7 @@ export default {
       this.problem.legend = md.render(res.data.legend)
       this.problem.input = md.render(res.data.input)
       this.problem.output = md.render(res.data.output)
+      this.problem.judgeMode = problem.judgeMode[res.data.judgeMode]
       if (!!res.data.notes) this.problem.notes = md.render(res.data.notes)
 
       let dateNow = this.$op.moment(new Date())

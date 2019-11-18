@@ -25,6 +25,13 @@
                   <b-form-input placeholder="256" type="number" v-model="problem.memoryLimit"></b-form-input>
                 </b-input-group>
               </b-form-group>
+              <b-form-group label="Judge Mode:" description='The mode to judge the problem (from "standard I/O" or "interactive" or "special judge")'>
+                <b-form-select v-model="problem.judgeMode" :options="judgeOptions">
+                  <template v-slot:first>
+                    <option :value="null" disabled>-- Please select one mode --</option>
+                  </template>
+                </b-form-select>
+              </b-form-group>
               <b-button type="submit" variant="success"><i class="fas fa-check"></i> Save</b-button>
             </b-form>
           </b-tab>
@@ -94,7 +101,7 @@
                     <b-badge :variant="`${getTagColor(tag)}`" v-for="(tag, index) in problem.tags" :key="index">{{ tag }}<button type="button" class="close" v-on:click="eraseTag(index)">×</button></b-badge>
                   </b-col>
                 </b-row>
-                <div style="margin-top: 10px;"><b-form-select v-model="selected" :options="options" size="sm">
+                <div style="margin-top: 10px;"><b-form-select v-model="tagSelected" :options="tagOptions" size="sm">
                   <template v-slot:first>
                     <option :value="null" disabled>-- Please select one tag --</option>
                   </template>
@@ -130,15 +137,17 @@ export default {
         tags: [],
         timeLimit: 1000,
         memoryLimit: 256,
-        judgeMode: 'STANDARD'
+        judgeMode: ''
       },
       formErrors: {
         hasError: false,
         errMessage: []
       },
       markdownOption: mavon.markdownOption,
-      options: problem.tags,
-      selected: null
+      tagOptions: problem.tags,
+      tagSelected: null,
+      judgeOptions: problem.judgeMode,
+      judgeSelected: null
     }
   },
   mounted () {
@@ -160,7 +169,7 @@ export default {
     }
   },
   watch: {
-    selected (value) {
+    tagSelected (value) {
       if (this.problem.tags.indexOf(value) === -1) {
         this.problem.tags.push(value)
       }
