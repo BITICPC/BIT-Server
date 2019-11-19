@@ -96,7 +96,7 @@
                 <b>最后提交: </b>
                 <template v-if="problem.totalSubmissions > 0">{{ problem.lastSubmissionTime }}</template>
                 <template v-else>
-                  <b-badge variant="dark">None</b-badge>
+                  <b-badge variant="secondary">None</b-badge>
                 </template><br>
                 <b>来源: </b>{{ problem.source }}
               </b-card-text>
