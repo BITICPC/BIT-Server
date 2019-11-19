@@ -104,7 +104,7 @@
           </b-list-group>
         </b-card><br>
 
-        <b-card sub-title="题目标签">
+        <b-card sub-title="题目标签" v-if="problem.tags.length > 0">
           <b-card-text >
             <b-badge :variant="`${getTagColor(tag)}`" v-for="tag in problem.tags" :key="tag">{{ tag }}</b-badge>
           </b-card-text>
