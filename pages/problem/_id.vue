@@ -93,7 +93,11 @@
               <b-card-text>
                 <b>创建：</b>{{ problem.creationTime }}<br>
                 <b>修改：</b>{{ problem.lastUpdateTime }}<br>
-                <b>最后提交: </b>{{ problem.lastSubmissionTime }}<br>
+                <b>最后提交: </b>
+                <template v-if="problem.totalSubmissions > 0">{{ problem.lastSubmissionTime }}</template>
+                <template v-else>
+                  <b-badge variant="dark">None</b-badge>
+                </template><br>
                 <b>来源: </b>{{ problem.source }}
               </b-card-text>
             </b-list-group-item>
@@ -119,12 +123,34 @@ let MarkdownIt = require('markdown-it'),
 export default {
   data() {
     return {
-      problem: []
+      problem: {
+        title: '',
+        legend: '',
+        input: '',
+        output: '',
+        notes: '',
+        tags: [],
+        timeLimit: 1000,
+        memoryLimit: 256,
+        judgeMode: '',
+        acceptedSubmissions: 0,
+        totalSubmissions: 0,
+        totalSolvedUsers: 0,
+        totalAttemptedUsers: 0,
+        creationTime: '',
+        lastUpdateTime: '',
+        lastSubmissionTime: ''
+      }
     };
   },
   mounted () {
     api.getPublicProblemDetail(this.$route.params.id).then(res => {
-      this.problem = res.data
+      Object.keys(this.problem).forEach(element => {
+        if (res.data[element] !== null) {
+          this.problem[element] = res.data[element]
+        }
+      })
+
       this.problem.legend = md.render(res.data.legend)
       this.problem.input = md.render(res.data.input)
       this.problem.output = md.render(res.data.output)
