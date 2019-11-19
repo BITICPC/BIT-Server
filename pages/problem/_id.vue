@@ -129,6 +129,7 @@ export default {
         input: '',
         output: '',
         notes: '',
+        samples: [],
         tags: [],
         timeLimit: 1000,
         memoryLimit: 256,
