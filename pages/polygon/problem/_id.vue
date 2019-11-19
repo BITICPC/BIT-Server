@@ -104,6 +104,7 @@
                 <b-row>
                   <b-col cols="3" style="padding-right: 0px;">Tags:</b-col>
                   <b-col>
+                    <template v-if="problem.tags.length == 0"><b-badge>None</b-badge></template>
                     <b-badge :variant="`${getTagColor(tag)}`" v-for="(tag, index) in problem.tags" :key="index">{{ tag }}<button type="button" class="close" v-on:click="eraseTag(index)">×</button></b-badge>
                   </b-col>
                 </b-row>
@@ -213,6 +214,9 @@ export default {
     }
   },
   watch: {
+    archiveIdInput (value) {
+      this.archiveIdState = !!this.archiveIdInput
+    },
     tagSelected (value) {
       if (this.problem.tags.indexOf(value) === -1) {
         this.problem.tags.push(value)
@@ -223,11 +227,6 @@ export default {
     },
     difficulty (value) {
       api.editProblemDetail(this.$route.params.id, this.problem, this.$store.state.user.jwt)
-    }
-  },
-  watch: {
-    archiveIdInput (value) {
-      this.archiveIdState = !!this.archiveIdInput
     }
   },
   methods: {
