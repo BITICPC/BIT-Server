@@ -17,6 +17,7 @@
       id="modal-prevent-closing"
       ref="modal"
       title="Create Problem Form"
+      ok-title="Submit"
       @show="resetModal"
       @hidden="resetModal"
       @ok="handleOk"
