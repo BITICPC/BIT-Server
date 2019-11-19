@@ -60,6 +60,7 @@
       :busy="isBusy"
       :show-empty="true"
       :sticky-header="true"
+      sort-by="id"
     >
       <template v-slot:table-busy>
         <div class="text-center text-danger my-2">
