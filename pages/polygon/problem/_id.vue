@@ -73,38 +73,35 @@
       <b-col class="bd-toc col-xl-3 d-none d-xl-block">
         <b-card header="Problem profile">
           <b-card-text>
-            <li>Archive ID:
-              <template v-if="!!problem.archiveId">{{ problem.archiveId }}</template>
-              <template v-else>
-                <b-badge>Not public</b-badge>
-              </template>
-            </li>
-            <li>Problem: {{ problem.title }}</li>
-            <li>Statement: 
-              <template v-if="statementValidation">
-                <b-badge variant="success">Yes</b-badge>
-              </template>
-              <template v-else>
-                <b-badge variant="danger">None</b-badge>
-              </template>
-            </li>
-            <li>Tests: 
-              <template v-if="problem.testReady">
-                <b-badge variant="success">Yes</b-badge>
-              </template>
-              <template v-else>
-                <b-badge variant="danger">None</b-badge>
-              </template>
-            </li>
+            <b>Name:</b> {{ problem.title }}
+            <br><b>Archive:</b>
+            <span class="text-info">
+            <template v-if="!!problem.archiveId">{{ problem.archiveId }}</template>
+            <template v-else>Not public</template>
+            </span><br>
+            <b>Statement: </b>
+            <template v-if="statementValidation">
+              <span class="text-success">Yes</span>
+            </template>
+            <template v-else>
+              <span class="text-danger">No</span>
+            </template><br>
+            <b>Tests: </b>
+            <template v-if="problem.testReady">
+              <span class="text-success">Yes</span>
+            </template>
+            <template v-else>
+              <span class="text-danger">None</span>
+            </template>
           </b-card-text>
             <hr>
           <b-list-group flush>
             <!-- <b-list-group-item> -->
               <b-card-text>
                 <b-row>
-                  <b-col cols="3" style="padding-right: 0px;">Tags:</b-col>
-                  <b-col>
-                    <template v-if="problem.tags.length == 0"><b-badge>None</b-badge></template>
+                  <b-col cols="3" style="padding-right: 0px;"><b>Tags:</b></b-col>
+                  <b-col style="padding-left: 3.5px; padding-right: 10px;">
+                    <template v-if="problem.tags.length == 0"><span class="text-secondary">None</span></template>
                     <b-badge :variant="`${getTagColor(tag)}`" v-for="(tag, index) in problem.tags" :key="index">{{ tag }}<button type="button" class="close" v-on:click="eraseTag(index)">×</button></b-badge>
                   </b-col>
                 </b-row>
@@ -114,7 +111,7 @@
                   </template>
                 </b-form-select></div>
                 <b-row style="margin-top: 10px;">
-                  <b-col cols="5" style="padding-right: 0px;">Difficulty:</b-col>
+                  <b-col cols="5" style="padding-right: 0px;"><b>Difficulty:</b></b-col>
                   <b-col><b-form-input size="sm" placeholder="0" type="number" v-model="problem.difficulty" min="0" max="10"></b-form-input></b-col>
                 </b-row>
               </b-card-text>
