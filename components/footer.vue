@@ -23,12 +23,12 @@
           <div class="list-unstyled">
             <li>
               团队：
-              <a href="msrlancern@126.com">@lancern</a>,
+              <a href="mailto:msrlancern@126.com">@lancern</a>,
               <a href="mailto:dragon60066@163.com">@strawberry</a>
             </li>
             <li>
               联系方式：
-              <a href="acmsupport@bit.edu.cn">acmsupport@bit.edu.cn</a>
+              <a href="mailto:acmsupport@bit.edu.cn">acmsupport@bit.edu.cn</a>
             </li>
           </div>
         </b-col>
