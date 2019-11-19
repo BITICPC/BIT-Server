@@ -79,6 +79,22 @@ export default {
       }
     })
   },
+  addIntoPublicProblemList (data, jwt) {
+    return ajax('/archive', 'post', {
+      data: data,
+      headers: {
+        Authorization: 'Jwt ' + jwt
+      }
+    })
+  },
+  deleteFromPublicProblemList (data, jwt) {
+    return ajax('/archive', 'delete', {
+      data: data,
+      headers: {
+        Authorization: 'Jwt ' + jwt
+      }
+    })
+  },
   getPublicProblemList (params) {
     return ajax('/archive', 'get', {
       params
@@ -87,7 +103,7 @@ export default {
   getPublicProblemDetail (id) {
     let cmd = '/archive/' + id
     return ajax(cmd, 'get')
-  }
+  },
 }
 
 function ajax (url, method, options) {

@@ -73,6 +73,12 @@
       <b-col class="bd-toc col-xl-3 d-none d-xl-block">
         <b-card header="Problem profile">
           <b-card-text>
+            <li>Archive ID:
+              <template v-if="!!problem.archiveId">{{ problem.archiveId }}</template>
+              <template v-else>
+                <b-badge>Not public</b-badge>
+              </template>
+            </li>
             <li>Problem: {{ problem.title }}</li>
             <li>Statement: 
               <template v-if="statementValidation">
@@ -83,7 +89,7 @@
               </template>
             </li>
             <li>Tests: 
-              <template v-if="!!problem.tests">
+              <template v-if="problem.testReady">
                 <b-badge variant="success">Yes</b-badge>
               </template>
               <template v-else>
@@ -108,14 +114,48 @@
                 </b-form-select></div>
                 <b-row style="margin-top: 10px;">
                   <b-col cols="5" style="padding-right: 0px;">Difficulty:</b-col>
-                  <b-col><b-form-input size="sm" placeholder="0" type="number" v-model="problem.difficulty" min="1" max="10"></b-form-input></b-col>
+                  <b-col><b-form-input size="sm" placeholder="0" type="number" v-model="problem.difficulty" min="0" max="10"></b-form-input></b-col>
                 </b-row>
               </b-card-text>
             <!-- </b-list-group-item> -->
           </b-list-group>
         </b-card>
+        <template v-if="!!problem.archiveId">
+          <b-button variant="warning" style="margin-top: 10px;" @click="showConfirmation" block>Change into private</b-button>
+        </template>
+        <template v-else>
+          <b-button variant="info" style="margin-top: 10px;" v-b-modal.make-public block>Make public</b-button>
+        </template>
+        <b-button variant="danger" style="margin-top: 10px;" block>Discard</b-button>
       </b-col>
     </b-row>
+    <b-modal
+      id="make-public"
+      ref="modal"
+      title="Add it into the archive list"
+      ok-title="Submit"
+      @show="resetModal"
+      @hidden="resetModal"
+      @ok="handleOk">
+      <form ref="form" @submit.stop.prevent="handleSubmit">
+        <b-form-group
+          :state="archiveIdState"
+          label="Archive ID:"
+          label-for="archive-id-input"
+          invalid-feedback="Archive is invalid"
+        >
+          <b-form-input
+            id="archive-id-input"
+            type="number"
+            placeholder="Please input one archive id"
+            min="1"
+            v-model="archiveIdInput"
+            :state="archiveIdState"
+            required>
+          </b-form-input>
+        </b-form-group>
+      </form>
+    </b-modal>
   </b-container>
 </template>
 <script>
@@ -128,6 +168,7 @@ export default {
   data () {
     return {
       problem: {
+        archiveId: null,
         title: '',
         legend: '',
         input: '',
@@ -137,7 +178,8 @@ export default {
         tags: [],
         timeLimit: 1000,
         memoryLimit: 256,
-        judgeMode: ''
+        judgeMode: '',
+        testReady: false
       },
       formErrors: {
         hasError: false,
@@ -146,7 +188,9 @@ export default {
       markdownOption: mavon.markdownOption,
       tagOptions: problem.tags,
       tagSelected: null,
-      judgeOptions: problem.judgeMode
+      judgeOptions: problem.judgeMode,
+      archiveIdState: null,
+      archiveIdInput: null
     }
   },
   mounted () {
@@ -157,6 +201,7 @@ export default {
         }
       })
       this.validation()
+      this.archiveIdInput = res.data.archiveId
     })
   },
   computed: {
@@ -180,6 +225,11 @@ export default {
       api.editProblemDetail(this.$route.params.id, this.problem, this.$store.state.user.jwt)
     }
   },
+  watch: {
+    archiveIdInput (value) {
+      this.archiveIdState = !!this.archiveIdInput
+    }
+  },
   methods: {
     getTagColor: problem.getTagColor,
     eraseTag (index) {
@@ -193,8 +243,11 @@ export default {
       if (!this.statementValidation()) {
         this.formErrors.errMessage.push('problem statement should not be empty.')
       }
-      if (!this.problem.tests) {
+      if (!this.problem.testReady) {
         this.formErrors.errMessage.push('There are no test points available for this problem.')
+      }
+      if (!this.problem.archiveId) {
+        this.formErrors.errMessage.push('The problem has not been made public, it will not appear in the public archive list.')
       }
       return this.formErrors.hasError = this.formErrors.errMessage.length > 0
     },
@@ -217,6 +270,60 @@ export default {
       })
       this.validation()
       window.scrollTo(0,0);
+    },
+    resetModal () {
+      this.archiveIdState = null
+      this.archiveIdInput = null
+    },
+    handleOk (bvModalEvt) {
+      bvModalEvt.preventDefault()
+      this.handleSubmit()
+    },
+    handleSubmit () {
+      api.addIntoPublicProblemList([{
+        id: this.$route.params.id,
+        archiveId: this.archiveIdInput
+      }], this.$store.state.user.jwt).then(res => {
+        this.$bvToast.toast('You have successfully added this problem into the public problem set.', {
+          title: 'Polygon message',
+          toaster: 'b-toaster-bottom-right',
+          variant: 'success',
+          solid: true
+        })
+        this.problem.archiveId = this.archiveIdInput
+        this.validation()
+        this.$nextTick(() => {
+          this.$refs.modal.hide()
+        })
+      }).catch(err => {
+        this.archiveIdState = false
+        this.$bvToast.toast('The archive ID conflicts with others.', {
+          title: 'Polygon message',
+          toaster: 'b-toaster-bottom-right',
+          variant: 'danger',
+          solid: true
+        })
+      })
+    },
+    showConfirmation () {
+      this.$bvModal.msgBoxConfirm('Please confirm that you want to make this problem to be private.', {
+        title: 'Confirmation',
+        size: 's',
+        buttonSize: 'xg',
+        okVariant: 'danger',
+        okTitle: 'YES',
+        cancelTitle: 'NO',
+        footerClass: 'p-2',
+        hideHeaderClose: false,
+        centered: true
+      }).then(value => {
+        if (value) {
+          api.deleteFromPublicProblemList([this.problem.archiveId], this.$store.state.user.jwt).then(res => {
+            this.problem.archiveId = null
+            this.validation()
+          })
+        }
+      })
     }
   }
 }
