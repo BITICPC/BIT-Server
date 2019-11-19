@@ -134,6 +134,7 @@ export default {
         timeLimit: 1000,
         memoryLimit: 256,
         judgeMode: '',
+        source: '未知',
         acceptedSubmissions: 0,
         totalSubmissions: 0,
         totalSolvedUsers: 0,
