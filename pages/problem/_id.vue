@@ -57,7 +57,7 @@
         </b-card>
         <br />
 
-        <b-card>
+        <b-card v-if="problem.samples.length > 0">
           <template v-slot:header>
             <b>样例</b>
           </template>
