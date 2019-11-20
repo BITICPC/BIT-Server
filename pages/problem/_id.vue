@@ -3,7 +3,7 @@
     <br />
     <b-row>
       <b-col>
-        <h3>#{{ $route.params.id }}. {{ problem.title }}</h3>
+        <h3 class="title">#{{ $route.params.id }}. {{ problem.title }}</h3>
         <b-row>
           <b-col class="text-right">
             <b>时间限制：</b>
@@ -37,7 +37,7 @@
           <template v-slot:header>
             <b>题目描述</b>
           </template>
-          <b-card-text v-html="problem.legend" v-katex/>
+          <b-card-text class="markdown-body" v-html="problem.legend" v-katex/>
         </b-card>
         <br />
 
@@ -45,7 +45,7 @@
           <template v-slot:header>
             <b>输入格式</b>
           </template>
-          <b-card-text v-html="problem.input" v-katex/>
+          <b-card-text class="markdown-body" v-html="problem.input" v-katex/>
         </b-card>
         <br />
 
@@ -53,7 +53,7 @@
           <template v-slot:header>
             <b>输出格式</b>
           </template>
-          <b-card-text v-html="problem.output" v-katex/>
+          <b-card-text class="markdown-body" v-html="problem.output" v-katex/>
         </b-card>
         <br />
 
@@ -74,12 +74,12 @@
           <template v-slot:header>
             <b>提示</b>
           </template>
-          <b-card-text v-html="problem.notes" v-katex/>
+          <b-card-text class="markdown-body" v-html="problem.notes" v-katex/>
         </b-card>
         <br />
       </b-col>
 
-      <b-col class="bd-toc col-xl-3 d-none d-xl-block">
+      <b-col cols="3" class="d-none d-xl-block">
         <b-card no-body>
           <b-card-body>
             <b-card-text>

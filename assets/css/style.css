@@ -153,7 +153,7 @@ table#table-transition .flip-list-move {
 
 
 /* problem statement */
-#problem h3 {
+#problem h3.title {
   text-align: center;
   font-weight: bold;
 }
@@ -166,13 +166,17 @@ table#table-transition .flip-list-move {
   padding-left: 0;
 }
 
-#problem h6 {
+/* #problem h6 {
   font-weight: bold;
-}
+} */
 
 #problem p:last-child {
   margin-bottom: 0;
 }
+
+/* #problem div.col {
+  max-width: 855px;
+} */
 
 /* polygon */
 #polygon h2 {

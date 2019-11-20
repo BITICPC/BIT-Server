@@ -24,7 +24,8 @@ export default {
   */
   css: [
     '~assets/css/all.css',
-    '~assets/css/style.css'
+    '~assets/css/style.css',
+    '~assets/css/markdown.css'
   ],
   /*
   ** Plugins to load before mounting the App
