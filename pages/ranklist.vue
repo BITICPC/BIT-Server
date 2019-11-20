@@ -19,6 +19,7 @@
     <b-table
       style="text-align: center;"
       striped
+      responsive
       :bordered="true"
       :items="ranklist"
       :fields="fields"
@@ -27,6 +28,7 @@
       :current-page="currentPage"
       :busy="isBusy"
       :show-empty="true"
+      :stickyColumn="true"
     >
       <template v-slot:table-busy>
         <div class="text-danger my-2">

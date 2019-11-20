@@ -52,6 +52,7 @@
 
     <b-table
       striped
+      responsive
       class="text-center"
       :bordered="true"
       :items="problemset"
@@ -59,7 +60,7 @@
       :filter="filter"
       :busy="isBusy"
       :show-empty="true"
-      :sticky-header="true"
+      :stickyColumn="true"
       sort-by="id"
     >
       <template v-slot:table-busy>
@@ -70,8 +71,8 @@
       </template>
       <template v-slot:cell(working)="data">
         <b-button-group>
-          <b-button variant="outline-primary" size="sm" :to="`/polygon/problem/${data.value}`">Enter</b-button>
-          <b-button variant="outline-warning" size="sm">Statistics</b-button>
+          <b-button variant="outline-success" size="sm" :to="`/polygon/problem/${data.value}`">Enter</b-button>
+          <b-button variant="outline-info" size="sm">Statistics</b-button>
           <b-button variant="outline-danger" size="sm">Delete</b-button>
         </b-button-group>
       </template>

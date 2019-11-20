@@ -16,12 +16,14 @@
 
     <b-table
       striped
+      responsive
       :bordered="true"
       :items="problemset"
       :fields="fields"
       :filter="filter"
       :busy="isBusy"
       :show-empty="true"
+      :stickyColumn="true"
     >
       <template v-slot:table-busy>
         <div class="text-center text-danger my-2">
