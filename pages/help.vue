@@ -108,7 +108,7 @@ if (oj == null || !oj.equals(&quot;TRUE&quot;)) {
       <b>问题一：我如何读取输入，我又该如何输出计算结果？能否以解决经典的 Two Sum 问题为例给出样例代码？</b>
     </p>
     <p>您的程序应总是从标准输入流中读取输入，向标准输出流中写入输出结果。您的程序向标准错误流中写入的任何结果均会被评测系统丢弃，且不会被记录。</p>
-    <p>Two Sum 问题即为读入两个正整数（均不超过 $ 10^9 $），输出它们的加和。下面给出以不同语言实现的解决该问题的示例代码。</p>
+    <p v-katex>Two Sum 问题即为读入两个正整数（均不超过 $ 10^9 $），输出它们的加和。下面给出以不同语言实现的解决该问题的示例代码。</p>
     <p>C 语言：</p>
     <pre><code class="language-c" lang="c">#include &lt;stdio.h&gt;
 int main() {
@@ -127,6 +127,7 @@ int main() {
 }</code></pre>
     <p>Python：</p>
     <pre><code class="language-python" lang="python">print(sum(map(int, input().split(&#39; &#39;))))</code></pre>
+    <p>其他语言的示例类似。</p>
 
     <p>
       <strong>问题二：在 C/C++ 中如何使用 64 位整数类型？</strong>
@@ -143,6 +144,27 @@ int main() {
     <p>
       64 位有符号整数类型请使用
       <code>%lld</code> 格式说明符进行输入和输出。
+    </p>
+
+    <p>
+      <strong>问题三：各个编译器的编译选项分别是什么？</strong>
+    </p>
+    <p>
+      C/C++ 统一采用如下的编译命令：
+      <code>CC -O2 -std={std} -DONLINE_JUDGE -o {output} {source}</code>
+      其中 <code>CC</code> 为 <code>gcc</code>，<code>g++</code>，<code>clang</code> 或 <code>clang++</code>；<code>{std}</code> 表示标准级别，<code>{output}</code> 表示输出文件路径，<code>{source}</code> 表示输入文件路径。（下同）
+    </p>
+    <p>
+      Rust 编译器采用如下的编译命令：
+      <code>rustc -C opt-level=2 --cfg online_judge -o {output} {source}</code>
+    </p>
+    <p>
+      Java 采用如下的编译命令：
+      <code>javac -d {output} {source}</code>
+    </p>
+    <p>
+      Python 语言采用如下的命令直接解释运行：
+      <code>ONLINE_JUDGE=TRUE python -OO -B {source}</code>
     </p>
   </b-container>
 </template>
@@ -178,15 +200,23 @@ export default {
         }
       ],
       items: [
+        { language: 'C', environment: 'GNU', version: '89', identification: 'gcc 89', comment: 'C 程序设计语言，使用 GNU GCC 编译器，支持 C89 语言特性（ANSI C）' },
+        { language: 'C', environment: 'GNU', version: '95', identification: 'gcc 95', comment: 'C 程序设计语言，使用 GNU GCC 编译器，支持 C95 语言特性' },
         { language: 'C', environment: 'GNU', version: '99', identification: 'gcc 99', comment: 'C 程序设计语言，使用 GNU GCC 编译器，支持 C99 语言特性' },
         { language: 'C', environment: 'GNU', version: '11', identification: 'gcc 11', comment: 'C 程序设计语言，使用 GNU GCC 编译器，支持 C11 语言特性' },
-        { language: 'C', environment: 'Clang', version: '99', identification: 'clang 99', comment: 'C 程序设计语言，使用 Clang 编译器，支持 C99 语言特性' },
-        { language: 'C', environment: 'Clang', version: '11', identification: 'clang 11', comment: 'C 程序设计语言，使用 Clang 编译器，支持 C11 语言特性' },
-        { language: 'C++', environment: 'GNU', version: '03', identification: 'g++ 03', comment: 'C++ 程序设计语言，使用 GNU G++ 编译器，支持 C++98 语言特性' },
+        { language: 'C', environment: 'GNU', version: '17', identification: 'gcc 17', comment: 'C 程序设计语言，使用 GNU GCC 编译器，支持 C17 语言特性' },
+        { language: 'C', environment: 'clang', version: '89', identification: 'clang 89', comment: 'C 程序设计语言，使用 Clang 编译器，支持 C89 语言特性（ANSI C）' },
+        { language: 'C', environment: 'clang', version: '95', identification: 'clang 95', comment: 'C 程序设计语言，使用 Clang 编译器，支持 C95 语言特性' },
+        { language: 'C', environment: 'clang', version: '99', identification: 'clang 99', comment: 'C 程序设计语言，使用 Clang 编译器，支持 C99 语言特性' },
+        { language: 'C', environment: 'clang', version: '11', identification: 'clang 11', comment: 'C 程序设计语言，使用 Clang 编译器，支持 C11 语言特性' },
+        { language: 'C', environment: 'clang', version: '17', identification: 'clang 17', comment: 'C 程序设计语言，使用 Clang 编译器，支持 C17 语言特性' },
+        { language: 'C++', environment: 'GNU', version: '98', identification: 'g++ 98', comment: 'C++ 程序设计语言，使用 GNU G++ 编译器，支持 C++98 语言特性' },
+        { language: 'C++', environment: 'GNU', version: '03', identification: 'g++ 03', comment: 'C++ 程序设计语言，使用 GNU G++ 编译器，支持 C++03 语言特性' },
         { language: 'C++', environment: 'GNU', version: '11', identification: 'g++ 11', comment: 'C++ 程序设计语言，使用 GNU G++ 编译器，支持 C++11 语言特性' },
         { language: 'C++', environment: 'GNU', version: '14', identification: 'g++ 14', comment: 'C++ 程序设计语言，使用 GNU G++ 编译器，支持 C++14 语言特性' },
         { language: 'C++', environment: 'GNU', version: '17', identification: 'g++ 17', comment: 'C++ 程序设计语言，使用 GNU G++ 编译器，支持 C++17 语言特性' },
-        { language: 'C++', environment: 'Clang', version: '03', identification: 'clang++ 03', comment: 'C++ 程序设计语言，使用 Clang++ 编译器，支持 C++98 语言特性' },
+        { language: 'C++', environment: 'Clang', version: '98', identification: 'clang++ 98', comment: 'C++ 程序设计语言，使用 Clang++ 编译器，支持 C++98 语言特性' },
+        { language: 'C++', environment: 'Clang', version: '03', identification: 'clang++ 03', comment: 'C++ 程序设计语言，使用 Clang++ 编译器，支持 C++03 语言特性' },
         { language: 'C++', environment: 'Clang', version: '11', identification: 'clang++ 11', comment: 'C++ 程序设计语言，使用 Clang++ 编译器，支持 C++11 语言特性' },
         { language: 'C++', environment: 'Clang', version: '14', identification: 'clang++ 14', comment: 'C++ 程序设计语言，使用 Clang++ 编译器，支持 C++14 语言特性' },
         { language: 'C++', environment: 'Clang', version: '17', identification: 'clang++ 17', comment: 'C++ 程序设计语言，使用 Clang++ 编译器，支持 C++17 语言特性' },
@@ -194,7 +224,7 @@ export default {
         { language: 'Python', environment: 'CPython', version: '3.7', identification: 'CPython 3.7', comment: 'Python 程序设计语言，使用 CPython 解释器实现，支持 Python3.7 语言特性' },
         { language: 'Python', environment: 'CPython', version: '3.8', identification: 'CPython 3.8', comment: 'Python 程序设计语言，使用 CPython 解释器实现，支持 Python3.8 语言特性' },
         { language: 'Java', environment: 'JSE', version: '10.0', identification: 'Java SE 10.0', comment: 'Java 程序设计语言，使用 JavaSE 运行环境，支持 JDK 1.10 特性' },
-        { language: 'Rust', environment: 'Rust', version: '1.31', identification: 'Rust 1.31', comment: 'Rust 程序设计语言，支持 Rust 1.31 特性' },
+        { language: 'Rust', environment: 'Rust', version: '1.31', identification: 'Rust 1.31', comment: 'Rust 程序设计语言，支持 Rust 1.31 特性' }
       ]
     }
   }
