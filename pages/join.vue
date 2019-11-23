@@ -57,7 +57,7 @@
                 color="purple"
                 required
               />
-              <v-btn :loading="loading" :color="formErrors.errorCode ? 'error' : 'primary'" type="submit" block>
+              <v-btn :loading="loading" :color="errorCode !== 200 ? 'error' : 'primary'" type="submit" block>
                 <v-icon class="mr-2" small>
                   fas fa-registered
                 </v-icon>
@@ -85,10 +85,7 @@ export default {
         confirm: '',
         checkbox: false
       },
-      formErrors: {
-        errorCode: 0,
-        message: ''
-      },
+      errorCode: 200,
       usernameRules: account.usernameRules,
       passwordRules: account.passwordRules,
       phoneRules: account.phoneRules,
@@ -98,10 +95,13 @@ export default {
   methods: {
     ...mapActions(['setJwt', 'getProfile']),
     getErrorByAttributes (field) {
-      if (field === 'confirm') {
-        return this.formRegister.password !== this.formRegister.confirm ? '两次输入的密码不一致' : null
+      if (field === 'confirm' && this.formRegister.password !== this.formRegister.confirm) {
+        return '两次输入的密码不一致'
       }
-      return field === 'username' && this.formErrors.errorCode === 1 ? this.formErrors.message : null
+      if (field === 'username' && this.errorCode === 409) {
+        return '已存在一位使用该名字的用户'
+      }
+      return null
     },
     register () {
       if (this.$refs.form.validate()) {
@@ -113,7 +113,7 @@ export default {
             this.$router.push('/')
           })
         }).catch((err) => {
-          this.formErrors = err
+          this.errorCode = err.status
         }).finally(() => { this.loading = false })
       }
     }

@@ -33,7 +33,7 @@
                 required
               />
               <!-- <v-checkbox color='purple' label='保持登陆状态' /> -->
-              <v-btn :loading="loading" :color="formErrors.errorCode ? 'error' : 'success'" type="submit" block>
+              <v-btn :loading="loading" :color="errorCode !== 200 ? 'error' : 'success'" type="submit" block>
                 <v-icon class="mr-2" small>
                   fas fa-sign-in-alt
                 </v-icon>
@@ -60,17 +60,20 @@ export default {
       },
       usernameRules: account.usernameRules,
       passwordRules: account.passwordRules,
-      formErrors: {
-        errorCode: 0,
-        message: ''
-      },
+      errorCode: 200,
       loading: false
     }
   },
   methods: {
     ...mapActions(['setJwt', 'getProfile']),
     getErrorByAttributes (field) {
-      return (this.formErrors.errorCode === 1 && field === 'username') || (this.formErrors.errorCode === 2 && field === 'password') ? this.formErrors.message : null
+      if (this.errorCode === 404 && field === 'username') {
+        return '此用户名尚未注册'
+      }
+      if (this.errorCode === 422 && field === 'password') {
+        return '密码错误'
+      }
+      return null
     },
     login () {
       if (this.$refs.form.validate()) {
@@ -80,7 +83,7 @@ export default {
           this.getProfile(res.data.username)
           this.$router.go(-1)
         }).catch((err) => {
-          this.formErrors = err
+          this.errorCode = err.status
         }).finally(() => { this.loading = false })
       }
     }
