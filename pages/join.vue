@@ -1,99 +1,120 @@
 <template>
-  <b-container><br>
-
-    <b-alert v-model="formErrors.hasError" variant="warning" dismissible>
-      <h5><strong>登录失败</strong></h5>
-      <li v-for="errMessage in formErrors.errMessage" :key="errMessage">{{ errMessage }}</li>
-    </b-alert>
-
-    <h2>注册</h2><br>
-
-    <b-form @submit="register">
-      <h5 class="control-label">用户名</h5>
-      <b-input-group class="mb-3">
-        <b-input-group-prepend>
-          <span class="input-group-text"><i class="fas fa-user"></i></span>
-        </b-input-group-prepend>
-        <b-form-input type="text" placeholder="请输入用户名" v-model="formRegister.username" required></b-form-input>
-      </b-input-group>
-
-      <h5 class="control-label">手机号</h5>
-      <b-input-group class="mb-3">
-        <b-input-group-prepend>
-          <span class="input-group-text"><i class="fas fa-phone"></i></span>
-        </b-input-group-prepend>
-        <b-form-input type="number" placeholder="请输入手机号" v-model="formRegister.phone" required></b-form-input>
-      </b-input-group>
-
-      <h5 class="control-label">密码</h5>
-      <b-input-group class="mb-3">
-        <b-input-group-prepend>
-          <span class="input-group-text"><i class="fas fa-lock"></i></span>
-        </b-input-group-prepend>
-        <b-form-input type="password" placeholder="请输入密码" v-model="formRegister.password" required></b-form-input>
-      </b-input-group>
-
-      <h5 class="control-label">确认密码</h5>
-      <b-input-group class="mb-3">
-        <b-input-group-prepend>
-          <span class="input-group-text"><i class="fas fa-question"></i></span>
-        </b-input-group-prepend>
-        <b-form-input type="password" placeholder="请再次输入密码" v-model="formRegister.confirm" required></b-form-input>
-      </b-input-group>
-
-      <b-button type="submit" variant="primary"><i class="fas fa-registered"></i> 注册</b-button>
-    </b-form>
-  </b-container>
+  <v-container>
+    <v-layout justify-center>
+      <v-flex xs12 md4>
+        <v-card>
+          <v-card-title class="justify-center">
+            注册
+          </v-card-title>
+          <v-card-subtitle class="text-center">
+            Sign up
+          </v-card-subtitle>
+          <v-divider />
+          <v-card-text>
+            <v-form ref="form" @submit.prevent="register" class="mt-2">
+              <v-text-field
+                v-model="formRegister.username"
+                :rules="usernameRules"
+                :error-messages="getErrorByAttributes('username')"
+                color="purple"
+                prepend-icon="mdi-account"
+                label="用户名"
+                required
+              />
+              <v-text-field
+                v-model="formRegister.password"
+                :rules="passwordRules"
+                type="password"
+                color="purple"
+                prepend-icon="mdi-lock"
+                label="密码"
+                required
+              />
+              <v-text-field
+                v-model="formRegister.confirm"
+                :rules="passwordRules"
+                :error-messages="getErrorByAttributes('confirm')"
+                type="password"
+                color="purple"
+                prepend-icon="mdi-check-circle-outline"
+                label="确认密码"
+                required
+              />
+              <v-text-field
+                v-model="formRegister.phone"
+                :rules="phoneRules"
+                type="number"
+                color="purple"
+                prepend-icon="mdi-phone"
+                label="手机号"
+                required
+              />
+              <v-checkbox
+                v-model="formRegister.checkbox"
+                :rules="[v => !!v || '您必须同意用户协议才能继续。']"
+                label="同意用户协议"
+                class="mb-2"
+                color="purple"
+                required
+              />
+              <v-btn :loading="loading" :color="formErrors.errorCode ? 'error' : 'primary'" type="submit" block>
+                <v-icon class="mr-2" small>
+                  fas fa-registered
+                </v-icon>
+                注册
+              </v-btn>
+            </v-form>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
-
 <script>
-import api from '@/components/common/api'
+import { mapActions } from 'vuex'
+import account from '@/components/utils/account'
+import api from '@/components/utils/api'
 
 export default {
   data () {
     return {
       formRegister: {
         username: '',
-        phone: '',
         password: '',
-        confirm: ''
+        phone: '',
+        confirm: '',
+        checkbox: false
       },
       formErrors: {
-        hasError: false,
-        errMessage: []
-      }
+        errorCode: 0,
+        message: ''
+      },
+      usernameRules: account.usernameRules,
+      passwordRules: account.passwordRules,
+      phoneRules: account.phoneRules,
+      loading: false
     }
   },
   methods: {
-    validation () {
-      this.formErrors.errMessage = []
-      if (this.formRegister.username.length < 3) {
-        this.formErrors.errMessage.push('用户名长度必须大于2位')
+    ...mapActions(['setJwt', 'getProfile']),
+    getErrorByAttributes (field) {
+      if (field === 'confirm') {
+        return this.formRegister.password !== this.formRegister.confirm ? '两次输入的密码不一致' : null
       }
-      if (this.formRegister.phone.length !== 11) {
-        this.formErrors.errMessage.push('手机号格式错误')
-      }
-      if (this.formRegister.password.length < 6) {
-        this.formErrors.errMessage.push('设置的密码长度必须大于5位')
-      }
-      if (this.formRegister.confirm !== this.formRegister.password) {
-        this.formErrors.errMessage.push('两次输入的密码不匹配')
-      }
-      return this.formErrors.hasError = this.formErrors.errMessage.length > 0
+      return field === 'username' && this.formErrors.errorCode === 1 ? this.formErrors.message : null
     },
-    register (event) {
-      event.preventDefault()
-      if (!this.validation()) {
+    register () {
+      if (this.$refs.form.validate()) {
+        this.loading = true
         api.register(this.formRegister).then(() => {
-          this.$router.push({
-            name: 'login',
-            params: { fromSuccReg: true }
+          api.login(this.formRegister).then((res) => {
+            this.setJwt(res.data.jwt)
+            this.getProfile(res.data.username)
+            this.$router.push('/')
           })
-        }).catch(error => {
-          // console.log(error)
-          this.formErrors.hasError = true;
-          this.formErrors.errMessage = [ error.message ]
-        })
+        }).catch((err) => {
+          this.formErrors = err
+        }).finally(() => { this.loading = false })
       }
     }
   }

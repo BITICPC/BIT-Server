@@ -9,10 +9,10 @@ const defaultOptions = {
   errorCallback: _,
   throwOnError: false,
   delimiters: [
-    {left: '$', right: '$', display: false},
-    {left: '$$', right: '$$', display: true},
-    {left: '\\[', right: '\\]', display: true},
-    {left: '\\(', right: '\\)', display: false}
+    { left: '$', right: '$', display: false },
+    { left: '$$', right: '$$', display: true },
+    { left: '\\[', right: '\\]', display: true },
+    { left: '\\(', right: '\\)', display: false }
   ]
 }
 
@@ -26,7 +26,7 @@ function render (el, binding) {
 }
 
 export default {
-  install: function (Vue, options) {
+  install: (Vue, options) => {
     Vue.directive('katex', {
       bind: render,
       componentUpdated: render

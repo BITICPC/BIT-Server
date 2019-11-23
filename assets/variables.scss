@@ -1,0 +1,16 @@
+// assets/variables.scss
+
+// Variables you want to modify
+
+// If you need to extend Vuetify SASS lists
+@import '~vuetify/src/styles/styles.sass';
+
+$body-font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif, Roboto, sans-serif;
+
+a {
+  text-decoration: none;
+}
+
+.v-btn {
+  text-transform: none;
+}

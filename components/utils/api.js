@@ -16,7 +16,7 @@ export default {
     })
   },
   getUserInfo (username, jwt = undefined) {
-    let cmd = '/users/' + username
+    const cmd = '/users/' + username
     if (jwt !== undefined) {
       return ajax(cmd, 'get', {
         params: {
@@ -30,9 +30,9 @@ export default {
     return ajax(cmd, 'get')
   },
   changeUserInfo (username, data, jwt) {
-    let cmd = '/users/' + username
+    const cmd = '/users/' + username
     return ajax(cmd, 'put', {
-      data: data,
+      data,
       headers: {
         Authorization: 'Jwt ' + jwt
       }
@@ -45,18 +45,16 @@ export default {
   },
   getProblemList (params, jwt) {
     return ajax('/problems', 'get', {
-      params: params,
+      params,
       headers: {
         Authorization: 'Jwt ' + jwt
       }
     })
   },
   getProblemDetail (id, jwt) {
-    let cmd = '/problems/' + id
+    const cmd = '/problems/' + id
     return ajax(cmd, 'get', {
-      params: {
-         id: id
-      },
+      params: { id },
       headers: {
         Authorization: 'Jwt ' + jwt
       }
@@ -64,16 +62,16 @@ export default {
   },
   createProblem (data, jwt) {
     return ajax('/problems', 'post', {
-      data: data,
+      data,
       headers: {
         Authorization: 'Jwt ' + jwt
       }
     })
   },
   editProblemDetail (id, data, jwt) {
-    let cmd = '/problems/' + id
+    const cmd = '/problems/' + id
     return ajax(cmd, 'put', {
-      data: data,
+      data,
       headers: {
         Authorization: 'Jwt ' + jwt
       }
@@ -81,7 +79,7 @@ export default {
   },
   addIntoPublicProblemList (data, jwt) {
     return ajax('/archive', 'post', {
-      data: data,
+      data,
       headers: {
         Authorization: 'Jwt ' + jwt
       }
@@ -89,28 +87,35 @@ export default {
   },
   deleteFromPublicProblemList (data, jwt) {
     return ajax('/archive', 'delete', {
-      data: data,
+      data,
       headers: {
         Authorization: 'Jwt ' + jwt
       }
     })
   },
   getPublicProblemList (params) {
-    return ajax('/archive', 'get', {
-      params
-    })
+    return ajax('/archive', 'get', { params })
   },
   getPublicProblemDetail (id) {
-    let cmd = '/archive/' + id
+    const cmd = '/archive/' + id
     return ajax(cmd, 'get')
-  },
+  }
 }
 
 function ajax (url, method, options) {
+  let params = {}
+  let data = {}
+  let headers = {}
   if (options !== undefined) {
-    var {params = {}, data = {}, headers = {}} = options
-  } else {
-    params = data = headers = {}
+    if (options.params !== undefined) {
+      params = options.params
+    }
+    if (options.data !== undefined) {
+      data = options.data
+    }
+    if (options.headers !== undefined) {
+      headers = options.headers
+    }
   }
   return new Promise((resolve, reject) => {
     axios({
@@ -119,9 +124,9 @@ function ajax (url, method, options) {
       params,
       headers,
       data
-    }).then(res => {
+    }).then((res) => {
       resolve(res)
-    }).catch(err => {
+    }).catch((err) => {
       reject(err.response.data)
     })
   })

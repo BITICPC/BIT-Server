@@ -1,43 +1,55 @@
 <template>
-  <b-container><br>
-
-    <!-- <b-alert v-model="$route.params.fromSuccReg" variant="success" dismissible>注册成功，欢迎登录！</b-alert> -->
-
-    <b-alert v-model="formErrors.hasError" variant="warning" dismissible>
-      <h5><Strong>登录失败</strong></h5>
-      <li>{{ formErrors.errMessage }}</li>
-    </b-alert>
-
-    <h2>登录</h2><br>
-
-    <b-form @submit="login">
-      <h5 class="control-label">用户名</h5>
-      <b-input-group class="mb-3">
-        <b-input-group-prepend>
-          <span class="input-group-text"><i class="fas fa-user"></i></span>
-        </b-input-group-prepend>
-        <b-form-input tyle="text" placeholder="请输入用户名" v-model="formLogin.username" required></b-form-input>
-      </b-input-group>
-
-      <h5 class="control-label">密码</h5>
-      <b-input-group class="mb-3">
-        <b-input-group-prepend>
-          <span class="input-group-text"><i class="fas fa-lock"></i></span>
-        </b-input-group-prepend>
-        <b-form-input type="password" placeholder="请输入密码" v-model="formLogin.password" required></b-form-input>
-      </b-input-group>
-
-      <b-input-group class="mb-3">
-        <b-form-checkbox value="rememberMe" switch>保持登陆状态</b-form-checkbox>
-      </b-input-group>
-
-      <b-button type="submit" variant="primary"><i class="fas fa-sign-in-alt"></i> 登录</b-button>
-    </b-form>
-  </b-container>
+  <v-container>
+    <v-layout justify-center>
+      <v-flex xs12 md4>
+        <v-card>
+          <v-card-title class="justify-center">
+            登录
+          </v-card-title>
+          <v-card-subtitle class="text-center">
+            Sign in
+          </v-card-subtitle>
+          <v-divider />
+          <v-card-text>
+            <v-form ref="form" @submit.prevent="login" class="mt-2">
+              <v-text-field
+                v-model="formLogin.username"
+                :rules="usernameRules"
+                :error-messages="getErrorByAttributes('username')"
+                color="purple"
+                prepend-icon="mdi-account"
+                label="用户名"
+                required
+              />
+              <v-text-field
+                v-model="formLogin.password"
+                :rules="passwordRules"
+                :error-messages="getErrorByAttributes('password')"
+                type="password"
+                color="purple"
+                prepend-icon="mdi-lock"
+                label="密码"
+                class="mb-2"
+                required
+              />
+              <!-- <v-checkbox color='purple' label='保持登陆状态' /> -->
+              <v-btn :loading="loading" :color="formErrors.errorCode ? 'error' : 'success'" type="submit" block>
+                <v-icon class="mr-2" small>
+                  fas fa-sign-in-alt
+                </v-icon>
+                登录
+              </v-btn>
+            </v-form>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 <script>
 import { mapActions } from 'vuex'
-import api from '@/components/common/api'
+import account from '@/components/utils/account'
+import api from '@/components/utils/api'
 
 export default {
   data () {
@@ -46,55 +58,30 @@ export default {
         username: '',
         password: ''
       },
+      usernameRules: account.usernameRules,
+      passwordRules: account.passwordRules,
       formErrors: {
-        hasError: false,
-        errMessage: ''
-      }
-    }
-  },
-  mounted () {
-    if (this.$route.params.fromSuccReg) {
-      this.$bvToast.toast('注册成功，欢迎登录！', {
-        title: '系统提示',
-        toaster: 'b-toaster-bottom-right',
-        variant: 'warning',
-        solid: true
-      })
+        errorCode: 0,
+        message: ''
+      },
+      loading: false
     }
   },
   methods: {
     ...mapActions(['setJwt', 'getProfile']),
-    validation () {
-      let checkUsername = this.formLogin.username.length >= 3
-      let checkPassword = this.formLogin.password.length >= 6
-      if (!checkUsername && !checkPassword) {
-        this.formErrors.errMessage = '请输入正确的用户名和密码'
-      } else if (!checkUsername) {
-        this.formErrors.errMessage = '请输入正确的用户名'
-      } else if (!checkPassword) {
-        this.formErrors.errMessage = '请输入正确的密码'
-      }
-      return this.formErrors.hasError = !checkUsername || !checkPassword 
+    getErrorByAttributes (field) {
+      return (this.formErrors.errorCode === 1 && field === 'username') || (this.formErrors.errorCode === 2 && field === 'password') ? this.formErrors.message : null
     },
-    login (event) {
-      event.preventDefault()
-      if (!this.validation()) {
-        api.login(this.formLogin).then(response => {
-          this.setJwt(response.data.jwt)
-          this.getProfile(response.data.username)
+    login () {
+      if (this.$refs.form.validate()) {
+        this.loading = true
+        api.login(this.formLogin).then((res) => {
+          this.setJwt(res.data.jwt)
+          this.getProfile(res.data.username)
           this.$router.go(-1)
-          this.$root.$bvToast.toast('登录成功，欢迎回来！', {
-            title: '系统提示',
-            toaster: 'b-toaster-bottom-right',
-            variant: 'success',
-            solid: true
-          })
-        }).catch(error => {
-          this.formErrors = {
-            hasError: true,
-            errMessage: error.message
-          }
-        })
+        }).catch((err) => {
+          this.formErrors = err
+        }).finally(() => { this.loading = false })
       }
     }
   }

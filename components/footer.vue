@@ -1,26 +1,38 @@
 <template>
-  <footer class="bd-footer text-muted docs-border">
-    <b-container>
-      <b-row class="justify-content-center">
-        <b-col md="3" class="text-left">
-          <h5 class="text-purple-bright">服务</h5>
-          <div class="list-unstyled">
-            <li><nuxt-link to="/">首页</nuxt-link></li>
+  <v-footer dark padless>
+    <v-container>
+      <v-row justify="center">
+        <v-col lg="3">
+          <h3>服务</h3>
+          <ul>
+            <li>
+              <nuxt-link to="/">
+                首页
+              </nuxt-link>
+            </li>
             <li>反馈</li>
-            <li><nuxt-link to="/polygon">Polygon</nuxt-link></li>
+            <li>
+              <nuxt-link to="/polygon">
+                Polygon
+              </nuxt-link>
+            </li>
             <li>Wiki</li>
-          </div>
-        </b-col>
-        <b-col md="3" class="text-left">
-          <h5 class="text-purple-bright">开源</h5>
-          <div class="list-unstyled">
-            <li> <a href="https://github.com/BITICPC">Github</a></li>
-            <li> <a href="https://github.com/BITICPC/WaveTestLib">WaveTestlib</a></li>
-          </div>
-        </b-col>
-        <b-col md="3" class="text-left">
-          <h5 class="text-purple-bright">关于我们</h5>
-          <div class="list-unstyled">
+          </ul>
+        </v-col>
+        <v-col lg="3">
+          <h3>开源</h3>
+          <ul>
+            <li>
+              <a href="https://github.com/BITICPC">Github</a>
+            </li>
+            <li>
+              <a href="https://github.com/BITICPC/WaveTestLib">WaveTestlib</a>
+            </li>
+          </ul>
+        </v-col>
+        <v-col lg="4">
+          <h3>关于我们</h3>
+          <ul>
             <li>
               团队：
               <a href="mailto:msrlancern@126.com">@lancern</a>,
@@ -30,27 +42,26 @@
               联系方式：
               <a href="mailto:acmsupport@bit.edu.cn">acmsupport@bit.edu.cn</a>
             </li>
-          </div>
-        </b-col>
-        <!-- <div class="text-center text-sm-right col-sm order-sm-3 col-12">
-            <img src="~/static/img/BIT.png" alt="BIT logo" class="mb-4 mt-0 img-fluid" style="width: 100px;">
-        </div>-->
-      </b-row>
-      <hr />
-      <p class="mb-2">
+          </ul>
+        </v-col>
+      </v-row>
+      <v-divider />
+      <v-card-text class="py-2 grey--text text-center">
         Powered by
-        <a href="https://nuxtjs.org/">Nuxt.js</a> with Bootstrap-Vue v2.0.4
-      </p>
-      <p>BIT Online Judge Version: v{{ Version }}</p>
-    </b-container>
-  </footer>
+        <a href="https://nuxtjs.org/">Nuxt.js</a>
+        with Vuetify - {{ new Date().getFullYear() }}
+        <br>
+        BIT Online Judge Version: v{{ Version }}
+      </v-card-text>
+    </v-container>
+  </v-footer>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
-      Version: "1.0"
-    };
+      Version: '1.0'
+    }
   }
-};
+}
 </script>
