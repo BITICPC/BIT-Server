@@ -24,8 +24,8 @@
             :items-per-page="page.itemsPerPage"
             :search="search"
             :loading="loading"
-            loading-text="正在加载数据，请等待..."
             @page-count="page.count = $event"
+            loading-text="正在加载数据，请等待..."
             hide-default-footer
           >
             <!-- <template v-slot:item="user">
@@ -103,7 +103,7 @@ export default {
     this.loading = true
     api.getRanklist({
       by: 'TotalProblemsAccepted',
-      limit: 20
+      limit: 1000
     }).then((res) => {
       res.data.forEach((user, index) => {
         this.ranklist.push({
