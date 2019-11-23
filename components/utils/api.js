@@ -127,7 +127,7 @@ function ajax (url, method, options) {
     }).then((res) => {
       resolve(res)
     }).catch((err) => {
-      reject(err.response.data)
+      reject(err.response)
     })
   })
 }
