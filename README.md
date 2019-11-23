@@ -2,6 +2,8 @@
 
 > BITOJ Frontend Application
 
+Bootstrap-Vue 写不下去了...正在使用 Vuetify 重构 UI 中。
+
 ## Build Setup
 
 ``` bash
