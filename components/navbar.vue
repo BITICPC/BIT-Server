@@ -81,7 +81,7 @@
 
     <v-navigation-drawer id="drawer" v-model="drawer" temporary app width="200">
       <template v-if="isLogin" v-slot:prepend>
-        <v-list-item two-line>
+        <v-list-item two-line :to="`/user/${profile.username}/setting`">
           <v-list-item-avatar>
             <img src="~/static/user.jpg">
           </v-list-item-avatar>
