@@ -1,6 +1,6 @@
 const usernameRules = [
   v => !!v || '用户名不能为空',
-  v => (v && v.length >= 3 && v.length <= 10) || '用户名长度必须大于2个字符且小于10个字符'
+  v => (v && v.length >= 3 && v.length <= 10) || '用户名长度必须大于2个字符且小于11个字符'
 ]
 
 const passwordRules = [
@@ -13,8 +13,28 @@ const phoneRules = [
   v => (v && v.length === 11) || '手机号长度应该为11位'
 ]
 
+const nicknameRules = [
+  v => v.length <= 10 || '用户昵称长度必须小于11个字符'
+]
+
+const schoolRules = [
+  v => (!v || (v && v.length >= 2 && v.length <= 10)) || '学校名称长度必须大于1个字符且小于11个字符'
+]
+
+const studentIdRules = [
+  v => v.length <= 20 || '学号长度必须小于21位'
+]
+
+const emailRules = [
+  v => (!v || (v && /.+@.+\..+/.test(v))) || '邮箱格式不合法'
+]
+
 export default {
   usernameRules,
   passwordRules,
-  phoneRules
+  phoneRules,
+  nicknameRules,
+  schoolRules,
+  studentIdRules,
+  emailRules
 }
