@@ -3,20 +3,26 @@
     <v-layout justify-center>
       <v-flex xs12 md8>
         <v-card>
-          <v-card-title>
-            用户排名
-            <v-spacer />
-            <v-text-field
-              v-model="search"
-              label="请输入关键字"
-              append-icon="mdi-magnify"
-              single-line
-              hide-details
-            />
-          </v-card-title>
-          <v-card-subtitle>
-            User ranklist
-          </v-card-subtitle>
+          <v-row>
+            <v-col>
+              <v-card-title>
+                用户排名
+              </v-card-title>
+              <v-card-subtitle>
+                User ranklist
+              </v-card-subtitle>
+            </v-col>
+            <v-col>
+              <v-text-field
+                v-model="search"
+                label="请输入关键字"
+                append-icon="mdi-magnify"
+                class="mr-4"
+                single-line
+                hide-details
+              />
+            </v-col>
+          </v-row>
           <v-data-table
             :headers="headers"
             :items="ranklist"
@@ -25,7 +31,7 @@
             :search="search"
             :loading="loading"
             @page-count="page.count = $event"
-            loading-text="正在加载数据，请等待..."
+            loading-text="正在加载数据，请稍等..."
             hide-default-footer
           >
             <!-- <template v-slot:item="user">
