@@ -46,20 +46,33 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item
-                v-for="(item, index) in items"
-                :key="index"
-                :to="item.link"
-              >
-                <v-list-item-icon class="mr-1">
-                  <v-icon small>
-                    fas fa-{{ item.icon }}
-                  </v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.title }}</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
+              <v-subheader>{{ profile.isAdmin ? '管理员' : '注册用户' }}</v-subheader>
+              <template v-for="(item, index) in items">
+                <template v-if="index !== 1">
+                  <v-list-item :to="item.link" :key="index">
+                    <v-list-item-icon class="mr-1">
+                      <v-icon small>
+                        fas fa-{{ item.icon }}
+                      </v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </template>
+                <template v-else>
+                  <v-list-item :to="`/user/${profile.username}/setting`" :key="index">
+                    <v-list-item-icon class="mr-1">
+                      <v-icon small>
+                        fas fa-{{ item.icon }}
+                      </v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </template>
+              </template>
             </v-list>
           </v-menu>
         </template>
@@ -77,7 +90,7 @@
               {{ profile.username }}
             </v-list-item-title>
             <v-list-item-subtitle>
-              注册用户
+              {{ profile.isAdmin ? '管理员' : '注册用户' }}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
