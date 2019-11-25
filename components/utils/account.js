@@ -22,7 +22,7 @@ const schoolRules = [
 ]
 
 const studentIdRules = [
-  v => v.length <= 20 || '学号长度必须小于21位'
+  v => (!v || (v && v.length >= 3 && v.length <= 10)) || '学号长度必须必须大于2位且小于11位'
 ]
 
 const emailRules = [
