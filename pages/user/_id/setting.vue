@@ -82,8 +82,19 @@
                     disabled
                   />
                   <v-text-field
+                    v-model="formAccount.oldPassword"
+                    :rules="passwordRules"
+                    :error-messages="getErrorByAttributes('oldPassword')"
+                    type="password"
+                    color="purple"
+                    prepend-icon="mdi-history"
+                    label="旧密码"
+                    required
+                  />
+                  <v-text-field
                     v-model="formAccount.password"
                     :rules="passwordRules"
+                    :error-messages="getErrorByAttributes('password')"
                     type="password"
                     color="purple"
                     prepend-icon="mdi-lock"
@@ -98,8 +109,15 @@
                     color="purple"
                     prepend-icon="mdi-check-circle-outline"
                     label="确认密码"
+                    class="mb-2"
                     required
                   />
+                  <v-btn :loading="loading" :color="errorCode !== 200 ? 'error' : 'primary'" type="submit" block>
+                    <v-icon class="mr-2">
+                      mdi-cloud-upload
+                    </v-icon>
+                    保存
+                  </v-btn>
                 </v-form>
               </v-tab-item>
               <v-tab-item value="safety" />
@@ -133,6 +151,7 @@ export default {
       },
       formAccount: {
         username: '',
+        oldPassword: '',
         password: '',
         confirm: ''
       },
@@ -148,7 +167,8 @@ export default {
       snackbar: {
         show: false,
         message: ''
-      }
+      },
+      errorCode: 200
     }
   },
   computed: {
@@ -165,8 +185,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setProfile']),
+    ...mapActions(['setProfile', 'changePassword']),
     getErrorByAttributes (field) {
+      if (field === 'oldPassword' && this.errorCode === 403) {
+        return '旧密码不正确'
+      }
+      if (field === 'password' && this.formAccount.password.length > 0 && this.formAccount.oldPassword === this.formAccount.password) {
+        return '设置的新密码与旧密码完全相同'
+      }
       if (field === 'confirm' && this.formAccount.password !== this.formAccount.confirm) {
         return '两次输入的密码不一致'
       }
@@ -186,6 +212,20 @@ export default {
         this.setProfile(data).then(() => {
           this.snackbar.message = '个人资料保存成功！'
           this.snackbar.show = true
+        }).finally(() => { this.loading = false })
+      }
+    },
+    updateAccount () {
+      if (this.$refs.account.validate()) {
+        this.loading = true
+        this.errorCode = 200
+        this.changePassword(this.formAccount).then(() => {
+          this.snackbar.message = '密码修改成功！'
+          this.snackbar.show = true
+          this.formAccount.oldPassword = this.formAccount.password = this.formAccount.confirm = ''
+          this.$refs.account.resetValidation()
+        }).catch((err) => {
+          this.errorCode = err.status
         }).finally(() => { this.loading = false })
       }
     }

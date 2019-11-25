@@ -38,6 +38,15 @@ export default {
       }
     })
   },
+  changeUserPassword (username, data, jwt) {
+    const cmd = '/users/' + username + '/password'
+    return ajax(cmd, 'put', {
+      data,
+      headers: {
+        Authorization: 'Jwt ' + jwt
+      }
+    })
+  },
   getRanklist (params) {
     return ajax('/users/ranklist', 'get', {
       params

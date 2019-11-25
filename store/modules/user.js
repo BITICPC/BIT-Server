@@ -50,6 +50,9 @@ const actions = {
       commit(types.CHANGE_PROFILE, { profile })
     })
   },
+  changePassword ({ state }, payload) {
+    return api.changeUserPassword(state.profile.username, payload, state.jwt)
+  },
   clearProfile ({ commit }) {
     commit(types.CHANGE_PROFILE, {
       profile: {}
