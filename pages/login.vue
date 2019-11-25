@@ -78,6 +78,7 @@ export default {
     login () {
       if (this.$refs.form.validate()) {
         this.loading = true
+        this.errorCode = 200
         api.login(this.formLogin).then((res) => {
           this.setJwt(res.data.jwt)
           this.getProfile(res.data.username)

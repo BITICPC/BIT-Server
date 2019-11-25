@@ -15,6 +15,7 @@
             <v-col>
               <v-text-field
                 v-model="search"
+                color="purple"
                 label="请输入关键字"
                 append-icon="mdi-magnify"
                 class="mr-4"
@@ -62,7 +63,7 @@
           </v-data-table>
         </v-card>
         <div class="text-center pt-2">
-          <v-pagination v-model="page.index" :length="page.count" />
+          <v-pagination v-model="page.index" :length="page.count" color="purple" />
         </div>
       </v-flex>
     </v-layout>

@@ -106,6 +106,7 @@ export default {
     register () {
       if (this.$refs.form.validate()) {
         this.loading = true
+        this.errorCode = 200
         api.register(this.formRegister).then(() => {
           api.login(this.formRegister).then((res) => {
             this.setJwt(res.data.jwt)
