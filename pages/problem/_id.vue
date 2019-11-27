@@ -101,7 +101,13 @@
                           样例 {{ index + 1 }} 输入
                           <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
-                              <v-icon v-on="on" v-clipboard:copy="sample.input" small>
+                              <v-icon
+                                v-on="on"
+                                v-clipboard:copy="sample.input"
+                                v-clipboard:success="onCopy"
+                                v-clipboard:error="onCopyError"
+                                small
+                              >
                                 mdi-clipboard-text-outline
                               </v-icon>
                             </template>
@@ -119,7 +125,13 @@
                           样例 {{ index + 1 }} 输出
                           <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
-                              <v-icon v-on="on" v-clipboard:copy="sample.output" small>
+                              <v-icon
+                                v-on="on"
+                                v-clipboard:copy="sample.output"
+                                v-clipboard:success="onCopy"
+                                v-clipboard:error="onCopyError"
+                                small
+                              >
                                 mdi-clipboard-text-outline
                               </v-icon>
                             </template>
@@ -190,6 +202,7 @@
   </v-container>
 </template>
 <script>
+import { mapActions } from 'vuex'
 import api from '@/components/utils/api'
 import problem from '@/components/utils/problem'
 import common from '@/components/utils/common'
@@ -238,7 +251,20 @@ export default {
     })
   },
   methods: {
-    getTagColor: problem.getTagColor
+    ...mapActions(['newToast']),
+    getTagColor: problem.getTagColor,
+    onCopy (event) {
+      this.newToast({
+        text: '复制成功',
+        color: 'success'
+      })
+    },
+    onCopyError (event) {
+      this.newToast({
+        text: '复制失败',
+        color: 'error'
+      })
+    }
   }
 }
 </script>
