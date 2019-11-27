@@ -235,8 +235,6 @@ export default {
       this.problem.lastUpdateTime = common.getTimeDifferent(res.data.lastUpdateTime)
       this.problem.lastSubmissionTime = common.getTimeDifferent(res.data.lastSubmissionTime)
       this.skeleton = false
-    }).finally(() => {
-      console.log(this.problem)
     })
   },
   methods: {

@@ -65,7 +65,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setJwt', 'getProfile']),
+    ...mapActions(['setJwt', 'getProfile', 'newToast']),
     getErrorByAttributes (field) {
       if (this.errorCode === 404 && field === 'username') {
         return '此用户名尚未注册'
@@ -82,6 +82,10 @@ export default {
         api.login(this.formLogin).then((res) => {
           this.setJwt(res.data.jwt)
           this.getProfile(res.data.username)
+          this.newToast({
+            text: '登录成功！',
+            color: 'success'
+          })
           this.$router.go(-1)
         }).catch((err) => {
           this.errorCode = err.status

@@ -93,7 +93,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setJwt', 'getProfile']),
+    ...mapActions(['setJwt', 'getProfile', 'newToast']),
     getErrorByAttributes (field) {
       if (field === 'confirm' && this.formRegister.password !== this.formRegister.confirm) {
         return '两次输入的密码不一致'
@@ -111,6 +111,10 @@ export default {
           api.login(this.formRegister).then((res) => {
             this.setJwt(res.data.jwt)
             this.getProfile(res.data.username)
+            this.newToast({
+              text: '注册成功！',
+              color: 'success'
+            })
             this.$router.push('/')
           })
         }).catch((err) => {

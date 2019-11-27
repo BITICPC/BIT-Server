@@ -124,12 +124,6 @@
             </v-tabs-items>
           </v-card-text>
         </v-card>
-        <v-snackbar v-model="snackbar.show" color="success">
-          {{ snackbar.message }}
-          <v-btn @click="snackbar.show = false" dark text>
-            关闭
-          </v-btn>
-        </v-snackbar>
       </v-flex>
     </v-layout>
   </v-container>
@@ -164,10 +158,6 @@ export default {
       emailRules: account.emailRules,
       tabs: null,
       loading: false,
-      snackbar: {
-        show: false,
-        message: ''
-      },
       errorCode: 200
     }
   },
@@ -185,7 +175,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setProfile', 'changePassword']),
+    ...mapActions(['setProfile', 'changePassword', 'newToast']),
     getErrorByAttributes (field) {
       if (field === 'oldPassword' && this.errorCode === 403) {
         return '旧密码不正确'
@@ -210,8 +200,10 @@ export default {
           }
         })
         this.setProfile(data).then(() => {
-          this.snackbar.message = '个人资料保存成功！'
-          this.snackbar.show = true
+          this.newToast({
+            text: '个人资料保存成功！',
+            color: 'success'
+          })
         }).finally(() => { this.loading = false })
       }
     },
@@ -220,8 +212,10 @@ export default {
         this.loading = true
         this.errorCode = 200
         this.changePassword(this.formAccount).then(() => {
-          this.snackbar.message = '密码修改成功！'
-          this.snackbar.show = true
+          this.newToast({
+            text: '密码修改成功！',
+            color: 'success'
+          })
           this.formAccount.oldPassword = this.formAccount.password = this.formAccount.confirm = ''
           this.$refs.account.resetValidation()
         }).catch((err) => {
