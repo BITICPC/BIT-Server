@@ -9,7 +9,7 @@ export default {
     this.$store.dispatch('clearProfile')
     this.newToast({
       text: '注销成功！',
-      color: 'light-blue'
+      color: 'blue'
     })
     this.$router.go(-1)
   },

@@ -19,6 +19,7 @@
                 color="purple"
                 prepend-icon="mdi-account"
                 label="用户名"
+                autocomplete
                 required
               />
               <v-text-field
@@ -30,6 +31,7 @@
                 prepend-icon="mdi-lock"
                 label="密码"
                 class="mb-2"
+                autocomplete
                 required
               />
               <!-- <v-checkbox color='purple' label='保持登陆状态' /> -->
