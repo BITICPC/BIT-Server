@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "moment": "^2.24.0",
     "nuxt": "^2.0.0",
     "stylus": "^0.54.7",
-    "stylus-loader": "^3.0.2"
+    "stylus-loader": "^3.0.2",
+    "vue-clipboard2": "^0.3.1"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
