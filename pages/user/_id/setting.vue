@@ -191,7 +191,7 @@ export default {
         return '旧密码不正确'
       }
       if (field === 'password' && this.formAccount.password.length > 0 && this.formAccount.oldPassword === this.formAccount.password) {
-        return '设置的新密码与旧密码完全相同'
+        return '设置的新密码不能与旧密码完全相同'
       }
       if (field === 'confirm' && this.formAccount.password !== this.formAccount.confirm) {
         return '两次输入的密码不一致'

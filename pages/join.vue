@@ -51,8 +51,8 @@
               />
               <v-checkbox
                 v-model="formRegister.checkbox"
-                :rules="[v => !!v || '您必须同意用户协议才能继续。']"
-                label="同意用户协议"
+                :rules="[v => !!v || '请先阅读并勾选同意用户协议']"
+                label="已阅读并同意用户协议"
                 class="mb-2"
                 color="purple"
                 required
