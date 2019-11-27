@@ -35,6 +35,11 @@
             loading-text="正在加载数据，请稍等..."
             hide-default-footer
           >
+            <template v-slot:item.problem.name="item">
+              <nuxt-link :to="`/problem/${item.item.problem.id}`">
+                {{ item.value }}
+              </nuxt-link>
+            </template>
             <template v-slot:item.problem.tags="item">
               <v-chip
                 v-for="tag in item.value"
