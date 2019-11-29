@@ -4,6 +4,7 @@
 
 // If you need to extend Vuetify SASS lists
 @import '~vuetify/src/styles/styles.sass';
+@import '@/assets/markdown.css';
 
 $body-font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif, Roboto, sans-serif;
 
@@ -23,5 +24,8 @@ a {
     margin-left: 25px;
     margin-right: 25px;
     margin-bottom: 15px;
+  }
+  .code {
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   }
 }
