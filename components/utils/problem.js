@@ -14,7 +14,7 @@ export default {
     if (index < 5) {
       return 'primary'
     } else if (index < 10) {
-      return 'accent'
+      return 'brown'
     } else if (index < 15) {
       return 'secondary'
     } else if (index < 20) {

@@ -13,6 +13,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@iktakahiro/markdown-it-katex": "^3.1.0",
     "@nuxtjs/axios": "^5.3.6",
     "markdown-it": "^10.0.0",
     "markdown-it-mathjax": "^2.0.0",

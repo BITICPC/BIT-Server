@@ -90,7 +90,7 @@ export default {
         light: {
           primary: '#2196f3',
           secondary: '#607d8b',
-          accent: '#795548',
+          accent: null,
           error: '#f44336',
           warning: '#ffc107',
           info: '#3f51b5',
