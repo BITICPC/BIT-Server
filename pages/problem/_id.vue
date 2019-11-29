@@ -66,7 +66,7 @@
                   </h3>
                   <div class="content">
                     <v-skeleton-loader :loading="skeleton" type="list-item-three-line">
-                      {{ problem.legend }}
+                      <div v-katex:auto v-html="problem.legend" class="markdown-body" />
                     </v-skeleton-loader>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
                   </h3>
                   <div class="content">
                     <v-skeleton-loader :loading="skeleton" type="list-item-two-line">
-                      {{ problem.input }}
+                      <div v-katex:auto v-html="problem.input" class="markdown-body" />
                     </v-skeleton-loader>
                   </div>
                 </div>
@@ -86,7 +86,7 @@
                   </h3>
                   <div class="content">
                     <v-skeleton-loader :loading="skeleton" type="list-item-two-line">
-                      {{ problem.output }}
+                      <div v-katex:auto v-html="problem.output" class="markdown-body" />
                     </v-skeleton-loader>
                   </div>
                 </div>
@@ -114,7 +114,7 @@
                             <span>单击复制</span>
                           </v-tooltip>
                         </v-card-subtitle>
-                        <v-card-text>
+                        <v-card-text class="code">
                           {{ sample.input }}
                         </v-card-text>
                       </v-card>
@@ -138,7 +138,7 @@
                             <span>单击复制</span>
                           </v-tooltip>
                         </v-card-subtitle>
-                        <v-card-text>
+                        <v-card-text class="code">
                           {{ sample.output }}
                         </v-card-text>
                       </v-card>
@@ -150,13 +150,50 @@
                     提示
                   </h3>
                   <div class="content">
-                    {{ problem.notes }}
+                    <div v-katex:auto v-html="problem.notes" class="markdown-body" />
                   </div>
                 </div>
               </v-tab-item>
               <v-tab-item value="statistics" />
               <v-tab-item value="discussion" />
             </v-tabs-items>
+          </v-card-text>
+        </v-card>
+
+        <v-card class="mt-3 hidden-md-and-up">
+          <v-skeleton-loader :loading="skeleton" type="list-item-two-line, divider, list-item-three-line">
+            <v-card-text>
+              <b>{{ problem.totalSolvedUsers }} 人解决，</b>{{ problem.totalAttemptedUsers }} 人已尝试。<br>
+              <b>{{ problem.acceptedSubmissions }} 份提交通过，</b>共 {{ problem.totalSubmissions }} 份提交。
+            </v-card-text>
+            <v-divider />
+            <v-card-text>
+              <b>创建：</b>{{ problem.creationTime }}<br>
+              <b>修改：</b>{{ problem.lastUpdateTime }}<br>
+              <b>最后提交：</b>
+              <template v-if="problem.totalSubmissions > 0">
+                {{ problem.lastSubmissionTime }}
+              </template>
+              <template v-else>
+                None
+              </template><br>
+              <b>来源: </b>{{ problem.source }}
+            </v-card-text>
+          </v-skeleton-loader>
+        </v-card>
+        <v-card v-if="problem.tags.length > 0" class="mt-3 hidden-md-and-up">
+          <v-card-subtitle>题目标签</v-card-subtitle>
+          <v-card-text>
+            <v-chip
+              v-for="tag in problem.tags"
+              :key="tag"
+              :color="getTagColor(tag)"
+              class="ma-1"
+              dark
+              small
+            >
+              {{ tag }}
+            </v-chip>
           </v-card-text>
         </v-card>
       </v-col>
@@ -243,6 +280,12 @@ export default {
           this.problem[element] = res.data[element]
         }
       })
+      this.problem.legend = common.md.render(res.data.legend)
+      this.problem.input = common.md.render(res.data.input)
+      this.problem.output = common.md.render(res.data.output)
+      if (res.data.notes) {
+        this.problem.notes = common.md.render(res.data.notes)
+      }
       this.problem.judgeMode = problem.judgeMode[res.data.judgeMode]
       this.problem.creationTime = common.getTimeDifferent(res.data.creationTime)
       this.problem.lastUpdateTime = common.getTimeDifferent(res.data.lastUpdateTime)

@@ -131,8 +131,7 @@ export default {
   mounted () {
     this.loading = true
     api.getPublicProblemList({
-      by: 'Id',
-      limit: 1000
+      by: 'Id'
     }).then((res) => {
       res.data.forEach((item) => {
         this.problemset.push({

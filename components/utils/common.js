@@ -1,6 +1,9 @@
 import moment from 'moment'
 
+const md = require('markdown-it')().use(require('markdown-it-mathjax')())
+
 export default {
+  md,
   getTimeDifferent (lastTime) {
     const dateLast = moment(lastTime)
     const dateNow = moment(new Date())
