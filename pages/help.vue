@@ -15,7 +15,7 @@
               <code>(C++, Clang, 11)</code> 表示 C++ 程序设计语言，使用
               <code>clang</code> 编译器，支持 C++11 相关语言特性。
             </p>
-            <v-data-table :headers="headers" :items="items" hide-default-footer />
+            <v-data-table :headers="headers" :items="items" disable-pagination hide-default-footer />
             <p>
               <b>Java 运行环境提示：</b>您的 Java 源程序必须包含一个名称为
               <code>Main</code> 的公共主类
