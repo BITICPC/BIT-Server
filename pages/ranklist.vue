@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-layout justify-center>
-      <v-flex xs12 md8>
+    <v-row justify="center">
+      <v-col class="pt-0" cols="12" md="8">
         <v-card>
           <v-row>
             <v-col>
@@ -99,8 +99,8 @@
         <div class="text-center pt-2">
           <v-pagination v-model="page.index" :length="page.count" color="purple" />
         </div>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script>

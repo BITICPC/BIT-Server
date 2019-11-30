@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-layout justify-center>
-      <v-flex xs12 md4>
+    <v-row justify="center">
+      <v-col class="pt-0" cols="12" md="4">
         <v-card>
           <v-card-title class="justify-center">
             登录
@@ -44,8 +44,8 @@
             </v-form>
           </v-card-text>
         </v-card>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script>
