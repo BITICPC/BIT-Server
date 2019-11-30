@@ -27,11 +27,9 @@
           <v-data-table
             :headers="headers"
             :items="problemset"
-            :page.sync="page.index"
-            :items-per-page="page.itemsPerPage"
+            :options.sync="options"
             :search="search"
             :loading="loading"
-            @page-count="page.count = $event"
             loading-text="正在加载数据，请稍等..."
             hide-default-footer
           >
@@ -119,35 +117,66 @@ export default {
           value: 'problem.totalAccepted'
         }
       ],
+      options: {},
       page: {
         index: 1,
-        count: 0,
+        count: -1,
         itemsPerPage: 10
       },
       search: '',
       loading: false
     }
   },
-  mounted () {
-    this.loading = true
-    api.getPublicProblemList({
-      by: 'Id'
-    }).then((res) => {
-      res.data.forEach((item) => {
-        this.problemset.push({
-          problem: {
-            id: item.archiveId,
-            name: item.title,
-            tags: item.tags,
-            difficulty: item.difficulty,
-            totalAccepted: item.acceptedSubmissions
-          }
-        })
-      })
-    }).finally(() => { this.loading = false })
+  watch: {
+    'page.index' () {
+      this.getProblemlist()
+    },
+    options: {
+      handler () {
+        this.getProblemlist()
+      }
+    }
   },
   methods: {
-    getTagColor: problem.getTagColor
+    getTagColor: problem.getTagColor,
+    getSortBy () {
+      if (this.options.sortBy.length > 0) {
+        if (this.options.sortBy[0] === 'problem.difficulty') {
+          return 'Difficulty'
+        } else if (this.options.sortBy[0] === 'problem.totalAccepted') {
+          return 'TotalSolvedUsers'
+        }
+      }
+      return 'Id'
+    },
+    getSortDesc () {
+      return this.options.sortDesc.length > 0 ? this.options.sortDesc[0] : false
+    },
+    getProblemlist () {
+      this.loading = true
+      this.problemset = []
+      api.getPublicProblemList({
+        by: this.getSortBy(),
+        descend: this.getSortDesc(),
+        page: this.page.index - 1,
+        itemsPerPage: this.page.itemsPerPage
+      }).then((res) => {
+        res.data.forEach((item) => {
+          this.problemset.push({
+            problem: {
+              id: item.archiveId,
+              name: item.title,
+              tags: item.tags,
+              difficulty: item.difficulty,
+              totalAccepted: item.acceptedSubmissions
+            }
+          })
+        })
+        if (this.page.count === -1) {
+          this.page.count = Math.ceil(res.headers['x-bitwaves-count'] / this.page.itemsPerPage)
+        }
+      }).finally(() => { this.loading = false })
+    }
   }
 }
 </script>
