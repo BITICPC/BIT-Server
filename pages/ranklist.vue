@@ -155,7 +155,7 @@ export default {
       return 'TotalProblemsAccepted'
     },
     getSortDesc () {
-      return this.options.sortDesc.length > 0 ? this.options.sortDesc[0] : false
+      return this.options.sortDesc.length > 0 ? this.options.sortDesc[0] : true
     },
     getRanklist () {
       this.loading = true
