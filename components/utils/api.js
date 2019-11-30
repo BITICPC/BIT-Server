@@ -48,7 +48,7 @@ export default {
     })
   },
   getRanklist (params) {
-    return ajax('/users/ranklist', 'get', {
+    return ajax('/users', 'get', {
       params
     })
   },
