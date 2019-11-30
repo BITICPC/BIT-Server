@@ -110,7 +110,9 @@ if (oj == null || !oj.equals(&quot;TRUE&quot;)) {
               <b>问题一：我如何读取输入，我又该如何输出计算结果？能否以解决经典的 Two Sum 问题为例给出样例代码？</b>
             </p>
             <p>您的程序应总是从标准输入流中读取输入，向标准输出流中写入输出结果。您的程序向标准错误流中写入的任何结果均会被评测系统丢弃，且不会被记录。</p>
-            <p v-katex:auto>Two Sum 问题即为读入两个正整数（均不超过 \(10^9\)），输出它们的加和。下面给出以不同语言实现的解决该问题的示例代码。</p>
+            <p v-katex:auto>
+              Two Sum 问题即为读入两个正整数（均不超过 \(10^9\)），输出它们的加和。下面给出以不同语言实现的解决该问题的示例代码。
+            </p>
             <p>C 语言：</p>
             <pre><code class="language-c" lang="c">#include &lt;stdio.h&gt;
 int main() {
@@ -119,8 +121,8 @@ int main() {
     printf(&quot;%d\n&quot;, a + b);
     return 0;
 }</code></pre>
-    <p>C++：</p>
-    <pre><code class="language-cpp" lang="cpp">#include &lt;iostream&gt;
+            <p>C++：</p>
+            <pre><code class="language-cpp" lang="cpp">#include &lt;iostream&gt;
 int main() {
     int a, b;
     std::cin &gt;&gt; a &gt;&gt; b;
