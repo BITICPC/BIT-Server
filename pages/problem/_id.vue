@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="12" md="9">
+      <v-col class="pt-0" cols="12" md="9">
         <v-card>
           <v-row v-show="skeleton" justify="center" no-gutters>
             <v-col md="3" cols="7">
@@ -95,7 +95,7 @@
                     样例
                   </h3>
                   <v-row v-for="(sample, index) in problem.samples" :key="index">
-                    <v-col>
+                    <v-col class="pt-0" cols="12" md="6">
                       <v-card outlined>
                         <v-card-subtitle>
                           样例 {{ index + 1 }} 输入
@@ -119,7 +119,7 @@
                         </v-card-text>
                       </v-card>
                     </v-col>
-                    <v-col>
+                    <v-col class="pt-0" cols="12" md="6">
                       <v-card outlined>
                         <v-card-subtitle>
                           样例 {{ index + 1 }} 输出
@@ -197,7 +197,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="3" md="3" class="pl-0 hidden-sm-and-down">
+      <v-col cols="3" md="3" class="pt-0 pl-0 hidden-sm-and-down">
         <v-card>
           <v-skeleton-loader :loading="skeleton" type="list-item-two-line, divider, list-item-three-line">
             <v-card-text>
