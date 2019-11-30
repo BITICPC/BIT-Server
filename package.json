@@ -1,7 +1,7 @@
 {
   "name": "BitServer",
   "version": "1.0.0",
-  "description": "BITOJ Frontend Application",
+  "description": "BIT Online Judge Frontend Application",
   "author": "Shuibin Long",
   "private": true,
   "scripts": {
