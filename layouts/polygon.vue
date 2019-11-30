@@ -24,7 +24,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import Navbar from '@/components/common/user-navbar.vue'
+import Navbar from '@/components/common/polygon-navbar.vue'
 import Footer from '@/components/common/footer.vue'
 
 export default {
