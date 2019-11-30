@@ -3,27 +3,12 @@
     <v-row justify="center">
       <v-col class="pt-0" cols="12" md="8">
         <v-card>
-          <v-row>
-            <v-col>
-              <v-card-title>
-                用户排名
-              </v-card-title>
-              <v-card-subtitle>
-                User ranklist
-              </v-card-subtitle>
-            </v-col>
-            <v-col>
-              <v-text-field
-                v-model="search"
-                color="purple"
-                label="请输入关键字"
-                append-icon="mdi-magnify"
-                class="mr-4"
-                single-line
-                hide-details
-              />
-            </v-col>
-          </v-row>
+          <v-card-title>
+            用户排名
+          </v-card-title>
+          <v-card-subtitle>
+            User Ranklist
+          </v-card-subtitle>
           <v-data-table
             :headers="headers"
             :items="ranklist"
@@ -31,8 +16,25 @@
             :search="search"
             :loading="loading"
             loading-text="正在加载数据，请稍等..."
+            disable-filtering
             hide-default-footer
           >
+            <!-- <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title>用户排名</v-toolbar-title>
+                <v-divider class="mx-4" inset vertical />
+                <v-spacer />
+                <v-text-field
+                  v-model="search"
+                  color="purple"
+                  label="请输入关键字"
+                  append-icon="mdi-magnify"
+                  single-line
+                  hide-details
+                  @click:append="getRanklist(search)"
+                />
+              </v-toolbar>
+            </template> -->
             <template v-slot:item="user">
               <tr :align="user.headers[0].align" class="hidden-sm-and-down">
                 <td>{{ page.itemsPerPage * (page.index - 1) + user.index + 1 }}</td>
@@ -129,7 +131,7 @@ export default {
           text: '个性签名',
           align: 'center',
           sortable: false,
-          filterable: true,
+          filterable: false,
           value: 'signature'
         },
         {
@@ -177,7 +179,7 @@ export default {
     getSortDesc () {
       return this.options.sortDesc.length > 0 ? this.options.sortDesc[0] : true
     },
-    getRanklist () {
+    getRanklist (username) {
       this.loading = true
       this.ranklist = []
       api.getRanklist({
@@ -187,12 +189,14 @@ export default {
         itemsPerPage: this.page.itemsPerPage
       }).then((res) => {
         res.data.forEach((user, index) => {
-          this.ranklist.push({
-            username: user.username,
-            signature: '这个家伙很懒，什么都没有写',
-            accepted: user.totalProblemsAccepted,
-            attempted: user.totalProblemsAttempted
-          })
+          if (username === undefined || user.username.includes(username)) {
+            this.ranklist.push({
+              username: user.username,
+              signature: '这个家伙很懒，什么都没有写',
+              accepted: user.totalProblemsAccepted,
+              attempted: user.totalProblemsAttempted
+            })
+          }
         })
         if (this.page.count === -1) {
           this.page.count = Math.ceil(res.headers['x-bitwaves-count'] / this.page.itemsPerPage)

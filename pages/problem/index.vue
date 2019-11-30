@@ -3,27 +3,12 @@
     <v-row justify="center">
       <v-col class="pt-0" cols="12" md="10">
         <v-card>
-          <v-row>
-            <v-col>
-              <v-card-title>
-                题目列表
-              </v-card-title>
-              <v-card-subtitle>
-                Problem list
-              </v-card-subtitle>
-            </v-col>
-            <v-col>
-              <v-text-field
-                v-model="search"
-                color="purple"
-                label="请输入关键字"
-                append-icon="mdi-magnify"
-                class="mr-4"
-                single-line
-                hide-details
-              />
-            </v-col>
-          </v-row>
+          <v-card-title>
+            题目列表
+          </v-card-title>
+          <v-card-subtitle>
+            Problem list
+          </v-card-subtitle>
           <v-data-table
             :headers="headers"
             :items="problemset"
@@ -31,6 +16,7 @@
             :search="search"
             :loading="loading"
             loading-text="正在加载数据，请稍等..."
+            disable-filtering
             hide-default-footer
           >
             <template v-slot:item.problem.name="item">
