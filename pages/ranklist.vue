@@ -44,32 +44,52 @@
               <tr class="hidden-sm-and-up">
                 <td class="v-data-table__mobile-row">
                   <div class="v-data-table__mobile-row__wrapper">
-                    <div class="v-data-table__mobile-row__header">{{ user.headers[0].text }}</div>
-                    <div class="v-data-table__mobile-row__cell">{{ page.itemsPerPage * (page.index - 1) + user.index + 1 }}</div>
+                    <div class="v-data-table__mobile-row__header">
+                      {{ user.headers[0].text }}
+                    </div>
+                    <div class="v-data-table__mobile-row__cell">
+                      {{ page.itemsPerPage * (page.index - 1) + user.index + 1 }}
+                    </div>
                   </div>
                 </td>
                 <td class="v-data-table__mobile-row">
                   <div class="v-data-table__mobile-row__wrapper">
-                    <div class="v-data-table__mobile-row__header">{{ user.headers[1].text }}</div>
-                    <div class="v-data-table__mobile-row__cell">{{ user.item.username }}</div>
+                    <div class="v-data-table__mobile-row__header">
+                      {{ user.headers[1].text }}
+                    </div>
+                    <div class="v-data-table__mobile-row__cell">
+                      {{ user.item.username }}
+                    </div>
                   </div>
                 </td>
                 <td class="v-data-table__mobile-row">
                   <div class="v-data-table__mobile-row__wrapper">
-                    <div class="v-data-table__mobile-row__header">{{ user.headers[2].text }}</div>
-                    <div class="v-data-table__mobile-row__cell">{{ user.item.signature }}</div>
+                    <div class="v-data-table__mobile-row__header">
+                      {{ user.headers[2].text }}
+                    </div>
+                    <div class="v-data-table__mobile-row__cell">
+                      {{ user.item.signature }}
+                    </div>
                   </div>
                 </td>
                 <td class="v-data-table__mobile-row">
                   <div class="v-data-table__mobile-row__wrapper">
-                    <div class="v-data-table__mobile-row__header">{{ user.headers[3].text }}</div>
-                    <div class="v-data-table__mobile-row__cell">{{ user.item.accepted }}</div>
+                    <div class="v-data-table__mobile-row__header">
+                      {{ user.headers[3].text }}
+                    </div>
+                    <div class="v-data-table__mobile-row__cell">
+                      {{ user.item.accepted }}
+                    </div>
                   </div>
                 </td>
                 <td class="v-data-table__mobile-row">
                   <div class="v-data-table__mobile-row__wrapper">
-                    <div class="v-data-table__mobile-row__header">{{ user.headers[4].text }}</div>
-                    <div class="v-data-table__mobile-row__cell">{{ user.item.attempted }}</div>
+                    <div class="v-data-table__mobile-row__header">
+                      {{ user.headers[4].text }}
+                    </div>
+                    <div class="v-data-table__mobile-row__cell">
+                      {{ user.item.attempted }}
+                    </div>
                   </div>
                 </td>
               </tr>
