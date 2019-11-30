@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col class="pt-0" cols="12">
+      <v-col class="py-0" cols="12">
         <v-card>
           <v-card-text class="markdown-body">
             <h2 class="purple--text">

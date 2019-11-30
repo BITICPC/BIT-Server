@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col class="pt-0" cols="12" md="9">
+      <v-col class="py-0" cols="12" md="9">
         <v-card>
           <v-row v-show="skeleton" justify="center" no-gutters>
             <v-col md="3" cols="7">

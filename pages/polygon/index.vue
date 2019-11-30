@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col class="pt-0" cols="12" md="10">
+      <v-col class="py-0" cols="12" md="10">
         <v-card>
           <v-card-title>Welcome to BIT Online Judge Polygon!</v-card-title>
           <v-card-subtitle>BIT Online Judge Polygon is a under-developing system inspired by <a href="https://polygon.codeforces.com/">Polygon of Codeforces</a>. It also offers an answer to what Polygon is.</v-card-subtitle>
