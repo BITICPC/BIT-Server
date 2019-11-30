@@ -79,7 +79,7 @@
       </div>
     </v-app-bar>
 
-    <v-navigation-drawer id="drawer" v-model="drawer" temporary app width="200">
+    <v-navigation-drawer id="drawer" v-model="drawer" width="200" temporary app>
       <template v-if="isLogin" v-slot:prepend>
         <v-list-item :to="`/user/${profile.username}/setting`" two-line>
           <v-list-item-avatar>
@@ -97,7 +97,7 @@
         <v-divider />
       </template>
       <v-list dense nav>
-        <v-list-item v-for="(btn, idx) in buttons" :key="idx" :to="btn.link">
+        <v-list-item v-for="(btn, idx) in buttons" :key="idx" :to="btn.link" exact>
           <v-list-item-icon>
             <v-icon small>
               fas fa-{{ btn.icon }}
