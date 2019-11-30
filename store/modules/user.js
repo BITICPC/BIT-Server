@@ -9,6 +9,8 @@ const state = () => ({
 const getters = {
   profile: state => state.profile,
 
+  jwt: state => state.jwt,
+
   isLogin: (state, getters) => {
     return !!getters.profile.username
   },
