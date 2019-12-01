@@ -30,7 +30,7 @@
                 <v-dialog v-model="dialog" max-width="400px">
                   <template v-slot:activator="{ on }">
                     <v-btn v-on="on" color="primary" dark>
-                      <v-icon class="mr-1">
+                      <v-icon left>
                         mdi-plus
                       </v-icon>
                       New Problem

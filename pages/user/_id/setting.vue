@@ -70,7 +70,7 @@
                     class="mb-2"
                   />
                   <v-btn :loading="loading" color="primary" type="submit" block>
-                    <v-icon class="mr-2">
+                    <v-icon left>
                       mdi-cloud-upload
                     </v-icon>
                     保存
@@ -124,7 +124,7 @@
                     required
                   />
                   <v-btn :loading="loading" :color="errorCode !== 200 ? 'error' : 'primary'" type="submit" block>
-                    <v-icon class="mr-2">
+                    <v-icon left>
                       mdi-cloud-upload
                     </v-icon>
                     保存

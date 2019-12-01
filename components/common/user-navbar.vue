@@ -8,7 +8,7 @@
       </v-toolbar-title>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn v-for="(btn, idx) in buttons" :key="idx" :to="btn.link" text>
-          <v-icon class="ma-1" small>
+          <v-icon left small>
             fas fa-{{ btn.icon }}
           </v-icon>
           <span class="subtitle-1">{{ btn.title }}</span>
@@ -20,13 +20,13 @@
       <div class="hidden-sm-and-down">
         <template v-if="!isLogin">
           <v-btn class="ma-2 subtitle-1" color="success" to="/login">
-            <v-icon class="mr-1" small>
+            <v-icon left small>
               fas fa-sign-in-alt
             </v-icon>
             登录
           </v-btn>
           <v-btn class="ma-2 subtitle-1" color="primary" to="/join">
-            <v-icon class="mr-1" small>
+            <v-icon left small>
               fas fa-user-plus
             </v-icon>
             注册
@@ -36,11 +36,11 @@
           <v-menu offset-y>
             <template v-slot:activator="{ on }">
               <v-btn v-on="on" text>
-                <v-icon class="mr-1" small>
+                <v-icon left small>
                   fas fa-user
                 </v-icon>
                 {{ profile.username }}
-                <v-icon class="ml-2" small>
+                <v-icon right small>
                   fas fa-caret-down
                 </v-icon>
               </v-btn>
@@ -113,7 +113,7 @@
       <template v-if="!isLogin" v-slot:append>
         <div class="pa-1">
           <v-btn color="success" to="/login" block>
-            <v-icon class="mr-1" small>
+            <v-icon left small>
               fas fa-sign-in-alt
             </v-icon>
             登录
@@ -121,7 +121,7 @@
         </div>
         <div class="pa-1">
           <v-btn color="primary" to="/join" block>
-            <v-icon class="mr-1" small>
+            <v-icon left small>
               fas fa-user-plus
             </v-icon>
             注册
@@ -131,7 +131,7 @@
       <template v-else v-slot:append>
         <div class="pa-1">
           <v-btn color="secondary" to="/logout" block>
-            <v-icon class="mr-1" small>
+            <v-icon left small>
               fas fa-sign-out-alt fa-fw
             </v-icon>
             注销

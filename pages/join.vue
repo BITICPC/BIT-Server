@@ -62,7 +62,7 @@
                 required
               />
               <v-btn :loading="loading" :color="errorCode !== 200 ? 'error' : 'primary'" type="submit" block>
-                <v-icon class="mr-2" small>
+                <v-icon left small>
                   fas fa-registered
                 </v-icon>
                 注册

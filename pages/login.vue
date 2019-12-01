@@ -38,7 +38,7 @@
               />
               <!-- <v-checkbox color='purple' label='保持登陆状态' /> -->
               <v-btn :loading="loading" :color="errorCode !== 200 ? 'error' : 'success'" type="submit" block>
-                <v-icon class="mr-2" small>
+                <v-icon left small>
                   fas fa-sign-in-alt
                 </v-icon>
                 登录
