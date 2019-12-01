@@ -15,6 +15,7 @@
               <v-text-field
                 v-model="formRegister.username"
                 :rules="usernameRules"
+                :loading="loading"
                 :error-messages="getErrorByAttributes('username')"
                 color="purple"
                 prepend-icon="mdi-account"
@@ -24,6 +25,7 @@
               <v-text-field
                 v-model="formRegister.password"
                 :rules="passwordRules"
+                :loading="loading"
                 type="password"
                 color="purple"
                 prepend-icon="mdi-lock"
@@ -33,6 +35,7 @@
               <v-text-field
                 v-model="formRegister.confirm"
                 :rules="passwordRules"
+                :loading="loading"
                 :error-messages="getErrorByAttributes('confirm')"
                 type="password"
                 color="purple"
@@ -43,6 +46,7 @@
               <v-text-field
                 v-model="formRegister.phone"
                 :rules="phoneRules"
+                :loading="loading"
                 type="number"
                 color="purple"
                 prepend-icon="mdi-phone"

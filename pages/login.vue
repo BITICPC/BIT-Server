@@ -15,6 +15,7 @@
               <v-text-field
                 v-model="formLogin.username"
                 :rules="usernameRules"
+                :loading="loading"
                 :error-messages="getErrorByAttributes('username')"
                 color="purple"
                 prepend-icon="mdi-account"
@@ -25,6 +26,7 @@
               <v-text-field
                 v-model="formLogin.password"
                 :rules="passwordRules"
+                :loading="loading"
                 :error-messages="getErrorByAttributes('password')"
                 type="password"
                 color="purple"

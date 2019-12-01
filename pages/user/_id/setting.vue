@@ -21,6 +21,7 @@
                   <v-text-field
                     v-model="formProfile.nickname"
                     :rules="nicknameRules"
+                    :loading="loading"
                     color="purple"
                     prepend-icon="mdi-account"
                     label="昵称"
@@ -28,6 +29,7 @@
                   <v-text-field
                     v-model="formProfile.phone"
                     :rules="phoneRules"
+                    :loading="loading"
                     color="purple"
                     prepend-icon="mdi-phone"
                     label="手机号"
@@ -35,6 +37,7 @@
                   <v-text-field
                     v-model="formProfile.school"
                     :rules="schoolRules"
+                    :loading="loading"
                     color="purple"
                     prepend-icon="mdi-school"
                     label="学校名称"
@@ -42,6 +45,7 @@
                   <v-text-field
                     v-model="formProfile.studentId"
                     :rules="studentIdRules"
+                    :loading="loading"
                     type="number"
                     color="purple"
                     prepend-icon="mdi-id-card"
@@ -49,6 +53,7 @@
                   />
                   <v-text-field
                     v-model="formProfile.blogUrl"
+                    :loading="loading"
                     type="url"
                     color="purple"
                     prepend-icon="mdi-rss"
@@ -57,6 +62,7 @@
                   <v-text-field
                     v-model="formProfile.email"
                     :rules="emailRules"
+                    :loading="loading"
                     type="email"
                     color="purple"
                     prepend-icon="mdi-email"
@@ -76,6 +82,7 @@
                   <v-text-field
                     v-model="formAccount.username"
                     :rules="usernameRules"
+                    :loading="loading"
                     color="purple"
                     prepend-icon="mdi-account"
                     label="用户名"
@@ -84,6 +91,7 @@
                   <v-text-field
                     v-model="formAccount.oldPassword"
                     :rules="passwordRules"
+                    :loading="loading"
                     :error-messages="getErrorByAttributes('oldPassword')"
                     type="password"
                     color="purple"
@@ -95,6 +103,7 @@
                   <v-text-field
                     v-model="formAccount.password"
                     :rules="passwordRules"
+                    :loading="loading"
                     :error-messages="getErrorByAttributes('password')"
                     type="password"
                     color="purple"
@@ -105,6 +114,7 @@
                   <v-text-field
                     v-model="formAccount.confirm"
                     :rules="passwordRules"
+                    :loading="loading"
                     :error-messages="getErrorByAttributes('confirm')"
                     type="password"
                     color="purple"
