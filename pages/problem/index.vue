@@ -133,7 +133,7 @@ export default {
           return 'TotalSolvedUsers'
         }
       }
-      return 'Id'
+      return 'ArchiveId'
     },
     getSortDesc () {
       return this.options.sortDesc.length > 0 ? this.options.sortDesc[0] : false
