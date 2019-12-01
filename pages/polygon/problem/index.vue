@@ -219,14 +219,16 @@ export default {
         }, this.jwt).then(() => {
           this.newToast({
             text: 'A new problem has been created successfully.',
-            color: 'success'
+            color: 'success',
+            icon: 'mdi-check-circle'
           })
           this.page.count = -1
           this.getProblemset()
         }).catch(() => {
           this.newToast({
             text: 'Failed to create a new problem.',
-            color: 'error'
+            color: 'error',
+            icon: 'mdi-alert'
           })
         }).finally(() => { this.close() })
       }

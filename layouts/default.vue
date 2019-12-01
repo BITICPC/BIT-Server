@@ -14,7 +14,12 @@
       :timeout="3000"
       @input="closeToast"
     >
-      {{ snackbar.text }}
+      <span>
+        <v-icon dark left>
+          {{ snackbar.icon }}
+        </v-icon>
+        {{ snackbar.text }}
+      </span>
       <v-btn @click="closeToast" dark text>
         <v-icon>mdi-close</v-icon>
       </v-btn>

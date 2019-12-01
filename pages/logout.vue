@@ -9,7 +9,8 @@ export default {
     this.$store.dispatch('clearProfile')
     this.newToast({
       text: '注销成功！',
-      color: 'blue'
+      color: 'blue',
+      icon: 'mdi-information'
     })
     this.$router.go(-1)
   },

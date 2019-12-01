@@ -88,7 +88,8 @@ export default {
           this.getProfile(res.data.username)
           this.newToast({
             text: '登录成功！',
-            color: 'success'
+            color: 'success',
+            icon: 'mdi-check-circle'
           })
           this.$router.go(-1)
         }).catch((err) => {

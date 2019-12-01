@@ -299,13 +299,15 @@ export default {
     onCopy (event) {
       this.newToast({
         text: '复制成功',
-        color: 'success'
+        color: 'success',
+        icon: 'mdi-check-circle'
       })
     },
     onCopyError (event) {
       this.newToast({
         text: '复制失败',
-        color: 'error'
+        color: 'error',
+        icon: 'mdi-alert'
       })
     }
   }

@@ -3,14 +3,16 @@ import types from '../types'
 const state = () => ({
   text: '操作成功',
   display: false,
-  color: 'success'
+  color: 'success',
+  icon: 'mdi-check-circle'
 })
 
 const mutations = {
-  [types.NEW_TOAST] (state, { text, color }) {
+  [types.NEW_TOAST] (state, { text, color, icon }) {
     state.text = text
     state.display = true
     state.color = color
+    state.icon = icon
   },
   [types.CLOSE_TOAST] (state) {
     state.display = false

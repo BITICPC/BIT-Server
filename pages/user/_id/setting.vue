@@ -213,7 +213,8 @@ export default {
         this.setProfile(data).then(() => {
           this.newToast({
             text: '个人资料保存成功！',
-            color: 'success'
+            color: 'success',
+            icon: 'mdi-check-circle'
           })
         }).finally(() => { this.loading = false })
       }
@@ -225,7 +226,8 @@ export default {
         this.changePassword(this.formAccount).then(() => {
           this.newToast({
             text: '密码修改成功！',
-            color: 'success'
+            color: 'success',
+            icon: 'mdi-check-circle'
           })
           this.formAccount.oldPassword = this.formAccount.password = this.formAccount.confirm = ''
           this.$refs.account.resetValidation()
