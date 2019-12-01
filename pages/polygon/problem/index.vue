@@ -29,7 +29,7 @@
                 <v-spacer />
                 <v-dialog v-model="dialog" max-width="400px">
                   <template v-slot:activator="{ on }">
-                    <v-btn v-on="on" color="primary" dark>
+                    <v-btn color="primary" dark v-on="on">
                       <v-icon left>
                         mdi-plus
                       </v-icon>
@@ -51,16 +51,16 @@
                     <v-card-actions>
                       <v-spacer />
                       <v-btn
-                        @click="close"
                         color="grey darken-1"
                         text
+                        @click="close"
                       >
                         Cancel
                       </v-btn>
                       <v-btn
-                        @click="createNewProblem"
                         color="success darken-1"
                         text
+                        @click="createNewProblem"
                       >
                         Submit
                       </v-btn>
@@ -72,7 +72,7 @@
             <template v-slot:item.problem.working="item">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" :to="`/polygon/problem/${item.value}`" icon>
+                  <v-btn :to="`/polygon/problem/${item.value}`" icon v-on="on">
                     <v-icon color="success">
                       mdi-square-edit-outline
                     </v-icon>
@@ -82,7 +82,7 @@
               </v-tooltip>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" icon>
+                  <v-btn icon v-on="on">
                     <v-icon color="info">
                       mdi-chart-bar
                     </v-icon>
@@ -92,7 +92,7 @@
               </v-tooltip>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" icon>
+                  <v-btn icon v-on="on">
                     <v-icon color="error">
                       mdi-delete
                     </v-icon>

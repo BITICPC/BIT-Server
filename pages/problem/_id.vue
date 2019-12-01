@@ -66,7 +66,7 @@
                   </h3>
                   <div class="content">
                     <v-skeleton-loader :loading="skeleton" type="list-item-three-line">
-                      <div v-katex:auto v-html="problem.legend" class="markdown-body" />
+                      <div v-katex:auto class="markdown-body" v-html="problem.legend" />
                     </v-skeleton-loader>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
                   </h3>
                   <div class="content">
                     <v-skeleton-loader :loading="skeleton" type="list-item-two-line">
-                      <div v-katex:auto v-html="problem.input" class="markdown-body" />
+                      <div v-katex:auto class="markdown-body" v-html="problem.input" />
                     </v-skeleton-loader>
                   </div>
                 </div>
@@ -86,11 +86,11 @@
                   </h3>
                   <div class="content">
                     <v-skeleton-loader :loading="skeleton" type="list-item-two-line">
-                      <div v-katex:auto v-html="problem.output" class="markdown-body" />
+                      <div v-katex:auto class="markdown-body" v-html="problem.output" />
                     </v-skeleton-loader>
                   </div>
                 </div>
-                <div id="statement" v-if="problem.samples.length > 0">
+                <div v-if="problem.samples.length > 0" id="statement">
                   <h3 class="title purple--text">
                     样例
                   </h3>
@@ -102,11 +102,11 @@
                           <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
                               <v-icon
-                                v-on="on"
                                 v-clipboard:copy="sample.input"
                                 v-clipboard:success="onCopy"
                                 v-clipboard:error="onCopyError"
                                 small
+                                v-on="on"
                               >
                                 mdi-clipboard-text-outline
                               </v-icon>
@@ -126,11 +126,11 @@
                           <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
                               <v-icon
-                                v-on="on"
                                 v-clipboard:copy="sample.output"
                                 v-clipboard:success="onCopy"
                                 v-clipboard:error="onCopyError"
                                 small
+                                v-on="on"
                               >
                                 mdi-clipboard-text-outline
                               </v-icon>
@@ -145,12 +145,12 @@
                     </v-col>
                   </v-row>
                 </div>
-                <div id="statement" v-if="!!problem.notes">
+                <div v-if="!!problem.notes" id="statement">
                   <h3 class="title purple--text">
                     提示
                   </h3>
                   <div class="content">
-                    <div v-katex:auto v-html="problem.notes" class="markdown-body" />
+                    <div v-katex:auto class="markdown-body" v-html="problem.notes" />
                   </div>
                 </div>
               </v-tab-item>

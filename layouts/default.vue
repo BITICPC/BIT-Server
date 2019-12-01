@@ -20,7 +20,7 @@
         </v-icon>
         {{ snackbar.text }}
       </span>
-      <v-btn @click="closeToast" dark text>
+      <v-btn dark text @click="closeToast">
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-snackbar>

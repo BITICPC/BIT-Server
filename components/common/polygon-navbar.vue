@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app-bar :fixed="true" color="purple" app dark>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="hidden-md-and-up" />
+      <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer" />
       <img src="~/static/BIT.png" style="width: 35px;">
       <v-toolbar-title class="ma-3">
         BIT Online Judge
@@ -35,7 +35,7 @@
         <template v-else>
           <v-menu offset-y>
             <template v-slot:activator="{ on }">
-              <v-btn v-on="on" text>
+              <v-btn text v-on="on">
                 <v-icon left small>
                   fas fa-user
                 </v-icon>
@@ -49,7 +49,7 @@
               <v-subheader>{{ profile.isAdmin ? 'Admin' : 'Regular User' }}</v-subheader>
               <template v-for="(item, index) in items">
                 <template v-if="index !== 1">
-                  <v-list-item :to="item.link" :key="index">
+                  <v-list-item :key="index" :to="item.link">
                     <v-list-item-icon class="mr-1">
                       <v-icon small>
                         fas fa-{{ item.icon }}
@@ -61,7 +61,7 @@
                   </v-list-item>
                 </template>
                 <template v-else>
-                  <v-list-item :to="`/user/${profile.username}/setting`" :key="index">
+                  <v-list-item :key="index" :to="`/user/${profile.username}/setting`">
                     <v-list-item-icon class="mr-1">
                       <v-icon small>
                         fas fa-{{ item.icon }}
