@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-layout justify-center>
-      <v-flex xs12 md4>
+    <v-row justify="center">
+      <v-col class="py-0" cols="12" md="4">
         <v-card>
           <v-tabs v-model="tabs" color="purple" centered icons-and-text>
             <v-tab href="#profile">
@@ -125,8 +125,8 @@
             </v-tabs-items>
           </v-card-text>
         </v-card>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script>
