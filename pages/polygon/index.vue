@@ -6,7 +6,7 @@
           <v-card-title>Welcome to BIT Online Judge Polygon!</v-card-title>
           <v-card-subtitle>BIT Online Judge Polygon is a under-developing system inspired by <a href="https://polygon.codeforces.com/">Polygon of Codeforces</a>. It also offers an answer to what Polygon is.</v-card-subtitle>
           <v-card-text>
-            <v-alert color="purple" prominent outlined>
+            <v-alert color="info" prominent outlined>
               <div class="title">
                 Mission of Polygon
               </div>

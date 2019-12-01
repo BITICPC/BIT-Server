@@ -27,7 +27,7 @@
                   hide-details
                 /> -->
                 <v-spacer />
-                <v-dialog v-model="dialog">
+                <v-dialog v-model="dialog" max-width="400px">
                   <template v-slot:activator="{ on }">
                     <v-btn v-on="on" color="primary" dark>
                       <v-icon class="mr-1">
@@ -36,6 +36,36 @@
                       New Problem
                     </v-btn>
                   </template>
+                  <v-card>
+                    <v-card-title>Create Problem Form</v-card-title>
+                    <v-card-text>
+                      <v-form ref="form">
+                        <v-text-field
+                          v-model="inputTitle"
+                          :rules="nameRules"
+                          color="purple"
+                          label="Problem Name"
+                        />
+                      </v-form>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer />
+                      <v-btn
+                        @click="close"
+                        color="grey darken-1"
+                        text
+                      >
+                        Cancel
+                      </v-btn>
+                      <v-btn
+                        @click="createNewProblem"
+                        color="success darken-1"
+                        text
+                      >
+                        Submit
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
                 </v-dialog>
               </v-toolbar>
             </template>
@@ -81,8 +111,9 @@
   </v-container>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import api from '@/components/utils/api'
+import problem from '@/components/utils/problem'
 
 export default {
   layout: 'polygon',
@@ -91,7 +122,7 @@ export default {
       problemset: [],
       headers: [
         {
-          text: '#',
+          text: 'Archive ID',
           align: 'center',
           filterable: false,
           value: 'problem.id'
@@ -134,7 +165,9 @@ export default {
       },
       search: '',
       loading: false,
-      dialog: false
+      dialog: false,
+      inputTitle: '',
+      nameRules: problem.nameRules
     }
   },
   computed: {
@@ -149,6 +182,7 @@ export default {
     this.getProblemset()
   },
   methods: {
+    ...mapActions(['newToast']),
     getProblemset () {
       this.loading = true
       this.problemset = []
@@ -172,6 +206,30 @@ export default {
           this.page.count = Math.ceil(res.headers['x-bitwaves-count'] / this.page.itemsPerPage)
         }
       }).finally(() => { this.loading = false })
+    },
+    close () {
+      this.dialog = false
+      this.inputTitle = ''
+      this.$refs.form.resetValidation()
+    },
+    createNewProblem () {
+      if (this.$refs.form.validate()) {
+        api.createProblem({
+          title: this.inputTitle
+        }, this.jwt).then(() => {
+          this.newToast({
+            text: 'A new problem has been created successfully.',
+            color: 'success'
+          })
+          this.page.count = -1
+          this.getProblemset()
+        }).catch(() => {
+          this.newToast({
+            text: 'Failed to create a new problem.',
+            color: 'error'
+          })
+        }).finally(() => { this.close() })
+      }
     }
   }
 }

@@ -6,9 +6,15 @@ const judgeMode = {
   'Interactive': '交互模式'
 }
 
+const nameRules = [
+  v => !!v || '题目名称不能为空',
+  v => (v && v.length >= 1 && v.length <= 20) || '题目名称必须小于21个字符'
+]
+
 export default {
   tags,
   judgeMode,
+  nameRules,
   getTagColor (tag) {
     const index = tags.indexOf(tag)
     if (index < 5) {
