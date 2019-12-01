@@ -7,7 +7,7 @@
         BIT Online Judge
       </v-toolbar-title>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn v-for="(btn, idx) in buttons" :key="idx" :to="btn.link" exact text>
+        <v-btn v-for="(btn, idx) in buttons" :key="idx" :to="btn.link" :exact="btn.title == 'Home'" text>
           <v-icon left small>
             fas fa-{{ btn.icon }}
           </v-icon>
@@ -97,7 +97,7 @@
         <v-divider />
       </template>
       <v-list dense nav>
-        <v-list-item v-for="(btn, idx) in buttons" :key="idx" :to="btn.link" exact>
+        <v-list-item v-for="(btn, idx) in buttons" :key="idx" :to="btn.link" :exact="btn.title == 'Home'">
           <v-list-item-icon>
             <v-icon small>
               fas fa-{{ btn.icon }}
@@ -161,7 +161,7 @@ export default {
         },
         {
           title: 'Contest',
-          icon: 'book-open',
+          icon: 'trophy',
           link: '/polygon/contest'
         }
       ],
