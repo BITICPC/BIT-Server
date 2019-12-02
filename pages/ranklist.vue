@@ -1,137 +1,208 @@
 <template>
-  <b-container>
-    <br />
-    <b-input-group style="width: 20em;">
-      <b-input-group-prepend>
-        <span class="input-group-text">
-          <i class="fas fa-search"></i>
-        </span>
-      </b-input-group-prepend>
-      <b-form-input v-model="filter" type="search" placeholder="请输入关键字"></b-form-input>
-      <b-input-group-append>
-        <b-button :disabled="!filter" @click="filter = ''" variant="outline-secondary">清除</b-button>
-      </b-input-group-append>
-    </b-input-group>
-    <br />
-
-    <!-- <b-table style="text-align: center;" primary-key="username" id="table-transition" striped :bordered="true" :items="ranklist" :fields="fields" :tbody-transition-props="transProps" :filter="filter" :per-page="perPage" :current-page="currentPage"> -->
-
-    <b-table
-      style="text-align: center;"
-      striped
-      responsive
-      :bordered="true"
-      :items="ranklist"
-      :fields="fields"
-      :filter="filter"
-      :per-page="perPage"
-      :current-page="currentPage"
-      :busy="isBusy"
-      :show-empty="true"
-      :stickyColumn="true"
-    >
-      <template v-slot:table-busy>
-        <div class="text-danger my-2">
-          <b-spinner class="align-middle"></b-spinner>
-          <strong>Loading...</strong>
+  <v-container>
+    <v-row justify="center">
+      <v-col class="py-0" cols="12" md="8">
+        <v-card>
+          <v-card-title>
+            用户排名
+          </v-card-title>
+          <v-card-subtitle>
+            User Ranklist
+          </v-card-subtitle>
+          <v-data-table
+            :headers="headers"
+            :items="ranklist"
+            :options.sync="options"
+            :search="search"
+            :loading="loading"
+            loading-text="正在加载数据，请稍等..."
+            disable-filtering
+            hide-default-footer
+          >
+            <!-- <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title>用户排名</v-toolbar-title>
+                <v-divider class="mx-4" inset vertical />
+                <v-spacer />
+                <v-text-field
+                  v-model="search"
+                  color="purple"
+                  label="请输入关键字"
+                  append-icon="mdi-magnify"
+                  single-line
+                  hide-details
+                  @click:append="getRanklist(search)"
+                />
+              </v-toolbar>
+            </template> -->
+            <template v-slot:item="user">
+              <tr :align="user.headers[0].align" class="hidden-sm-and-down">
+                <td>{{ page.itemsPerPage * (page.index - 1) + user.index + 1 }}</td>
+                <td>{{ user.item.username }}</td>
+                <td>{{ user.item.signature }}</td>
+                <td>{{ user.item.accepted }}</td>
+                <td>{{ user.item.attempted }}</td>
+              </tr>
+              <tr class="hidden-sm-and-up">
+                <td class="v-data-table__mobile-row">
+                  <div class="v-data-table__mobile-row__wrapper">
+                    <div class="v-data-table__mobile-row__header">
+                      {{ user.headers[0].text }}
+                    </div>
+                    <div class="v-data-table__mobile-row__cell">
+                      {{ page.itemsPerPage * (page.index - 1) + user.index + 1 }}
+                    </div>
+                  </div>
+                </td>
+                <td class="v-data-table__mobile-row">
+                  <div class="v-data-table__mobile-row__wrapper">
+                    <div class="v-data-table__mobile-row__header">
+                      {{ user.headers[1].text }}
+                    </div>
+                    <div class="v-data-table__mobile-row__cell">
+                      {{ user.item.username }}
+                    </div>
+                  </div>
+                </td>
+                <td class="v-data-table__mobile-row">
+                  <div class="v-data-table__mobile-row__wrapper">
+                    <div class="v-data-table__mobile-row__header">
+                      {{ user.headers[2].text }}
+                    </div>
+                    <div class="v-data-table__mobile-row__cell">
+                      {{ user.item.signature }}
+                    </div>
+                  </div>
+                </td>
+                <td class="v-data-table__mobile-row">
+                  <div class="v-data-table__mobile-row__wrapper">
+                    <div class="v-data-table__mobile-row__header">
+                      {{ user.headers[3].text }}
+                    </div>
+                    <div class="v-data-table__mobile-row__cell">
+                      {{ user.item.accepted }}
+                    </div>
+                  </div>
+                </td>
+                <td class="v-data-table__mobile-row">
+                  <div class="v-data-table__mobile-row__wrapper">
+                    <div class="v-data-table__mobile-row__header">
+                      {{ user.headers[4].text }}
+                    </div>
+                    <div class="v-data-table__mobile-row__cell">
+                      {{ user.item.attempted }}
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </template>
+          </v-data-table>
+        </v-card>
+        <div class="text-center pt-2">
+          <v-pagination v-model="page.index" :length="page.count" color="purple" />
         </div>
-      </template>
-      <template v-slot:emptyfiltered="scope">
-        <div class="text-center text-info my-2">
-          <strong>查询到 0 条结果!</strong>
-        </div>
-      </template>
-      <template v-slot:empty="scope">
-        <div class="text-center text-info my-2">
-          <strong>当前排行榜上没有任何用户!</strong>
-        </div>
-      </template>
-      <template v-slot:cell(index)="user">{{ (currentPage - 1) * perPage + user.index + 1 }}</template>
-      <template v-slot:cell(signature)="user">
-        <span v-html="user.value"></span>
-      </template>
-    </b-table>
-
-    <b-pagination
-      v-model="currentPage"
-      align="center"
-      variant="success"
-      :total-rows="rows"
-      :per-page="perPage"
-    ></b-pagination>
-  </b-container>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
-
 <script>
-import api from "@/components/common/api";
+import api from '@/components/utils/api'
 
 export default {
-  data() {
+  data () {
     return {
       ranklist: [],
-      transProps: {
-        name: "flip-list"
-      },
-      fields: [
+      headers: [
         {
-          key: "index",
-          label: "#",
+          text: '排名',
+          align: 'center',
           sortable: false,
-          thStyle: "width: 60px;"
+          filterable: false,
+          value: 'index'
         },
         {
-          key: "username",
-          label: "用户名",
+          text: '用户名',
+          align: 'center',
           sortable: true,
-          thStyle: "width: 150px;"
+          filterable: true,
+          value: 'username'
         },
         {
-          key: "signature",
-          label: "个性签名",
-          sortable: false
-        },
-        {
-          key: "accepted",
-          label: "通过数量",
-          sortable: true,
-          thStyle: "width: 100px;"
-        },
-        {
-          key: "attempted",
-          label: "尝试数量",
+          text: '个性签名',
+          align: 'center',
           sortable: false,
-          thStyle: "width: 100px;"
+          filterable: false,
+          value: 'signature'
+        },
+        {
+          text: '通过数量',
+          align: 'center',
+          sortable: true,
+          filterable: false,
+          value: 'accepted'
+        },
+        {
+          text: '尝试数量',
+          align: 'center',
+          sortable: true,
+          filterable: false,
+          value: 'attempted'
         }
       ],
-      isBusy: false,
-      filter: null,
-      perPage: 6,
-      currentPage: 1
-    };
+      options: {},
+      page: {
+        index: 1,
+        count: -1,
+        itemsPerPage: 10
+      },
+      search: '',
+      loading: false
+    }
   },
-  mounted() {
-    this.isBusy = true;
-    api
-      .getRanklist({
-        by: "TotalProblemsAccepted",
-        limit: 20
-      })
-      .then(res => {
-        res.data.forEach(user => {
-          this.ranklist.push({
-            username: user.username,
-            signature: "这个家伙很懒，什么都没有写",
-            accepted: user.totalProblemsAccepted,
-            attempted: user.totalProblemsAttempted
-          });
-        });
-        this.isBusy = false;
-      });
+  watch: {
+    'page.index' () {
+      this.getRanklist()
+    },
+    options: {
+      handler () {
+        this.getRanklist()
+      }
+    }
   },
-  computed: {
-    rows() {
-      return this.ranklist.length;
+  methods: {
+    getSortBy () {
+      if (this.options.sortBy.length > 0 && this.options.sortBy[0] === 'attempted') {
+        return 'TotalProblemsAttempted'
+      }
+      return 'TotalProblemsAccepted'
+    },
+    getSortDesc () {
+      return this.options.sortDesc.length > 0 ? this.options.sortDesc[0] : true
+    },
+    getRanklist (username) {
+      this.loading = true
+      this.ranklist = []
+      api.getRanklist({
+        by: this.getSortBy(),
+        descend: this.getSortDesc(),
+        page: this.page.index - 1,
+        itemsPerPage: this.page.itemsPerPage
+      }).then((res) => {
+        res.data.forEach((user, index) => {
+          if (username === undefined || user.username.includes(username)) {
+            this.ranklist.push({
+              username: user.username,
+              signature: '这个家伙很懒，什么都没有写',
+              accepted: user.totalProblemsAccepted,
+              attempted: user.totalProblemsAttempted
+            })
+          }
+        })
+        if (this.page.count === -1) {
+          this.page.count = Math.ceil(res.headers['x-bitwaves-count'] / this.page.itemsPerPage)
+        }
+      }).finally(() => { this.loading = false })
     }
   }
-};
+}
 </script>

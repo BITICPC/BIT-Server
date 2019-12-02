@@ -1,8 +1,8 @@
-import Vue from 'vue';
-import mavonEditor from 'mavon-editor';
-import 'mavon-editor/dist/css/index.css';
+import Vue from 'vue'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
-Vue.use(mavonEditor);
+Vue.use(mavonEditor)
 
 const markdownOption = {
   bold: true, // 粗体
@@ -37,9 +37,9 @@ const markdownOption = {
   alignright: true, // 右对齐
   /* 2.2.1 */
   subfield: true, // 单双栏模式
-  preview: true, // 预览
+  preview: true // 预览
 }
 
 export default {
-    markdownOption
+  markdownOption
 }

@@ -2,11 +2,11 @@
 
 > BitServer 是 BIT Online Judge 的前端 Web 应用，使用基于 Vue.js 的 Nuxt.js 框架进行编写。
 
-## Todo Lists
+- [x] ~~Bootstrap-Vue 写不下去了...正在使用 Vuetify 重构 UI 中。~~ Done!
 
-文档：<https://docs.qq.com/doc/DSmlhbWdZbkpjVkpr>
+文档：https://docs.qq.com/doc/DSmlhbWdZbkpjVkpr
 
-进度：<https://github.com/BITICPC/BitServer/projects/1>
+进度：https://github.com/BITICPC/BitServer/projects/1
 
 ## Build Setup
 

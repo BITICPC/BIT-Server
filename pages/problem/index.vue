@@ -1,126 +1,168 @@
 <template>
-  <b-container>
-    <br />
-    <b-input-group style="width: 20em;">
-      <b-input-group-prepend>
-        <span class="input-group-text">
-          <i class="fas fa-search"></i>
-        </span>
-      </b-input-group-prepend>
-      <b-form-input v-model="filter" type="search" placeholder="请输入关键字"></b-form-input>
-      <b-input-group-append>
-        <b-button :disabled="!filter" @click="filter = ''" variant="outline-secondary">清除</b-button>
-      </b-input-group-append>
-    </b-input-group>
-    <br />
-
-    <b-table
-      striped
-      responsive
-      :bordered="true"
-      :items="problemset"
-      :fields="fields"
-      :filter="filter"
-      :busy="isBusy"
-      :show-empty="true"
-      :stickyColumn="true"
-    >
-      <template v-slot:table-busy>
-        <div class="text-center text-danger my-2">
-          <b-spinner class="align-middle"></b-spinner>
-          <strong>Loading...</strong>
+  <v-container>
+    <v-row justify="center">
+      <v-col class="py-0" cols="12" md="10">
+        <v-card>
+          <v-card-title>
+            题目列表
+          </v-card-title>
+          <v-card-subtitle>
+            Problem list
+          </v-card-subtitle>
+          <v-data-table
+            :headers="headers"
+            :items="problemset"
+            :options.sync="options"
+            :search="search"
+            :loading="loading"
+            loading-text="正在加载数据，请稍等..."
+            disable-filtering
+            hide-default-footer
+          >
+            <template v-slot:item.problem.name="item">
+              <nuxt-link :to="`/problem/${item.item.problem.id}`">
+                {{ item.value }}
+              </nuxt-link>
+            </template>
+            <template v-slot:item.problem.tags="item">
+              <v-chip
+                v-for="tag in item.value"
+                :key="tag"
+                :color="getTagColor(tag)"
+                class="ma-1"
+                dark
+                small
+              >
+                {{ tag }}
+              </v-chip>
+            </template>
+            <template v-slot:item.problem.difficulty="item">
+              <v-rating
+                :value="item.value / 2"
+                color="warning"
+                length="3"
+                half-increments
+                readonly
+                dense
+              />
+            </template>
+            <template v-slot:item.problem.totalAccepted="item">
+              <v-icon>mdi-account</v-icon>x{{ item.value }}
+            </template>
+          </v-data-table>
+        </v-card>
+        <div class="text-center pt-2">
+          <v-pagination v-model="page.index" :length="page.count" color="purple" />
         </div>
-      </template>
-      <template v-slot:emptyfiltered="scope">
-        <div class="text-center text-info my-2">
-          <strong>查询到 0 条结果!</strong>
-        </div>
-      </template>
-      <template v-slot:empty="scope">
-        <div class="text-center text-info my-2">
-          <strong>当前题库中尚未添加任何题目!</strong>
-        </div>
-      </template>
-      <template v-slot:cell(problem)="data">
-        <b-link :to="`/problem/${data.value.id}`">{{ data.value.name }}</b-link>
-        <div style="float:right;">
-          <b-badge :variant="`${getTagColor(tag)}`" v-for="tag in data.value.tags" :key="tag">{{ tag }}</b-badge>
-        </div>
-      </template>
-      <template v-slot:cell(problem.totalAccepted)="data">
-        <i class="fas fa-user"></i>
-        x{{ data.value }}
-      </template>
-      <template v-slot:cell(problem.difficulty)="data">
-        <b class="text-info">{{ data.value }}</b>
-      </template>
-    </b-table>
-  </b-container>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
-
 <script>
-import api from "@/components/common/api";
-import problem from "@/components/common/problem";
+import api from '@/components/utils/api'
+import problem from '@/components/utils/problem'
 
 export default {
-  data() {
+  data () {
     return {
       problemset: [],
-      fields: [
+      headers: [
         {
-          key: "problem.id",
-          label: "#",
+          text: '题号',
+          align: 'center',
           sortable: true,
-          thStyle: "width: 60px;",
-          class: "text-center"
+          filterable: true,
+          value: 'problem.id'
         },
         {
-          key: "problem",
-          label: "题目名称",
-          sortable: false
-        },
-        {
-          key: "problem.difficulty",
-          label: "难度",
-          thStyle: "width: 60px;",
+          text: '题目名称',
+          align: 'center',
           sortable: false,
-          class: "text-center"
+          filterable: true,
+          value: 'problem.name'
         },
         {
-          key: "problem.totalAccepted",
-          label: "解出数量",
+          text: '标签',
+          align: 'center',
+          sortable: false,
+          filterable: false,
+          value: 'problem.tags'
+        },
+        {
+          text: '难度',
+          align: 'center',
           sortable: true,
-          thStyle: "width: 100px;",
-          class: "text-center"
+          filterable: false,
+          value: 'problem.difficulty'
+        },
+        {
+          text: '解出数量',
+          align: 'center',
+          sortable: true,
+          filterable: false,
+          value: 'problem.totalAccepted'
         }
       ],
-      isBusy: false,
-      filter: null
-    };
+      options: {},
+      page: {
+        index: 1,
+        count: -1,
+        itemsPerPage: 10
+      },
+      search: '',
+      loading: false
+    }
   },
-  mounted() {
-    this.isBusy = true;
-    api.getPublicProblemList({
-        by: "Id",
-        limit: 20
-      })
-      .then(res => {
-        res.data.forEach(problem => {
-          this.problemset.push({
-            problem: {
-              id: problem.archiveId,
-              name: problem.title,
-              tags: problem.tags,
-              difficulty: problem.difficulty,
-              totalAccepted: problem.acceptedSubmissions
-            }
-          });
-          this.isBusy = false;
-        });
-      });
+  watch: {
+    'page.index' () {
+      this.getProblemlist()
+    },
+    options: {
+      handler () {
+        this.getProblemlist()
+      }
+    }
   },
   methods: {
-    getTagColor: problem.getTagColor
+    getTagColor: problem.getTagColor,
+    getSortBy () {
+      if (this.options.sortBy.length > 0) {
+        if (this.options.sortBy[0] === 'problem.difficulty') {
+          return 'Difficulty'
+        } else if (this.options.sortBy[0] === 'problem.totalAccepted') {
+          return 'TotalSolvedUsers'
+        }
+      }
+      return 'ArchiveId'
+    },
+    getSortDesc () {
+      return this.options.sortDesc.length > 0 ? this.options.sortDesc[0] : false
+    },
+    getProblemlist () {
+      this.loading = true
+      this.problemset = []
+      api.getPublicProblemList({
+        by: this.getSortBy(),
+        descend: this.getSortDesc(),
+        page: this.page.index - 1,
+        itemsPerPage: this.page.itemsPerPage
+      }).then((res) => {
+        res.data.forEach((item) => {
+          this.problemset.push({
+            problem: {
+              id: item.archiveId,
+              name: item.title,
+              tags: item.tags,
+              difficulty: item.difficulty,
+              totalAccepted: item.acceptedSubmissions
+            }
+          })
+        })
+        if (this.page.count === -1) {
+          this.page.count = Math.ceil(res.headers['x-bitwaves-count'] / this.page.itemsPerPage)
+        }
+      }).finally(() => { this.loading = false })
+    }
   }
-};
+}
 </script>

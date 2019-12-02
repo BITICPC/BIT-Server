@@ -1,11 +1,9 @@
-import Vue from 'vue'
-import katex from '@/plugins/katex'
 import user from './modules/user'
-
-Vue.use(katex)
+import snackbar from './modules/snakebar'
 
 export default {
   modules: {
-    user
+    user,
+    snackbar
   }
 }

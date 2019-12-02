@@ -1,16 +1,21 @@
-<template></template>
-
+<template>
+  <v-spacer />
+</template>
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  mounted() {
-    this.$store.dispatch("clearProfile");
-    this.$router.go(-1);
-    this.$root.$bvToast.toast('注销成功，欢迎再次登陆！', {
-      title: '系统提示',
-      toaster: 'b-toaster-bottom-right',
-      variant: 'info',
-      solid: true
+  mounted () {
+    this.$store.dispatch('clearProfile')
+    this.newToast({
+      text: '注销成功！',
+      color: 'blue',
+      icon: 'mdi-information'
     })
+    this.$router.go(-1)
+  },
+  methods: {
+    ...mapActions(['newToast'])
   }
-};
+}
 </script>

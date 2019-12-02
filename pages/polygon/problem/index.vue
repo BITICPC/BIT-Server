@@ -1,218 +1,239 @@
 <template>
-  <b-container><br>
-    <b-row align-h="between" style="margin-left: auto; ">
-      <b-input-group style="width: 20em; padding-bottom: 15px">
-        <b-input-group-prepend>
-          <span class="input-group-text"><i class="fas fa-search"></i></span>
-        </b-input-group-prepend>
-        <b-form-input v-model="filter" type="search" placeholder="Type to Search"></b-form-input>
-        <b-input-group-append>
-          <b-button :disabled="!filter" @click="filter = ''" variant="outline-secondary">Clear</b-button>
-        </b-input-group-append>
-      </b-input-group>
-      <div style="padding-bottom: 15px; padding-right: 15px;"><b-button variant="secondary" v-b-modal.modal-prevent-closing><i class="fas fa-plus-circle"></i> Add Problem</b-button></div>
-    </b-row>
-
-    <b-modal
-      id="modal-prevent-closing"
-      ref="modal"
-      title="Create Problem Form"
-      ok-title="Submit"
-      @show="resetModal"
-      @hidden="resetModal"
-      @ok="handleOk"
-    >
-      <form ref="form" @submit.stop.prevent="handleSubmit">
-        <b-form-group
-          :state="nameState"
-          label="Name:"
-          label-for="name-input"
-          invalid-feedback="Name is required at least 2 words."
-        >
-          <b-form-input
-            id="name-input"
-            v-model="problem.title"
-            :state="nameState"
-            required />
-        </b-form-group>
-        <b-form-group
-          :state="judgeModeState"
-          label="Judge Mode:"
-          label-for="judge-mode-input"
-          invalid-feedback="Judge mode is required"
-        >
-          <b-form-select
-            id="judge-mode-input"
-            v-model="problem.judgeMode"
-            :options="judgeOptions"
-            required />
-        </b-form-group>
-      </form>
-    </b-modal>
-
-    <b-table
-      striped
-      responsive
-      class="text-center"
-      :bordered="true"
-      :items="problemset"
-      :fields="fields"
-      :filter="filter"
-      :busy="isBusy"
-      :show-empty="true"
-      :stickyColumn="true"
-      sort-by="id"
-    >
-      <template v-slot:table-busy>
-        <div class="text-center text-danger my-2">
-          <b-spinner class="align-middle"></b-spinner>
-          <strong>Loading...</strong>
+  <v-container>
+    <v-row justify="center">
+      <v-col class="py-0" cols="12" md="10">
+        <v-card>
+          <v-data-table
+            :headers="headers"
+            :items="problemset"
+            :search="search"
+            :loading="loading"
+            loading-text="正在加载数据，请稍等..."
+            disable-sort
+            disable-filtering
+            hide-default-footer
+          >
+            <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title>Problem List</v-toolbar-title>
+                <v-divider class="mx-4" inset vertical />
+                <!-- <v-text-field
+                  v-model="search"
+                  color="purple"
+                  label="请输入关键字"
+                  append-icon="mdi-magnify"
+                  class="hidden-sm-and-down"
+                  single-line
+                  hide-details
+                /> -->
+                <v-spacer />
+                <v-dialog v-model="dialog" persistent max-width="360px">
+                  <template v-slot:activator="{ on }">
+                    <v-btn color="primary" dark v-on="on">
+                      <v-icon left>
+                        mdi-plus
+                      </v-icon>
+                      New Problem
+                    </v-btn>
+                  </template>
+                  <v-card>
+                    <v-card-title>Create Problem Form</v-card-title>
+                    <v-card-text>
+                      <v-form ref="form">
+                        <v-textarea
+                          v-model="inputTitle"
+                          :rules="nameRules"
+                          color="purple"
+                          row-height="1"
+                          label="Problem Name"
+                          auto-grow
+                        />
+                      </v-form>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer />
+                      <v-btn
+                        color="grey darken-1"
+                        text
+                        @click="close"
+                      >
+                        Cancel
+                      </v-btn>
+                      <v-btn
+                        color="success darken-1"
+                        text
+                        @click="createNewProblem"
+                      >
+                        Submit
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-toolbar>
+            </template>
+            <template v-slot:item.problem.working="item">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn :to="`/polygon/problem/${item.value}`" icon v-on="on">
+                    <v-icon color="success">
+                      mdi-square-edit-outline
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Edit</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn icon v-on="on">
+                    <v-icon color="info">
+                      mdi-chart-bar
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Statistics</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn icon v-on="on">
+                    <v-icon color="error">
+                      mdi-delete
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Delete</span>
+              </v-tooltip>
+            </template>
+          </v-data-table>
+        </v-card>
+        <div class="text-center pt-2">
+          <v-pagination v-model="page.index" :length="page.count" color="purple" />
         </div>
-      </template>
-      <template v-slot:cell(working)="data">
-        <b-button-group>
-          <b-button variant="outline-success" size="sm" :to="`/polygon/problem/${data.value}`">Enter</b-button>
-          <b-button variant="outline-info" size="sm">Statistics</b-button>
-          <b-button variant="outline-danger" size="sm">Delete</b-button>
-        </b-button-group>
-      </template>
-    </b-table>
-  </b-container>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <script>
-import api from '@/components/common/api'
-import problem from '@/components/common/problem'
+import { mapActions, mapGetters } from 'vuex'
+import api from '@/components/utils/api'
+import problem from '@/components/utils/problem'
 
 export default {
   layout: 'polygon',
   data () {
     return {
       problemset: [],
-      fields: [
+      headers: [
         {
-          key: "id",
-          label: "#",
-          sortable: true,
-          thStyle: "width: 60px;"
+          text: 'Archive ID',
+          align: 'center',
+          filterable: false,
+          value: 'problem.id'
         },
         {
-          key: "title",
-          label: "Title"
+          text: 'Title',
+          align: 'center',
+          filterable: true,
+          value: 'problem.name'
         },
         {
-          key: "owner",
-          label: "Owner",
-          thStyle: "width: 100px;"
+          text: 'Owner',
+          align: 'center',
+          filterable: true,
+          value: 'problem.owner'
         },
         {
-          key: "created",
-          label: "Created",
-          thStyle: "width: 200px;"
+          text: 'Created',
+          align: 'center',
+          filterable: false,
+          value: 'problem.created'
         },
         {
-          key: "updated",
-          label: "Updated",
-          thStyle: "width: 200px;"
+          text: 'Updated',
+          align: 'center',
+          filterable: false,
+          value: 'problem.updated'
         },
         {
-          key: "working",
-          label: "Working",
-          thStyle: "width: 240px;"
+          text: 'Working',
+          align: 'center',
+          filterable: false,
+          value: 'problem.working'
         }
       ],
-      isBusy: false,
-      filter: null,
-      problem: {
-        title: '',
-        judgeMode: null
+      page: {
+        index: 1,
+        count: -1,
+        itemsPerPage: 10
       },
-      judgeOptions: problem.judgeMode,
-      nameState: null,
-      judgeModeState: null
+      search: '',
+      loading: false,
+      dialog: false,
+      inputTitle: '',
+      nameRules: problem.nameRules
+    }
+  },
+  computed: {
+    ...mapGetters(['jwt'])
+  },
+  watch: {
+    'page.index' () {
+      this.getProblemset()
     }
   },
   mounted () {
-    this.updateProblemList()
-  },
-  computed: {
-    name () {
-      return this.problem.title
-    },
-    judgeMode () {
-      return this.problem.judgeMode
-    }
-  },
-  watch: {
-    name (value) {
-      this.nameState = value.length > 1
-    },
-    judgeMode (value) {
-      this.judgeModeState = !!this.judgeMode
-    }
+    this.getProblemset()
   },
   methods: {
-    updateProblemList () {
-      this.isBusy = true
+    ...mapActions(['newToast']),
+    getProblemset () {
+      this.loading = true
+      this.problemset = []
       api.getProblemList({
-        page: 0,
-        itemsPerPage: 20
-      }, this.$store.state.user.jwt).then(res => {
-        this.problemset = []
-        res.data.forEach(problem => {
+        page: this.page.index - 1,
+        itemsPerPage: this.page.itemsPerPage
+      }, this.jwt).then((res) => {
+        res.data.forEach((item) => {
           this.problemset.push({
-            id: problem.archiveId !== null ? problem.archiveId : '*',
-            title: problem.title,
-            owner: problem.author,
-            created: problem.creationTime.substr(0, 10) + ' ' + problem.creationTime.substr(12, 7),
-            updated: problem.lastUpdateTime.substr(0, 10) + ' ' + problem.lastUpdateTime.substr(12, 7),
-            working: problem.id
+            problem: {
+              id: item.archiveId !== null ? item.archiveId : '*',
+              name: item.title,
+              owner: item.author,
+              created: item.creationTime.substr(0, 10) + ' ' + item.creationTime.substr(12, 7),
+              updated: item.lastUpdateTime.substr(0, 10) + ' ' + item.lastUpdateTime.substr(12, 7),
+              working: item.id
+            }
           })
         })
-        this.isBusy = false
-      }).catch(err => {
-        this.isBusy = false
-      })
+        if (this.page.count === -1) {
+          this.page.count = Math.ceil(res.headers['x-bitwaves-count'] / this.page.itemsPerPage)
+        }
+      }).finally(() => { this.loading = false })
     },
-    resetModal () {
-      this.problem.title = ''
-      this.problem.judgeMode = null
-      this.nameState = this.judgeModeState = null
+    close () {
+      this.dialog = false
+      this.inputTitle = ''
+      this.$refs.form.resetValidation()
     },
-    handleOk (bvModalEvt) {
-      bvModalEvt.preventDefault()
-      this.handleSubmit()
-    },
-    handleSubmit () {
-      if (!this.nameState || !this.judgeModeState) {
-        if (this.nameState === null) this.nameState = false
-        if (this.judgeModeState === null) this.judgeModeState = false
-        this.$bvToast.toast('Failed to create a new problem.', {
-          title: 'Polygon message',
-          toaster: 'b-toaster-bottom-right',
-          variant: 'danger',
-          solid: true
-        })
-        return
+    createNewProblem () {
+      if (this.$refs.form.validate()) {
+        api.createProblem({
+          title: this.inputTitle
+        }, this.jwt).then(() => {
+          this.newToast({
+            text: 'A new problem has been created successfully.',
+            color: 'success',
+            icon: 'mdi-check-circle'
+          })
+          this.page.count = -1
+          this.getProblemset()
+        }).catch(() => {
+          this.newToast({
+            text: 'Failed to create a new problem.',
+            color: 'error',
+            icon: 'mdi-alert'
+          })
+        }).finally(() => { this.close() })
       }
-      api.createProblem(this.problem, this.$store.state.user.jwt).then(res => {
-        this.$bvToast.toast('A new problem has been created successfully.', {
-          title: 'Polygon message',
-          toaster: 'b-toaster-bottom-right',
-          variant: 'success',
-          solid: true
-        })
-        this.updateProblemList()
-        this.$nextTick(() => {
-          this.$refs.modal.hide()
-        })
-      }).catch(err => {
-        this.$bvToast.toast('Failed to create a new problem.', {
-          title: 'Polygon message',
-          toaster: 'b-toaster-bottom-right',
-          variant: 'danger',
-          solid: true
-        })
-      })
     }
   }
 }

@@ -1,0 +1,36 @@
+// assets/variables.scss
+
+// Variables you want to modify
+
+// If you need to extend Vuetify SASS lists
+@import '~vuetify/src/styles/styles.sass';
+@import '@/assets/markdown.css';
+
+$body-font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif, Roboto, sans-serif;
+
+a {
+  text-decoration: none;
+}
+
+.v-btn {
+  text-transform: none;
+}
+
+#statement {
+  h3 {
+    margin-bottom: 8px;
+  }
+  .content {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 15px;
+  }
+  .code {
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  }
+}
+
+.mavonEditor {
+  z-index: 0;
+  position: relative;
+}
