@@ -93,13 +93,7 @@ export default {
     updateStatement () {
       if (this.$refs.statement.validate()) {
         this.loading = true
-        const data = {}
-        Object.keys(this.problem).forEach((element) => {
-          if (this.problem[element].length > 0) {
-            data[element] = this.problem[element]
-          }
-        })
-        api.editProblemDetail(this.$route.params.id, data, this.jwt).then(() => {
+        api.editProblemDetail(this.$route.params.id, this.problem, this.jwt).then(() => {
           this.newToast({
             text: 'Successfully updated.',
             color: 'success',
