@@ -11,7 +11,7 @@
           </v-card-subtitle>
           <v-divider />
           <v-card-text>
-            <v-form ref="form" class="mt-2" @submit.prevent="register">
+            <v-form ref="form" @submit.prevent="register">
               <v-text-field
                 v-model="formRegister.username"
                 :rules="usernameRules"

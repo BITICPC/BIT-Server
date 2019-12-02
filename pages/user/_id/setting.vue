@@ -17,7 +17,7 @@
           <v-card-text>
             <v-tabs-items v-model="tabs">
               <v-tab-item value="profile">
-                <v-form ref="profile" class="mt-2" @submit.prevent="updateProfile">
+                <v-form ref="profile" @submit.prevent="updateProfile">
                   <v-text-field
                     v-model="formProfile.nickname"
                     :rules="nicknameRules"
@@ -78,7 +78,7 @@
                 </v-form>
               </v-tab-item>
               <v-tab-item value="account">
-                <v-form ref="account" class="mt-2" @submit.prevent="updateAccount">
+                <v-form ref="account" @submit.prevent="updateAccount">
                   <v-text-field
                     v-model="formAccount.username"
                     :rules="usernameRules"

@@ -27,7 +27,7 @@
                   hide-details
                 /> -->
                 <v-spacer />
-                <v-dialog v-model="dialog" max-width="400px">
+                <v-dialog v-model="dialog" persistent max-width="360px">
                   <template v-slot:activator="{ on }">
                     <v-btn color="primary" dark v-on="on">
                       <v-icon left>
@@ -40,11 +40,13 @@
                     <v-card-title>Create Problem Form</v-card-title>
                     <v-card-text>
                       <v-form ref="form">
-                        <v-text-field
+                        <v-textarea
                           v-model="inputTitle"
                           :rules="nameRules"
                           color="purple"
+                          row-height="1"
                           label="Problem Name"
+                          auto-grow
                         />
                       </v-form>
                     </v-card-text>
