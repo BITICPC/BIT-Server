@@ -15,7 +15,7 @@
             </v-tab>
           </v-tabs>
           <v-card-text>
-            <v-form ref="form" @submit.prevent="updateProblem">
+            <v-form ref="form" @submit.prevent="updateProfile">
               <v-text-field
                 placeholder="stdin"
                 label="Input file:"
@@ -162,7 +162,6 @@
             <v-form ref="tag">
               <v-textarea
                 v-model="inputTag"
-                color="purple"
                 class="mt-1"
                 :rules="tagRules"
                 :error-messages="getErrorByAttributes('tag')"
@@ -317,7 +316,7 @@ export default {
         })
       }).finally(() => { this.loading = false })
     },
-    updateProblem () {
+    updateProfile () {
       if (this.$refs.form.validate()) {
         this.loading = true
         api.editProblemDetail(this.$route.params.id, {
