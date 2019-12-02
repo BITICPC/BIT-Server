@@ -216,6 +216,12 @@ export default {
             color: 'success',
             icon: 'mdi-check-circle'
           })
+        }).catch(() => {
+          this.newToast({
+            text: '个人资料保存失败！',
+            color: 'error',
+            icon: 'mdi-alert'
+          })
         }).finally(() => { this.loading = false })
       }
     },
@@ -232,7 +238,14 @@ export default {
           this.formAccount.oldPassword = this.formAccount.password = this.formAccount.confirm = ''
           this.$refs.account.resetValidation()
         }).catch((err) => {
-          this.errorCode = err.status
+          if (err !== undefined) {
+            this.errorCode = err.status
+          }
+          this.newToast({
+            text: '个人资料保存失败！',
+            color: 'error',
+            icon: 'mdi-alert'
+          })
         }).finally(() => { this.loading = false })
       }
     }

@@ -123,7 +123,14 @@ export default {
             this.$router.push('/')
           })
         }).catch((err) => {
-          this.errorCode = err.status
+          if (err !== undefined) {
+            this.errorCode = err.status
+          }
+          this.newToast({
+            text: '注册失败！',
+            color: 'error',
+            icon: 'mdi-alert'
+          })
         }).finally(() => { this.loading = false })
       }
     }

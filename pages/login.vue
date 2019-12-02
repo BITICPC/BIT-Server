@@ -93,7 +93,14 @@ export default {
           })
           this.$router.go(-1)
         }).catch((err) => {
-          this.errorCode = err.status
+          if (err !== undefined) {
+            this.errorCode = err.status
+          }
+          this.newToast({
+            text: '登录失败！',
+            color: 'error',
+            icon: 'mdi-alert'
+          })
         }).finally(() => { this.loading = false })
       }
     }
