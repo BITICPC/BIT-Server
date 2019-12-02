@@ -60,6 +60,14 @@ export default {
       }
     })
   },
+  createProblem (data, jwt) {
+    return ajax('/problems', 'post', {
+      data,
+      headers: {
+        Authorization: 'Jwt ' + jwt
+      }
+    })
+  },
   getProblemDetail (id, jwt) {
     const cmd = '/problems/' + id
     return ajax(cmd, 'get', {
@@ -69,17 +77,27 @@ export default {
       }
     })
   },
-  createProblem (data, jwt) {
-    return ajax('/problems', 'post', {
+  editProblemDetail (id, data, jwt) {
+    const cmd = '/problems/' + id
+    return ajax(cmd, 'put', {
       data,
       headers: {
         Authorization: 'Jwt ' + jwt
       }
     })
   },
-  editProblemDetail (id, data, jwt) {
-    const cmd = '/problems/' + id
-    return ajax(cmd, 'put', {
+  addProblemTag (id, data, jwt) {
+    const cmd = '/problems/' + id + '/tags'
+    return ajax(cmd, 'post', {
+      data,
+      headers: {
+        Authorization: 'Jwt ' + jwt
+      }
+    })
+  },
+  deleteProblemTag (id, data, jwt) {
+    const cmd = '/problems/' + id + '/tags'
+    return ajax(cmd, 'delete', {
       data,
       headers: {
         Authorization: 'Jwt ' + jwt
