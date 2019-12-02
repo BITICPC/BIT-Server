@@ -159,7 +159,6 @@
             </v-tabs-items>
           </v-card-text>
         </v-card>
-
         <v-card class="mt-3 hidden-md-and-up">
           <v-skeleton-loader :loading="skeleton" type="list-item-two-line, divider, list-item-three-line">
             <v-card-text>
