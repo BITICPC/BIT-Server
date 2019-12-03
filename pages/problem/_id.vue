@@ -159,44 +159,8 @@
             </v-tabs-items>
           </v-card-text>
         </v-card>
-        <v-card class="mt-3 hidden-md-and-up">
-          <v-skeleton-loader :loading="skeleton" type="list-item-two-line, divider, list-item-three-line">
-            <v-card-text>
-              <b>{{ problem.totalSolvedUsers }} 人解决，</b>{{ problem.totalAttemptedUsers }} 人已尝试。<br>
-              <b>{{ problem.acceptedSubmissions }} 份提交通过，</b>共 {{ problem.totalSubmissions }} 份提交。
-            </v-card-text>
-            <v-divider />
-            <v-card-text>
-              <b>创建：</b>{{ problem.creationTime }}<br>
-              <b>修改：</b>{{ problem.lastUpdateTime }}<br>
-              <b>最后提交：</b>
-              <template v-if="problem.totalSubmissions > 0">
-                {{ problem.lastSubmissionTime }}
-              </template>
-              <template v-else>
-                None
-              </template><br>
-              <b>来源: </b>{{ problem.source }}
-            </v-card-text>
-          </v-skeleton-loader>
-        </v-card>
-        <v-card v-if="problem.tags.length > 0" class="mt-3 hidden-md-and-up">
-          <v-card-subtitle>题目标签</v-card-subtitle>
-          <v-card-text>
-            <v-chip
-              v-for="tag in problem.tags"
-              :key="tag"
-              :color="getTagColor(tag)"
-              class="ma-1"
-              dark
-              small
-            >
-              {{ tag }}
-            </v-chip>
-          </v-card-text>
-        </v-card>
       </v-col>
-      <v-col cols="3" md="3" class="pt-0 pl-0 hidden-sm-and-down">
+      <v-col cols="12" md="3" class="pt-md-0 pb-0 pl-md-0">
         <v-card>
           <v-skeleton-loader :loading="skeleton" type="list-item-two-line, divider, list-item-three-line">
             <v-card-text>
