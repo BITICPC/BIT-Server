@@ -6,7 +6,7 @@
 
 文档：https://docs.qq.com/doc/DSmlhbWdZbkpjVkpr
 
-进度：https://github.com/BITICPC/BitServer/projects/1
+进度：https://github.com/orgs/BITICPC/projects/2
 
 ## Build Setup
 
