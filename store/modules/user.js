@@ -35,7 +35,7 @@ const actions = {
     })
   },
   getProfile ({ state, commit }, payload) {
-    api.getUserInfo(payload, state.jwt).then((res) => {
+    return api.getUserInfo(payload, state.jwt).then((res) => {
       commit(types.CHANGE_PROFILE, {
         profile: res.data || {}
       })

@@ -60,6 +60,7 @@ import mavon from '@/plugins/vue-mavon-editor'
 
 export default {
   layout: 'polygon',
+  middleware: 'login',
   data: () => ({
     problem: {
       title: '',

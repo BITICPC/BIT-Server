@@ -51,11 +51,16 @@
   </v-container>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import account from '@/components/utils/account'
 import api from '@/components/utils/api'
 
 export default {
+  layout ({ query }) {
+    if (query.polygon) {
+      return 'polygon'
+    }
+  },
   data () {
     return {
       formLogin: {
@@ -67,6 +72,9 @@ export default {
       errorCode: 200,
       loading: false
     }
+  },
+  watch: {
+    ...mapGetters(['isLogin'])
   },
   methods: {
     ...mapActions(['setJwt', 'getProfile', 'newToast']),
@@ -85,13 +93,18 @@ export default {
         this.errorCode = 200
         api.login(this.formLogin).then((res) => {
           this.setJwt(res.data.jwt)
-          this.getProfile(res.data.username)
-          this.newToast({
-            text: '登录成功！',
-            color: 'success',
-            icon: 'mdi-check-circle'
+          this.getProfile(res.data.username).finally(() => {
+            this.newToast({
+              text: '登录成功！',
+              color: 'success',
+              icon: 'mdi-check-circle'
+            })
+            if (this.$route.query.back) {
+              this.$router.push(this.$route.query.back)
+            } else {
+              this.$router.go(-1)
+            }
           })
-          this.$router.go(-1)
         }).catch((err) => {
           if (err !== undefined) {
             this.errorCode = err.status

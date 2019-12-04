@@ -5,6 +5,11 @@
 import { mapActions } from 'vuex'
 
 export default {
+  layout ({ from }) {
+    if (from.name.includes('polygon')) {
+      return 'polygon'
+    }
+  },
   mounted () {
     this.$store.dispatch('clearProfile')
     this.$store.dispatch('clearJwt')

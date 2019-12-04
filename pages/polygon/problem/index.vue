@@ -119,6 +119,7 @@ import problem from '@/components/utils/problem'
 
 export default {
   layout: 'polygon',
+  middleware: 'login',
   data () {
     return {
       problemset: [],

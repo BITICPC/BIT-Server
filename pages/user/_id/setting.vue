@@ -144,6 +144,12 @@ import { mapActions, mapGetters } from 'vuex'
 import account from '@/components/utils/account'
 
 export default {
+  layout ({ query }) {
+    if (query.polygon) {
+      return 'polygon'
+    }
+  },
+  middleware: 'login',
   data () {
     return {
       formProfile: {
@@ -176,13 +182,19 @@ export default {
     ...mapGetters(['profile', 'isLogin'])
   },
   mounted () {
-    if (this.isLogin) {
+    if (this.$route.params.id === this.profile.username) {
       Object.keys(this.formProfile).forEach((element) => {
         if (this.profile[element] !== null) {
           this.formProfile[element] = this.profile[element]
         }
       })
       this.formAccount.username = this.profile.username
+    } else {
+      this.newToast({
+        text: '您没有修改用户信息的权限！',
+        color: 'error',
+        icon: 'mdi-alert'
+      })
     }
   },
   methods: {

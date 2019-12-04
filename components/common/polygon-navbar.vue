@@ -21,7 +21,7 @@
         <template v-if="!isLogin">
           <v-row>
             <v-col class="pr-1">
-              <v-btn class="subtitle-1" color="success" to="/login">
+              <v-btn class="subtitle-1" color="success" :to="{ path:'/login', query: { polygon: true } }">
                 <v-icon left small>
                   fas fa-sign-in-alt
                 </v-icon>
@@ -29,7 +29,7 @@
               </v-btn>
             </v-col>
             <v-col>
-              <v-btn class="subtitle-1" color="primary" to="/join">
+              <v-btn class="subtitle-1" color="primary" :to="{ path:'/join', query: { polygon: true } }">
                 <v-icon left small>
                   fas fa-user-plus
                 </v-icon>
@@ -41,7 +41,7 @@
         <template v-else>
           <v-menu open-on-hover offset-y>
             <template v-slot:activator="{ on }">
-              <v-btn text :to="`/user/${profile.username}`" v-on="on">
+              <v-btn text :to="{ path: `/user/${profile.username}`, query: { polygon: true } }" v-on="on">
                 <v-avatar size="36" class="mr-2">
                   <img src="~/static/user.jpg">
                 </v-avatar>
@@ -60,7 +60,7 @@
                   <v-list-item-title>提交记录</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item :to="`/user/${profile.username}/setting`">
+              <v-list-item :to="{ path: `/user/${profile.username}/setting`, query: { polygon: true } }">
                 <v-list-item-icon class="mr-3">
                   <v-icon>mdi-account-edit</v-icon>
                 </v-list-item-icon>

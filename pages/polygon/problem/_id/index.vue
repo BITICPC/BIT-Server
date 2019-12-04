@@ -252,6 +252,7 @@ import problem from '@/components/utils/problem'
 
 export default {
   layout: 'polygon',
+  middleware: 'login',
   data: () => ({
     problem: {
       title: 'unknow',

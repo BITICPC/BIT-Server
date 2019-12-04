@@ -80,6 +80,11 @@ import account from '@/components/utils/account'
 import api from '@/components/utils/api'
 
 export default {
+  layout ({ query }) {
+    if (query.polygon) {
+      return 'polygon'
+    }
+  },
   data () {
     return {
       formRegister: {
@@ -120,7 +125,7 @@ export default {
               color: 'success',
               icon: 'mdi-check-circle'
             })
-            this.$router.push('/')
+            this.$router.push(this.$route.query.polygon ? '/polygon' : '/')
           })
         }).catch((err) => {
           if (err !== undefined) {

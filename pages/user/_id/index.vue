@@ -69,6 +69,11 @@ import { mapActions } from 'vuex'
 import api from '@/components/utils/api'
 
 export default {
+  layout ({ query }) {
+    if (query.polygon) {
+      return 'polygon'
+    }
+  },
   data: () => ({
     profile: [
       {

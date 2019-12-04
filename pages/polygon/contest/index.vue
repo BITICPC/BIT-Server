@@ -3,6 +3,7 @@
 </template>
 <script>
 export default {
-  layout: 'polygon'
+  layout: 'polygon',
+  middleware: 'login'
 }
 </script>
