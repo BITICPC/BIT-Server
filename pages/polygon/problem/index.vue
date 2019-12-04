@@ -8,6 +8,7 @@
             :items="problemset"
             :search="search"
             :loading="loading"
+            :items-per-page="page.itemsPerPage"
             loading-text="正在加载数据，请稍等..."
             disable-sort
             disable-filtering
@@ -43,7 +44,6 @@
                         <v-textarea
                           v-model="inputTitle"
                           :rules="nameRules"
-                          color="purple"
                           row-height="1"
                           label="Problem Name"
                           auto-grow
@@ -106,7 +106,7 @@
           </v-data-table>
         </v-card>
         <div class="text-center pt-2">
-          <v-pagination v-model="page.index" :length="page.count" color="purple" />
+          <v-pagination v-model="page.index" :length="page.count" />
         </div>
       </v-col>
     </v-row>
@@ -163,7 +163,7 @@ export default {
       page: {
         index: 1,
         count: -1,
-        itemsPerPage: 10
+        itemsPerPage: 15
       },
       search: '',
       loading: false,

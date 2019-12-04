@@ -38,7 +38,11 @@
             <template v-slot:item="user">
               <tr :align="user.headers[0].align" class="hidden-sm-and-down">
                 <td>{{ page.itemsPerPage * (page.index - 1) + user.index + 1 }}</td>
-                <td>{{ user.item.username }}</td>
+                <td>
+                  <nuxt-link :to="`/user/${user.item.username}`">
+                    {{ user.item.username }}
+                  </nuxt-link>
+                </td>
                 <td>{{ user.item.signature }}</td>
                 <td>{{ user.item.accepted }}</td>
                 <td>{{ user.item.attempted }}</td>
@@ -57,7 +61,9 @@
                     {{ user.headers[1].text }}
                   </div>
                   <div class="v-data-table__mobile-row__cell">
-                    {{ user.item.username }}
+                    <nuxt-link :to="`/user/${user.item.username}`">
+                      {{ user.item.username }}
+                    </nuxt-link>
                   </div>
                 </td>
                 <td class="v-data-table__mobile-row">

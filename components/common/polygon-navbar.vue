@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar :fixed="true" color="purple" app dark>
+    <v-app-bar :fixed="true" color="info" app dark>
       <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer" />
       <img src="~/static/BIT.png" style="width: 35px;">
       <v-toolbar-title class="ma-3">
@@ -17,66 +17,69 @@
 
       <v-spacer />
 
-      <div class="hidden-sm-and-down">
+      <v-toolbar-items class="hidden-sm-and-down">
         <template v-if="!isLogin">
-          <v-btn class="ma-2 subtitle-1" color="success" to="/login">
-            <v-icon left small>
-              fas fa-sign-in-alt
-            </v-icon>
-            Sign in
-          </v-btn>
-          <v-btn class="ma-2 subtitle-1" color="primary" to="/join">
-            <v-icon left small>
-              fas fa-user-plus
-            </v-icon>
-            Sign up
-          </v-btn>
+          <v-row>
+            <v-col class="pr-1">
+              <v-btn class="subtitle-1" color="success" to="/login">
+                <v-icon left small>
+                  fas fa-sign-in-alt
+                </v-icon>
+                登录
+              </v-btn>
+            </v-col>
+            <v-col>
+              <v-btn class="subtitle-1" color="primary" to="/join">
+                <v-icon left small>
+                  fas fa-user-plus
+                </v-icon>
+                注册
+              </v-btn>
+            </v-col>
+          </v-row>
         </template>
         <template v-else>
-          <v-menu offset-y>
+          <v-menu open-on-hover offset-y>
             <template v-slot:activator="{ on }">
-              <v-btn text v-on="on">
-                <v-icon left small>
-                  fas fa-user
-                </v-icon>
-                {{ profile.username }}
-                <v-icon right small>
-                  fas fa-caret-down
+              <v-btn text :to="`/user/${profile.username}`" v-on="on">
+                <v-avatar size="36" class="mr-2">
+                  <img src="~/static/user.jpg">
+                </v-avatar>
+                <span>{{ profile.username }}</span>
+                <v-icon right>
+                  mdi-menu-down
                 </v-icon>
               </v-btn>
             </template>
-            <v-list>
-              <v-subheader>{{ profile.isAdmin ? 'Admin' : 'Regular User' }}</v-subheader>
-              <template v-for="(item, index) in items">
-                <template v-if="index !== 1">
-                  <v-list-item :key="index" :to="item.link">
-                    <v-list-item-icon class="mr-1">
-                      <v-icon small>
-                        fas fa-{{ item.icon }}
-                      </v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </template>
-                <template v-else>
-                  <v-list-item :key="index" :to="`/user/${profile.username}/setting`">
-                    <v-list-item-icon class="mr-1">
-                      <v-icon small>
-                        fas fa-{{ item.icon }}
-                      </v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </template>
-              </template>
+            <v-list dense>
+              <v-list-item>
+                <v-list-item-icon class="mr-3">
+                  <v-icon>mdi-file-chart</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>提交记录</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item :to="`/user/${profile.username}/setting`">
+                <v-list-item-icon class="mr-3">
+                  <v-icon>mdi-account-edit</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>用户设置</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item to="/logout">
+                <v-list-item-icon class="mr-3">
+                  <v-icon>mdi-logout</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>注销</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
             </v-list>
           </v-menu>
         </template>
-      </div>
+      </v-toolbar-items>
     </v-app-bar>
 
     <v-navigation-drawer id="drawer" v-model="drawer" width="200" temporary app>
