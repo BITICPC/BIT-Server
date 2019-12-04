@@ -24,19 +24,19 @@
                 label="Name"
               />
               <span class="pb-2 subtitle-1">Legend</span>
-              <div class="pb-3 mavonEditor">
+              <div class="pb-3">
                 <mavon-editor v-model="problem.legend" :box-shadow="false" :toolbars="markdownOption" />
               </div>
               <span class="pb-2 subtitle-1">Input</span>
-              <div class="pb-3 mavonEditor">
+              <div class="pb-3">
                 <mavon-editor v-model="problem.input" :box-shadow="false" :toolbars="markdownOption" />
               </div>
               <span class="pb-2 subtitle-1">Output</span>
-              <div class="pb-3 mavonEditor">
+              <div class="pb-3">
                 <mavon-editor v-model="problem.output" :box-shadow="false" :toolbars="markdownOption" />
               </div>
               <span class="pb-2 subtitle-1">Notes</span>
-              <div class="pb-3 mavonEditor">
+              <div class="pb-3">
                 <mavon-editor v-model="problem.notes" :box-shadow="false" :toolbars="markdownOption" />
               </div>
               <v-btn :loading="loading" color="success" type="submit">
