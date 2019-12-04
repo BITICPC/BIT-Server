@@ -66,7 +66,7 @@
                   </h3>
                   <div class="content">
                     <v-skeleton-loader :loading="skeleton" type="list-item-three-line">
-                      <div v-katex:auto class="markdown-body" v-html="problem.legend" />
+                      <div v-katex:auto v-highlight class="markdown-body" v-html="problem.legend" />
                     </v-skeleton-loader>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
                   </h3>
                   <div class="content">
                     <v-skeleton-loader :loading="skeleton" type="list-item-two-line">
-                      <div v-katex:auto class="markdown-body" v-html="problem.input" />
+                      <div v-katex:auto v-highlight class="markdown-body" v-html="problem.input" />
                     </v-skeleton-loader>
                   </div>
                 </div>
@@ -86,7 +86,7 @@
                   </h3>
                   <div class="content">
                     <v-skeleton-loader :loading="skeleton" type="list-item-two-line">
-                      <div v-katex:auto class="markdown-body" v-html="problem.output" />
+                      <div v-katex:auto v-highlight class="markdown-body" v-html="problem.output" />
                     </v-skeleton-loader>
                   </div>
                 </div>
@@ -114,7 +114,7 @@
                             <span>单击复制</span>
                           </v-tooltip>
                         </v-card-subtitle>
-                        <v-card-text class="code">
+                        <v-card-text class="sample">
                           {{ sample.input }}
                         </v-card-text>
                       </v-card>
@@ -138,7 +138,7 @@
                             <span>单击复制</span>
                           </v-tooltip>
                         </v-card-subtitle>
-                        <v-card-text class="code">
+                        <v-card-text class="sample">
                           {{ sample.output }}
                         </v-card-text>
                       </v-card>
@@ -150,7 +150,7 @@
                     提示
                   </h3>
                   <div class="content">
-                    <div v-katex:auto class="markdown-body" v-html="problem.notes" />
+                    <div v-katex:auto v-highlight class="markdown-body" v-html="problem.notes" />
                   </div>
                 </div>
               </v-tab-item>

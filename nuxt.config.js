@@ -31,6 +31,7 @@ export default {
   */
   plugins: [
     { src: '@/plugins/katex.js', ssr: false },
+    { src: '@/plugins/highlight.js', ssr: false },
     { src: '@/plugins/font-awesome.js', ssr: false },
     { src: '@/plugins/material-design.js', ssr: false },
     { src: '@/plugins/vue-mavon-editor', srr: false },

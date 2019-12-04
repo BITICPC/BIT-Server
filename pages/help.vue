@@ -29,7 +29,7 @@
               <code>-D</code> 选项被注入预处理符号
               <code>ONLINE_JUDGE</code>。您的程序中可以使用如下的预处理器指令来动态调整将在评测端编译的代码段：
             </p>
-            <pre><code class="language-cpp" lang="cpp">#ifdef ONLINE_JUDGE
+            <pre v-highlight><code class="language-cpp" lang="cpp">#ifdef ONLINE_JUDGE
 // Code here will be compiled when judged.
 #else
 // Code here will not be compiled when judged.
@@ -39,7 +39,7 @@
               <code>--cfg</code> 选项被注入配置
               <code>oj</code>。您的程序中可以使用如下的注解来动态调整将在评测端编译的代码段：
             </p>
-            <pre><code class="language-rust" lang="rust">#[cfg(oj)]
+            <pre v-highlight><code class="language-rust" lang="rust">#[cfg(oj)]
 fn this_function_will_only_be_compiled_when_judged() {
   // Do something wonderful.
 }</code></pre>
@@ -52,7 +52,7 @@ fn this_function_will_only_be_compiled_when_judged() {
               <code>ONLINE_JUDGE</code>，其值永远为
               <code>TRUE</code>。您可以使用如下的 Python 语言片段判断您的程序是否处在评测端：
             </p>
-            <pre><code class="language-python" lang="python">import os
+            <pre v-highlight><code class="language-python" lang="python">import os
 if (os.getenv(&#39;ONLINE_JUDGE&#39;) == &#39;TRUE&#39;):
   # Your code is under judge.
   do_something_wonderful()
@@ -60,7 +60,7 @@ else:
   # Your code is NOT under judge.
   do_something_else()</code></pre>
             <p>您可以使用如下的 Java 语言片段判断您的程序是否处在评测端：</p>
-            <pre><code class="language-java" lang="java">String oj = System.getenv(&quot;ONLINE_JUDGE&quot;);
+            <pre v-highlight><code class="language-java" lang="java">String oj = System.getenv(&quot;ONLINE_JUDGE&quot;);
 if (oj == null || !oj.equals(&quot;TRUE&quot;)) {
   // Your code is NOT under judge.
   doSomething();
@@ -114,7 +114,7 @@ if (oj == null || !oj.equals(&quot;TRUE&quot;)) {
               Two Sum 问题即为读入两个正整数（均不超过 \(10^9\)），输出它们的加和。下面给出以不同语言实现的解决该问题的示例代码。
             </p>
             <p>C 语言：</p>
-            <pre><code class="language-c" lang="c">#include &lt;stdio.h&gt;
+            <pre v-highlight><code class="language-c" lang="c">#include &lt;stdio.h&gt;
 int main() {
     int a, b;
     scanf(&quot;%d%d&quot;, &amp;a, &amp;b);
@@ -122,7 +122,7 @@ int main() {
     return 0;
 }</code></pre>
             <p>C++：</p>
-            <pre><code class="language-cpp" lang="cpp">#include &lt;iostream&gt;
+            <pre v-highlight><code class="language-cpp" lang="cpp">#include &lt;iostream&gt;
 int main() {
     int a, b;
     std::cin &gt;&gt; a &gt;&gt; b;
@@ -130,7 +130,7 @@ int main() {
     return 0;
 }</code></pre>
             <p>Python：</p>
-            <pre><code class="language-python" lang="python">print(sum(map(int, input().split(&#39; &#39;))))</code></pre>
+            <pre v-highlight><code class="language-python" lang="python">print(sum(map(int, input().split(&#39; &#39;))))</code></pre>
             <p>其他语言的示例类似。</p>
             <p>
               <strong>问题二：在 C/C++ 中如何使用 64 位整数类型？</strong>

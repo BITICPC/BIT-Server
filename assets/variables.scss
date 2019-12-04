@@ -16,6 +16,11 @@ a {
   text-transform: none;
 }
 
+code {
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font-weight: normal !important;
+}
+
 #statement {
   h3 {
     margin-bottom: 8px;
@@ -25,7 +30,7 @@ a {
     padding-right: 25px;
     padding-bottom: 15px;
   }
-  .code {
+  .sample {
     font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   }
 }
