@@ -59,6 +59,11 @@ const actions = {
     commit(types.CHANGE_PROFILE, {
       profile: {}
     })
+  },
+  clearJwt ({ commit }) {
+    commit(types.CHANGE_JWT, {
+      jwt: {}
+    })
   }
 }
 
