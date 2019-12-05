@@ -11,8 +11,7 @@
               编译系统
             </h3>
             <p>
-              BITOJ 使用三元组（语言，环境，版本）来唯一性地标识每一个受支持的语言及其运行环境。例如，
-              <code>(C++, Clang, 11)</code> 表示 C++ 程序设计语言，使用
+              BITOJ 使用三元组（语言，环境，版本）来唯一性地标识每一个受支持的语言及其运行环境。例如，<code>(C++, Clang, 11)</code> 表示 C++ 程序设计语言，使用
               <code>clang</code> 编译器，支持 C++11 相关语言特性。
             </p>
             <v-data-table :headers="headers" :items="items" disable-pagination hide-default-footer />

@@ -19,6 +19,7 @@ a {
 code {
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   font-weight: normal !important;
+  box-shadow: none !important;
 }
 
 #statement {
@@ -37,4 +38,13 @@ code {
 
 .v-note-wrapper {
   z-index: 0 !important;
+}
+
+.CodeMirror {
+  min-height: 200px !important;
+  height: 300px !important;
+}
+
+.CodeMirror-fullscreen {
+  height: auto !important;
 }

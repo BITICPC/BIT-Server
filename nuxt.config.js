@@ -34,8 +34,8 @@ export default {
     { src: '@/plugins/highlight.js', ssr: false },
     { src: '@/plugins/font-awesome.js', ssr: false },
     { src: '@/plugins/material-design.js', ssr: false },
-    { src: '@/plugins/vue-mavon-editor', srr: false },
-    { src: '@/plugins/vue-clipboard.js', ssr: false }
+    { src: '@/plugins/vue-clipboard.js', ssr: false },
+    { src: '@/plugins/vue-simplemde.js', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules

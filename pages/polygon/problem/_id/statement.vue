@@ -23,22 +23,14 @@
                 :loading="loading"
                 label="Name"
               />
-              <span class="pb-2 subtitle-1">Legend</span>
-              <div class="pb-3">
-                <mavon-editor v-model="problem.legend" :box-shadow="false" :toolbars="markdownOption" />
-              </div>
-              <span class="pb-2 subtitle-1">Input</span>
-              <div class="pb-3">
-                <mavon-editor v-model="problem.input" :box-shadow="false" :toolbars="markdownOption" />
-              </div>
-              <span class="pb-2 subtitle-1">Output</span>
-              <div class="pb-3">
-                <mavon-editor v-model="problem.output" :box-shadow="false" :toolbars="markdownOption" />
-              </div>
-              <span class="pb-2 subtitle-1">Notes</span>
-              <div class="pb-3">
-                <mavon-editor v-model="problem.notes" :box-shadow="false" :toolbars="markdownOption" />
-              </div>
+              <span class="subtitle-1">Legend</span>
+              <vue-simplemde v-model="problem.legend" preview-class="markdown-body" :highlight="true" :configs="configs" />
+              <span class="subtitle-1">Input</span>
+              <vue-simplemde v-model="problem.input" preview-class="markdown-body" :highlight="true" :configs="configs" />
+              <span class="subtitle-1">Output</span>
+              <vue-simplemde v-model="problem.output" preview-class="markdown-body" :highlight="true" :configs="configs" />
+              <span class="subtitle-1">Notes</span>
+              <vue-simplemde v-model="problem.notes" preview-class="markdown-body" :highlight="true" :configs="configs" />
               <v-btn :loading="loading" color="success" type="submit">
                 <v-icon left>
                   mdi-check
@@ -54,9 +46,11 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import hljs from 'highlight.js'
 import api from '@/components/utils/api'
 import problem from '@/components/utils/problem'
-import mavon from '@/plugins/vue-mavon-editor'
+import simplemde from '@/plugins/vue-simplemde'
+window.hljs = hljs
 
 export default {
   layout: 'polygon',
@@ -69,8 +63,8 @@ export default {
       output: '',
       notes: ''
     },
-    markdownOption: mavon.markdownOption,
     nameRules: problem.nameRules,
+    configs: simplemde.configs,
     loading: false
   }),
   computed: {
