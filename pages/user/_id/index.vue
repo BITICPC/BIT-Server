@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-btn
-      v-if="this.$route.params.id === profile.username"
-      :to="`/user/${profile.username}/setting`"
+      v-if="$route.params.id === profile.username"
+      :to="{ path: `/user/${profile.username}/setting`, query: $route.query }"
       color="success"
       fab
       dark
