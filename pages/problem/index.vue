@@ -19,12 +19,12 @@
             disable-filtering
             hide-default-footer
           >
-            <template v-slot:item.problem.name="item">
-              <nuxt-link :to="`/problem/${item.item.problem.id}`">
+            <template v-slot:item.name="item">
+              <nuxt-link :to="`/problem/${item.item.id}`">
                 {{ item.value }}
               </nuxt-link>
             </template>
-            <template v-slot:item.problem.tags="item">
+            <template v-slot:item.tags="item">
               <v-chip
                 v-for="tag in item.value"
                 :key="tag"
@@ -36,7 +36,7 @@
                 {{ tag }}
               </v-chip>
             </template>
-            <template v-slot:item.problem.difficulty="item">
+            <template v-slot:item.difficulty="item">
               <v-rating
                 :value="item.value / 2"
                 color="warning"
@@ -46,7 +46,7 @@
                 dense
               />
             </template>
-            <template v-slot:item.problem.totalAccepted="item">
+            <template v-slot:item.totalAccepted="item">
               <v-icon>mdi-account</v-icon>x{{ item.value }}
             </template>
           </v-data-table>
@@ -72,35 +72,35 @@ export default {
           align: 'center',
           sortable: true,
           filterable: true,
-          value: 'problem.id'
+          value: 'id'
         },
         {
           text: '题目名称',
           align: 'center',
           sortable: false,
           filterable: true,
-          value: 'problem.name'
+          value: 'name'
         },
         {
           text: '标签',
           align: 'center',
           sortable: false,
           filterable: false,
-          value: 'problem.tags'
+          value: 'tags'
         },
         {
           text: '难度',
           align: 'center',
           sortable: true,
           filterable: false,
-          value: 'problem.difficulty'
+          value: 'difficulty'
         },
         {
           text: '解出数量',
           align: 'center',
           sortable: true,
           filterable: false,
-          value: 'problem.totalAccepted'
+          value: 'totalAccepted'
         }
       ],
       options: {},
@@ -127,9 +127,9 @@ export default {
     getTagColor: problem.getTagColor,
     getSortBy () {
       if (this.options.sortBy.length > 0) {
-        if (this.options.sortBy[0] === 'problem.difficulty') {
+        if (this.options.sortBy[0] === 'difficulty') {
           return 'Difficulty'
-        } else if (this.options.sortBy[0] === 'problem.totalAccepted') {
+        } else if (this.options.sortBy[0] === 'totalAccepted') {
           return 'TotalSolvedUsers'
         }
       }
@@ -149,13 +149,11 @@ export default {
       }).then((res) => {
         res.data.forEach((item) => {
           this.problemset.push({
-            problem: {
-              id: item.archiveId,
-              name: item.title,
-              tags: item.tags,
-              difficulty: item.difficulty,
-              totalAccepted: item.acceptedSubmissions
-            }
+            id: item.archiveId,
+            name: item.title,
+            tags: item.tags,
+            difficulty: item.difficulty,
+            totalAccepted: item.acceptedSubmissions
           })
         })
         if (this.page.count === -1) {

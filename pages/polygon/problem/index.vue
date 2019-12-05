@@ -71,7 +71,7 @@
                 </v-dialog>
               </v-toolbar>
             </template>
-            <template v-slot:item.problem.working="item">
+            <template v-slot:item.working="item">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-btn :to="`/polygon/problem/${item.value}`" icon v-on="on">
@@ -128,37 +128,37 @@ export default {
           text: 'Archive ID',
           align: 'center',
           filterable: false,
-          value: 'problem.id'
+          value: 'id'
         },
         {
           text: 'Title',
           align: 'center',
           filterable: true,
-          value: 'problem.name'
+          value: 'name'
         },
         {
           text: 'Owner',
           align: 'center',
           filterable: true,
-          value: 'problem.owner'
+          value: 'owner'
         },
         {
           text: 'Created',
           align: 'center',
           filterable: false,
-          value: 'problem.created'
+          value: 'created'
         },
         {
           text: 'Updated',
           align: 'center',
           filterable: false,
-          value: 'problem.updated'
+          value: 'updated'
         },
         {
           text: 'Working',
           align: 'center',
           filterable: false,
-          value: 'problem.working'
+          value: 'working'
         }
       ],
       page: {
@@ -195,14 +195,12 @@ export default {
       }, this.jwt).then((res) => {
         res.data.forEach((item) => {
           this.problemset.push({
-            problem: {
-              id: item.archiveId !== null ? item.archiveId : '*',
-              name: item.title,
-              owner: item.author,
-              created: item.creationTime.substr(0, 10) + ' ' + item.creationTime.substr(12, 7),
-              updated: item.lastUpdateTime.substr(0, 10) + ' ' + item.lastUpdateTime.substr(12, 7),
-              working: item.id
-            }
+            id: item.archiveId !== null ? item.archiveId : '*',
+            name: item.title,
+            owner: item.author,
+            created: item.creationTime.substr(0, 10) + ' ' + item.creationTime.substr(12, 7),
+            updated: item.lastUpdateTime.substr(0, 10) + ' ' + item.lastUpdateTime.substr(12, 7),
+            working: item.id
           })
         })
         if (this.page.count === -1) {
