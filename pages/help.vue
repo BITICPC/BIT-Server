@@ -11,22 +11,17 @@
               编译系统
             </h3>
             <p>
-              BITOJ 使用三元组（语言，环境，版本）来唯一性地标识每一个受支持的语言及其运行环境。例如，<code>(C++, Clang, 11)</code> 表示 C++ 程序设计语言，使用
-              <code>clang</code> 编译器，支持 C++11 相关语言特性。
+              BITOJ 使用三元组（语言，环境，版本）来唯一性地标识每一个受支持的语言及其运行环境。例如，<code>(C++, Clang, 11)</code> 表示 C++ 程序设计语言，使用 <code>clang</code> 编译器，支持 C++11 相关语言特性。
             </p>
             <v-data-table :headers="headers" :items="items" disable-pagination hide-default-footer />
             <p>
-              <b>Java 运行环境提示：</b>您的 Java 源程序必须包含一个名称为
-              <code>Main</code> 的公共主类
-              <code>public class</code>，否则系统将无法顺利评测您的程序。
+              <b>Java 运行环境提示：</b>您的 Java 源程序必须包含一个名称为 <code>Main</code> 的公共主类 <code>public class</code>，否则系统将无法顺利评测您的程序。
             </p>
             <h3 class="purple--text">
               编译参数
             </h3>
             <p>
-              对于 C/C++ 程序设计语言，您的程序在编译时将通过编译器的
-              <code>-D</code> 选项被注入预处理符号
-              <code>ONLINE_JUDGE</code>。您的程序中可以使用如下的预处理器指令来动态调整将在评测端编译的代码段：
+              对于 C/C++ 程序设计语言，您的程序在编译时将通过编译器的 <code>-D</code> 选项被注入预处理符号 <code>ONLINE_JUDGE</code>。您的程序中可以使用如下的预处理器指令来动态调整将在评测端编译的代码段：
             </p>
             <pre v-highlight><code class="language-cpp" lang="cpp">#ifdef ONLINE_JUDGE
 // Code here will be compiled when judged.
@@ -34,9 +29,7 @@
 // Code here will not be compiled when judged.
 #endif</code></pre>
             <p>
-              对于 Rust 程序设计语言，您的程序在编译时将通过编译器的
-              <code>--cfg</code> 选项被注入配置
-              <code>oj</code>。您的程序中可以使用如下的注解来动态调整将在评测端编译的代码段：
+              对于 Rust 程序设计语言，您的程序在编译时将通过编译器的 <code>--cfg</code> 选项被注入配置 <code>oj</code>。您的程序中可以使用如下的注解来动态调整将在评测端编译的代码段：
             </p>
             <pre v-highlight><code class="language-rust" lang="rust">#[cfg(oj)]
 fn this_function_will_only_be_compiled_when_judged() {
@@ -47,9 +40,7 @@ fn this_function_will_only_be_compiled_when_judged() {
               运行环境
             </h3>
             <p>
-              您提交的程序被评测器执行时均会被注入环境变量
-              <code>ONLINE_JUDGE</code>，其值永远为
-              <code>TRUE</code>。您可以使用如下的 Python 语言片段判断您的程序是否处在评测端：
+              您提交的程序被评测器执行时均会被注入环境变量 <code>ONLINE_JUDGE</code>，其值永远为 <code>TRUE</code>。您可以使用如下的 Python 语言片段判断您的程序是否处在评测端：
             </p>
             <pre v-highlight><code class="language-python" lang="python">import os
 if (os.getenv(&#39;ONLINE_JUDGE&#39;) == &#39;TRUE&#39;):
@@ -71,19 +62,14 @@ if (oj == null || !oj.equals(&quot;TRUE&quot;)) {
               评测模式
             </h3>
             <p>
-              BITOJ 现支持两种评测模式：
-              <code>Standard</code> 模式和
-              <code>Special Judge</code> 模式，未来将加入对
-              <code>Interactive</code> 模式的支持。
+              BITOJ 现支持两种评测模式：<code>Standard</code> 模式和 <code>Special Judge</code> 模式，未来将加入对 <code>Interactive</code> 模式的支持。
             </p>
             <ul>
               <li>
                 在 Standard 模式下，用户的程序的输出将会与命题人提供的标准输出进行逐 Token 的比较，所有仅在空白字符位置的差异将被忽略。Standard 模式不会对每个 token 的语义进行任何分析，因此由于浮点误差而带来的错误在 Standard 模式下会被判定为无法通过。
               </li>
               <li>
-                在 Special Judge 模式下，用户的程序的输出将会连同测试用例的输入和标准输出被输入到由命题人提供的一个答案检查器程序中，由命题人编写的答案检查器对用户的输出进行检查。为了提高命题效率，减少答案检查器错误惨案的发生，请命题人使用
-                <code>WaveTestLib</code> 编写答案检查器。具体方法请参考
-                <code>WaveTestLib</code> 的文档。
+                在 Special Judge 模式下，用户的程序的输出将会连同测试用例的输入和标准输出被输入到由命题人提供的一个答案检查器程序中，由命题人编写的答案检查器对用户的输出进行检查。为了提高命题效率，减少答案检查器错误惨案的发生，请命题人使用 <code>WaveTestLib</code> 编写答案检查器。具体方法请参考 <code>WaveTestLib</code> 的文档。
               </li>
             </ul>
             <h3 class="purple--text">
@@ -135,37 +121,26 @@ int main() {
               <strong>问题二：在 C/C++ 中如何使用 64 位整数类型？</strong>
             </p>
             <p>
-              您可以使用
-              <code>long long int</code> 类型声明 64 位有符号整数类型。另外，推荐使用 C++ 标准头文件
-              <code>cstdint</code>（C 语言中为
-              <code>stdint.h</code>），其中定义了从 8 位整数到 64 位整数的
-              <code>typedef</code>。例如，您可以使用
-              <code>cstdint</code> 中定义的
-              <code>int64_t</code> 类型定义 64 位有符号整数类型。
+              您可以使用 <code>long long int</code> 类型声明 64 位有符号整数类型。另外，推荐使用 C++ 标准头文件 <code>cstdint</code>（C 语言中为 <code>stdint.h</code>），其中定义了从 8 位整数到 64 位整数的 <code>typedef</code>。例如，您可以使用 <code>cstdint</code> 中定义的 <code>int64_t</code> 类型定义 64 位有符号整数类型。
             </p>
             <p>
-              64 位有符号整数类型请使用
-              <code>%lld</code> 格式说明符进行输入和输出。
+              64 位有符号整数类型请使用 <code>%lld</code> 格式说明符进行输入和输出。
             </p>
             <p>
               <strong>问题三：各个编译器的编译选项分别是什么？</strong>
             </p>
             <p>
-              C/C++ 统一采用如下的编译命令：
-              <code>CC -O2 -std={std} -DONLINE_JUDGE -o {output} {source}</code>
+              C/C++ 统一采用如下的编译命令：<code>CC -O2 -std={std} -DONLINE_JUDGE -o {output} {source}</code>
               其中 <code>CC</code> 为 <code>gcc</code>，<code>g++</code>，<code>clang</code> 或 <code>clang++</code>；<code>{std}</code> 表示标准级别，<code>{output}</code> 表示输出文件路径，<code>{source}</code> 表示输入文件路径。（下同）
             </p>
             <p>
-              Rust 编译器采用如下的编译命令：
-              <code>rustc -C opt-level=2 --cfg online_judge -o {output} {source}</code>
+              Rust 编译器采用如下的编译命令：<code>rustc -C opt-level=2 --cfg online_judge -o {output} {source}</code>
             </p>
             <p>
-              Java 采用如下的编译命令：
-              <code>javac -d {output} {source}</code>
+              Java 采用如下的编译命令：<code>javac -d {output} {source}</code>
             </p>
             <p>
-              Python 语言采用如下的命令直接解释运行：
-              <code>ONLINE_JUDGE=TRUE python -OO -B {source}</code>
+              Python 语言采用如下的命令直接解释运行：<code>ONLINE_JUDGE=TRUE python -OO -B {source}</code>
             </p>
           </v-card-text>
         </v-card>
