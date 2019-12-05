@@ -2,6 +2,7 @@
   <v-container>
     <v-row justify="center">
       <v-col class="py-0" cols="12" md="4">
+        <v-breadcrumbs class="pl-0 pl-0 py-2" :items="items" divider=">" />
         <v-card>
           <v-tabs v-model="tabs" color="purple" centered icons-and-text>
             <v-tab href="#profile">
@@ -152,6 +153,21 @@ export default {
   middleware: 'login',
   data () {
     return {
+      items: [
+        {
+          text: '用户',
+          to: '/ranklist'
+        },
+        {
+          text: this.$route.params.id,
+          exact: true,
+          to: '/user/' + this.$route.params.id
+        },
+        {
+          text: '设置',
+          to: '/user/' + this.$route.params.id + '/setting'
+        }
+      ],
       formProfile: {
         nickname: '',
         school: '',

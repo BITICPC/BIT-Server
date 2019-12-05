@@ -1,5 +1,22 @@
 <template>
   <v-container>
+    <v-btn
+      v-if="this.$route.params.id === profile.username"
+      :to="`/user/${profile.username}/setting`"
+      color="success"
+      fab
+      dark
+      fixed
+      bottom
+      right
+    >
+      <v-icon>mdi-pencil</v-icon>
+    </v-btn>
+    <v-row justify="center">
+      <v-col class="py-0" cols="12" md="10">
+        <v-breadcrumbs class="pl-0 py-2" :items="items" divider=">" />
+      </v-col>
+    </v-row>
     <v-row justify="center">
       <v-col class="py-0" cols="12" md="3">
         <v-skeleton-loader
@@ -23,7 +40,7 @@
           <v-card-subtitle>User Profile</v-card-subtitle>
           <v-divider />
           <v-list dense>
-            <v-list-item v-for="(item, index) in profile" :key="index">
+            <v-list-item v-for="(item, index) in profileMenu" :key="index">
               <v-list-item-icon>
                 <v-icon left>
                   mdi-{{ item.icon }}
@@ -45,7 +62,7 @@
           <v-card-subtitle>User Statistical</v-card-subtitle>
           <v-divider />
           <v-list dense>
-            <v-list-item v-for="(item, index) in statistical" :key="index">
+            <v-list-item v-for="(item, index) in statisticalMenu" :key="index">
               <v-list-item-icon>
                 <v-icon left>
                   mdi-{{ item.icon }}
@@ -65,7 +82,7 @@
   </v-container>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import api from '@/components/utils/api'
 
 export default {
@@ -74,84 +91,100 @@ export default {
       return 'polygon'
     }
   },
-  data: () => ({
-    profile: [
-      {
-        type: 'nickname',
-        title: '昵称',
-        icon: 'account',
-        value: '保密'
-      },
-      {
-        type: 'phone',
-        title: '手机号',
-        icon: 'phone',
-        value: '保密'
-      },
-      {
-        type: 'school',
-        title: '学校',
-        icon: 'school',
-        value: '保密'
-      },
-      {
-        type: 'studentId',
-        title: '学号',
-        icon: 'id-card',
-        value: '保密'
-      },
-      {
-        type: 'blogUrl',
-        title: '个人主页',
-        icon: 'rss',
-        value: '保密'
-      },
-      {
-        type: 'email',
-        title: '邮箱',
-        icon: 'email',
-        value: '保密'
-      }
-    ],
-    statistical: [
-      {
-        title: '用户排名',
-        icon: 'chart-line',
-        value: '1024 / 62375',
-        color: 'success'
-      },
-      {
-        title: '解题 / 尝试',
-        icon: 'lightbulb-on',
-        value: '未知',
-        color: 'blue'
-      },
-      {
-        title: '通过 / 提交',
-        icon: 'poll',
-        value: '未知',
-        color: 'orange'
-      },
-      {
-        title: '通过率',
-        icon: 'check',
-        value: '未知 %',
-        color: 'secondary'
-      }
-    ],
-    loading: false
-  }),
+  data () {
+    return {
+      items: [
+        {
+          text: '用户',
+          to: '/ranklist'
+        },
+        {
+          text: this.$route.params.id,
+          exact: true,
+          to: '/user/' + this.$route.params.id
+        }
+      ],
+      profileMenu: [
+        {
+          type: 'nickname',
+          title: '昵称',
+          icon: 'account',
+          value: '保密'
+        },
+        {
+          type: 'phone',
+          title: '手机号',
+          icon: 'phone',
+          value: '保密'
+        },
+        {
+          type: 'school',
+          title: '学校',
+          icon: 'school',
+          value: '保密'
+        },
+        {
+          type: 'studentId',
+          title: '学号',
+          icon: 'id-card',
+          value: '保密'
+        },
+        {
+          type: 'blogUrl',
+          title: '个人主页',
+          icon: 'rss',
+          value: '保密'
+        },
+        {
+          type: 'email',
+          title: '邮箱',
+          icon: 'email',
+          value: '保密'
+        }
+      ],
+      statisticalMenu: [
+        {
+          title: '用户排名',
+          icon: 'chart-line',
+          value: '1024 / 62375',
+          color: 'success'
+        },
+        {
+          title: '解题 / 尝试',
+          icon: 'lightbulb-on',
+          value: '未知',
+          color: 'blue'
+        },
+        {
+          title: '通过 / 提交',
+          icon: 'poll',
+          value: '未知',
+          color: 'orange'
+        },
+        {
+          title: '通过率',
+          icon: 'check',
+          value: '未知 %',
+          color: 'secondary'
+        }
+      ],
+      loading: false
+    }
+  },
+  computed: {
+    ...mapGetters(['profile'])
+  },
   mounted () {
     this.loading = true
     api.getUserInfo(this.$route.params.id).then((res) => {
-      for (const idx in this.profile) {
-        if (res.data[this.profile[idx].type] !== null) {
-          this.profile[idx].value = res.data[this.profile[idx].type]
+      for (const idx in this.profileMenu) {
+        if (res.data[this.profileMenu[idx].type] !== null) {
+          this.profileMenu[idx].value = res.data[this.profileMenu[idx].type]
         }
       }
-      this.statistical[1].value = res.data.totalProblemsAccepted + ' / ' + res.data.totalProblemsAttempted
-      this.statistical[2].value = res.data.totalAccepted + ' / ' + res.data.totalSubmissions
-      this.statistical[3].value = (res.data.totalSubmissions > 0 ? Math.floor(res.data.totalAccepted / res.data.totalSubmissions * 100) : '0') + ' %'
+      this.statisticalMenu[1].value = res.data.totalProblemsAccepted + ' / ' + res.data.totalProblemsAttempted
+      this.statisticalMenu[2].value = res.data.totalAccepted + ' / ' + res.data.totalSubmissions
+      this.statisticalMenu[3].value = (res.data.totalSubmissions > 0 ? Math.floor(res.data.totalAccepted / res.data.totalSubmissions * 100) : '0') + ' %'
     }).catch(() => {
       this.newToast({
         text: '获取用户信息失败!',
