@@ -2,7 +2,11 @@
   <v-container>
     <v-row justify="center">
       <v-col class="py-0" cols="12" md="4">
-        <v-breadcrumbs class="pl-0 pl-0 py-2" :items="items" divider=">" />
+        <v-breadcrumbs class="pl-0 pl-0 py-2" :items="items" divider=">">
+          <template v-slot:divider>
+            <v-icon>mdi-chevron-right</v-icon>
+          </template>
+        </v-breadcrumbs>
         <v-card>
           <v-tabs v-model="tabs" color="purple" centered icons-and-text>
             <v-tab href="#profile">

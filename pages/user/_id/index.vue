@@ -14,7 +14,11 @@
     </v-btn>
     <v-row justify="center">
       <v-col class="py-0" cols="12" md="10">
-        <v-breadcrumbs class="pl-0 py-2" :items="items" divider=">" />
+        <v-breadcrumbs class="pl-0 py-2" :items="items" divider=">">
+          <template v-slot:divider>
+            <v-icon>mdi-chevron-right</v-icon>
+          </template>
+        </v-breadcrumbs>
       </v-col>
     </v-row>
     <v-row justify="center">
