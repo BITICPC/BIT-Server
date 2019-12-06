@@ -126,6 +126,9 @@ export default {
   getPublicProblemDetail (id) {
     const cmd = '/archive/' + id
     return ajax(cmd, 'get')
+  },
+  getAnnouncements (params) {
+    return ajax('/announcements', 'get', { params })
   }
 }
 
