@@ -195,7 +195,7 @@ export default {
       }, this.jwt).then((res) => {
         res.data.forEach((item) => {
           this.problemset.push({
-            id: item.archiveId !== null ? item.archiveId : '*',
+            id: item.archiveId !== null ? item.archiveId : '?',
             name: item.title,
             owner: item.author,
             created: item.creationTime.substr(0, 10) + ' ' + item.creationTime.substr(12, 7),
