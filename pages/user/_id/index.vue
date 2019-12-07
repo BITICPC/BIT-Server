@@ -33,7 +33,7 @@
               {{ $route.params.id }}
             </v-card-title>
             <v-card-subtitle>
-              {{ profile.isAdmin ? '管理员' : '普通用户' }}
+              {{ isAdmin ? '管理员' : '普通用户' }}
             </v-card-subtitle>
           </v-card>
         </v-skeleton-loader>
@@ -172,6 +172,7 @@ export default {
           color: 'secondary'
         }
       ],
+      isAdmin: false,
       loading: false
     }
   },
@@ -186,6 +187,7 @@ export default {
           this.profileMenu[idx].value = res.data[this.profileMenu[idx].type]
         }
       }
+      this.isAdmin = res.data.isAdmin
       this.statisticalMenu[1].value = res.data.totalProblemsAccepted + ' / ' + res.data.totalProblemsAttempted
       this.statisticalMenu[2].value = res.data.totalAccepted + ' / ' + res.data.totalSubmissions
       this.statisticalMenu[3].value = (res.data.totalSubmissions > 0 ? Math.floor(res.data.totalAccepted / res.data.totalSubmissions * 100) : '0') + ' %'
