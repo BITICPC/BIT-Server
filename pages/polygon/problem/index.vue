@@ -115,6 +115,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import api from '@/components/utils/api'
+import common from '@/components/utils/common'
 import problem from '@/components/utils/problem'
 
 export default {
@@ -198,8 +199,8 @@ export default {
             id: item.archiveId !== null ? item.archiveId : '?',
             name: item.title,
             owner: item.author,
-            created: item.creationTime.substr(0, 10) + ' ' + item.creationTime.substr(12, 7),
-            updated: item.lastUpdateTime.substr(0, 10) + ' ' + item.lastUpdateTime.substr(12, 7),
+            created: common.getTimeFormat(item.creationTime),
+            updated: common.getTimeFormat(item.lastUpdateTime),
             working: item.id
           })
         })

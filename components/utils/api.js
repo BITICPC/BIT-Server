@@ -129,6 +129,10 @@ export default {
   },
   getAnnouncements (params) {
     return ajax('/announcements', 'get', { params })
+  },
+  getAnnouncementDetail (id) {
+    const cmd = '/announcements/' + id
+    return ajax(cmd, 'get')
   }
 }
 
