@@ -1,8 +1,10 @@
 <template>
   <div>
-    <v-app-bar :fixed="true" color="info" app dark>
+    <v-app-bar color="info" fixed app dark>
       <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer" />
-      <img src="~/static/BIT.png" style="width: 35px;">
+      <v-avatar size="36">
+        <img src="~/static/BIT.png">
+      </v-avatar>
       <v-toolbar-title class="ma-3">
         BIT Online Judge
       </v-toolbar-title>
