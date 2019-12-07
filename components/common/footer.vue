@@ -10,7 +10,11 @@
                 首页
               </nuxt-link>
             </li>
-            <li>反馈</li>
+            <li>
+              <nuxt-link to="/feedback">
+                反馈
+              </nuxt-link>
+            </li>
             <li>
               <nuxt-link to="/polygon">
                 Polygon
