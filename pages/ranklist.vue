@@ -132,6 +132,7 @@ export default {
         },
         {
           text: '通过数量',
+          width: '120',
           align: 'center',
           sortable: true,
           filterable: false,
@@ -139,6 +140,7 @@ export default {
         },
         {
           text: '尝试数量',
+          width: '120',
           align: 'center',
           sortable: true,
           filterable: false,

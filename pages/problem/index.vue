@@ -90,6 +90,7 @@ export default {
         },
         {
           text: '难度',
+          width: '120',
           align: 'center',
           sortable: true,
           filterable: false,
@@ -97,6 +98,7 @@ export default {
         },
         {
           text: '解出数量',
+          width: '120',
           align: 'center',
           sortable: true,
           filterable: false,
