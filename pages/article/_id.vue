@@ -9,7 +9,9 @@
         </v-breadcrumbs>
         <v-card>
           <v-skeleton-loader :loading="skeleton" type="article, list-item-three-line">
-            <v-card-title class="headline">{{ announcement.title }}</v-card-title>
+            <v-card-title class="headline">
+              {{ announcement.title }}
+            </v-card-title>
             <v-card-subtitle>
               <nuxt-link :to="`/user/${announcement.author}`">
                 {{ announcement.author }}
