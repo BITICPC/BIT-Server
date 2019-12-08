@@ -78,7 +78,9 @@
                 </nuxt-link>
               </template>
               <template v-else>
-                <v-icon color="grey" small>mdi-help</v-icon>
+                <v-icon color="grey" small>
+                  mdi-help
+                </v-icon>
               </template>
             </template>
             <template v-slot:item.working="item">

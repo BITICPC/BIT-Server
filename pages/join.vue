@@ -81,7 +81,7 @@ import api from '@/plugins/utils/api'
 
 export default {
   layout ({ query }) {
-    if (query.polygon) {
+    if (query.polygon === true) {
       return 'polygon'
     }
   },

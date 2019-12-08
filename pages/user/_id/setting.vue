@@ -151,7 +151,7 @@ import account from '@/plugins/utils/account'
 
 export default {
   layout ({ query }) {
-    if (query.polygon) {
+    if (query.polygon === true) {
       return 'polygon'
     }
   },
@@ -224,7 +224,6 @@ export default {
         color: 'error',
         icon: 'mdi-alert'
       })
-      this.$router.go(-1)
     }
   },
   methods: {

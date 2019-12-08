@@ -13,7 +13,7 @@
       <v-icon>mdi-pencil</v-icon>
     </v-btn>
     <v-row justify="center">
-      <v-col  cols="12" md="10">
+      <v-col cols="12" md="10">
         <v-breadcrumbs class="pl-0 py-0" :items="items" divider=">">
           <template v-slot:divider>
             <v-icon>mdi-chevron-right</v-icon>
@@ -91,7 +91,7 @@ import api from '@/plugins/utils/api'
 
 export default {
   layout ({ query }) {
-    if (query.polygon) {
+    if (query.polygon === true) {
       return 'polygon'
     }
   },
