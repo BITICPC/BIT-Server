@@ -127,6 +127,7 @@ export default {
       ranklistHeaders: [
         {
           text: '#',
+          align: 'center',
           value: 'rank'
         },
         {
