@@ -37,7 +37,7 @@
   </v-container>
 </template>
 <script>
-import api from '@/components/utils/api'
+import api from '@/plugins/utils/api'
 
 export default {
   data () {
