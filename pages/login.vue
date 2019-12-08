@@ -52,8 +52,8 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import account from '@/components/utils/account'
-import api from '@/components/utils/api'
+import account from '@/plugins/utils/account'
+import api from '@/plugins/utils/api'
 
 export default {
   layout ({ query }) {

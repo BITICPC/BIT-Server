@@ -98,8 +98,8 @@
   </v-container>
 </template>
 <script>
-import api from '@/components/utils/api'
-import common from '@/components/utils/common'
+import api from '@/plugins/utils/api'
+import common from '@/plugins/utils/common'
 
 export default {
   data () {

@@ -87,7 +87,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import api from '@/components/utils/api'
+import api from '@/plugins/utils/api'
 
 export default {
   layout ({ query }) {

@@ -59,8 +59,8 @@
   </v-container>
 </template>
 <script>
-import api from '@/components/utils/api'
-import problem from '@/components/utils/problem'
+import api from '@/plugins/utils/api'
+import problem from '@/plugins/utils/problem'
 
 export default {
   data () {

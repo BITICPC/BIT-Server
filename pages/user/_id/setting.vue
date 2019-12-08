@@ -146,7 +146,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import account from '@/components/utils/account'
+import account from '@/plugins/utils/account'
 
 export default {
   layout ({ query }) {

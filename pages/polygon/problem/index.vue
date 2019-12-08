@@ -114,9 +114,9 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import api from '@/components/utils/api'
-import common from '@/components/utils/common'
-import problem from '@/components/utils/problem'
+import api from '@/plugins/utils/api'
+import common from '@/plugins/utils/common'
+import problem from '@/plugins/utils/problem'
 
 export default {
   layout: 'polygon',

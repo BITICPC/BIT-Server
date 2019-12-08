@@ -47,8 +47,8 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import hljs from 'highlight.js'
-import api from '@/components/utils/api'
-import problem from '@/components/utils/problem'
+import api from '@/plugins/utils/api'
+import problem from '@/plugins/utils/problem'
 import simplemde from '@/plugins/vue-simplemde'
 window.hljs = hljs
 

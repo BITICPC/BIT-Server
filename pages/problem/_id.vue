@@ -203,9 +203,9 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
-import api from '@/components/utils/api'
-import problem from '@/components/utils/problem'
-import common from '@/components/utils/common'
+import api from '@/plugins/utils/api'
+import problem from '@/plugins/utils/problem'
+import common from '@/plugins/utils/common'
 
 export default {
   data () {
