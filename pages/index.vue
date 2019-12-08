@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col class="py-0" cols="12" md="9">
+      <v-col cols="12" md="8">
         <v-card>
           <v-list-item>
             <v-list-item-icon class="mr-2">
@@ -50,7 +50,7 @@
           </v-card-actions>
         </v-card>
       </v-col>
-      <v-col cols="12" md="3" class="pt-md-0 pb-0 pl-md-0">
+      <v-col cols="12" md="4">
         <v-card>
           <v-list-item>
             <v-list-item-icon class="mr-2">

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col class="py-0">
+      <v-col>
         <v-card>
           <v-card-title>反馈</v-card-title>
           <v-card-subtitle>Feedback</v-card-subtitle>

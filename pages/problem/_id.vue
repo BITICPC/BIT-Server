@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col class="py-0" cols="12" md="9">
+      <v-col cols="12" md="9">
         <v-card>
           <v-row v-show="skeleton" justify="center" no-gutters>
             <v-col md="3" cols="7">
@@ -160,7 +160,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12" md="3" class="pt-md-0 pb-0 pl-md-0">
+      <v-col cols="12" md="3" class="pl-md-0">
         <v-card>
           <v-skeleton-loader :loading="skeleton" type="list-item-two-line, divider, list-item-three-line">
             <v-card-text>

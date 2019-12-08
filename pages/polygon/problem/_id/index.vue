@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col class="py-0" cols="12" md="9">
+      <v-col cols="12" md="9">
         <v-card>
           <v-tabs>
             <v-tab :to="`/polygon/problem/${$route.params.id}`" exact>
@@ -65,7 +65,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col class="pt-md-0 pb-0 pl-md-0" cols="12" md="3">
+      <v-col cols="12" md="3" class="pl-md-0">
         <v-card>
           <v-card-title>
             Problem profile

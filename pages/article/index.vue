@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col class="py-0" cols="12">
-        <v-breadcrumbs class="pl-0 pl-0 py-2" :items="items" divider=">">
+      <v-col cols="12">
+        <v-breadcrumbs class="pl-0 pt-0 py-3" :items="items" divider=">">
           <template v-slot:divider>
             <v-icon>mdi-chevron-right</v-icon>
           </template>

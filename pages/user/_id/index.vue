@@ -13,8 +13,8 @@
       <v-icon>mdi-pencil</v-icon>
     </v-btn>
     <v-row justify="center">
-      <v-col class="py-0" cols="12" md="10">
-        <v-breadcrumbs class="pl-0 py-2" :items="items" divider=">">
+      <v-col  cols="12" md="10">
+        <v-breadcrumbs class="pl-0 py-0" :items="items" divider=">">
           <template v-slot:divider>
             <v-icon>mdi-chevron-right</v-icon>
           </template>
@@ -150,7 +150,7 @@ export default {
         {
           title: '用户排名',
           icon: 'chart-line',
-          value: '1024 / 62375',
+          value: '未知',
           color: 'success'
         },
         {
@@ -188,6 +188,7 @@ export default {
         }
       }
       this.isAdmin = res.data.isAdmin
+      this.statisticalMenu[0].value = res.data.rank
       this.statisticalMenu[1].value = res.data.totalProblemsAccepted + ' / ' + res.data.totalProblemsAttempted
       this.statisticalMenu[2].value = res.data.totalAccepted + ' / ' + res.data.totalSubmissions
       this.statisticalMenu[3].value = (res.data.totalSubmissions > 0 ? Math.floor(res.data.totalAccepted / res.data.totalSubmissions * 100) : '0') + ' %'

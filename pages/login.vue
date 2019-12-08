@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col class="py-0" cols="12" md="4">
+      <v-col cols="12" md="4">
         <v-card>
           <v-card-title class="justify-center">
             登录
