@@ -68,7 +68,7 @@ export default {
     loading: false
   }),
   computed: {
-    ...mapGetters(['jwt'])
+    ...mapGetters(['profile'])
   },
   mounted () {
     this.getStatement()
@@ -77,7 +77,7 @@ export default {
     ...mapActions(['newToast']),
     getStatement () {
       this.loading = true
-      api.getProblemDetail(this.$route.params.id, this.jwt).then((res) => {
+      api.getProblemDetail(this.$route.params.id, this.profile.jwt).then((res) => {
         Object.keys(this.problem).forEach((element) => {
           if (res.data[element] !== null) {
             this.problem[element] = res.data[element]
@@ -88,7 +88,7 @@ export default {
     updateStatement () {
       if (this.$refs.statement.validate()) {
         this.loading = true
-        api.editProblemDetail(this.$route.params.id, this.problem, this.jwt).then(() => {
+        api.editProblemDetail(this.$route.params.id, this.problem, this.profile.jwt).then(() => {
           this.newToast({
             text: 'Successfully updated.',
             color: 'success',

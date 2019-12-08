@@ -146,6 +146,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import api from '@/plugins/utils/api'
 import account from '@/plugins/utils/account'
 
 export default {
@@ -199,26 +200,35 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['profile', 'isLogin'])
+    ...mapGetters(['profile'])
   },
   mounted () {
     if (this.$route.params.id === this.profile.username) {
-      Object.keys(this.formProfile).forEach((element) => {
-        if (this.profile[element] !== null) {
-          this.formProfile[element] = this.profile[element]
-        }
+      api.getUserInfo(this.profile.username, this.profile.jwt).then((res) => {
+        Object.keys(this.formProfile).forEach((element) => {
+          if (res.data[element] !== null) {
+            this.formProfile[element] = res.data[element]
+          }
+        })
+        this.formAccount.username = res.data.username
+      }).catch(() => {
+        this.newToast({
+          text: '获取用户信息失败！',
+          color: 'error',
+          icon: 'mdi-alert'
+        })
       })
-      this.formAccount.username = this.profile.username
     } else {
       this.newToast({
         text: '您没有修改用户信息的权限！',
         color: 'error',
         icon: 'mdi-alert'
       })
+      this.$router.go(-1)
     }
   },
   methods: {
-    ...mapActions(['setProfile', 'changePassword', 'newToast']),
+    ...mapActions(['newToast']),
     getErrorByAttributes (field) {
       if (field === 'oldPassword' && this.errorCode === 403) {
         return '旧密码不正确'
@@ -242,7 +252,7 @@ export default {
             data[element] = null
           }
         })
-        this.setProfile(data).then(() => {
+        api.changeUserInfo(this.profile.username, data, this.profile.jwt).then(() => {
           this.newToast({
             text: '个人资料保存成功！',
             color: 'success',
@@ -261,7 +271,7 @@ export default {
       if (this.$refs.account.validate()) {
         this.loading = true
         this.errorCode = 200
-        this.changePassword(this.formAccount).then(() => {
+        api.changeUserPassword(this.profile.username, this.formAccount, this.profile.jwt).then(() => {
           this.newToast({
             text: '密码修改成功！',
             color: 'success',

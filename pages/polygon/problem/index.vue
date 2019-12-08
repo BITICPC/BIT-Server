@@ -71,10 +71,20 @@
                 </v-dialog>
               </v-toolbar>
             </template>
+            <template v-slot:item.archive="item">
+              <template v-if="item.value !== '?'">
+                <nuxt-link :to="`/problem/${item.value}`">
+                  {{ item.value }}
+                </nuxt-link>
+              </template>
+              <template v-else>
+                <v-icon color="grey" small>mdi-help</v-icon>
+              </template>
+            </template>
             <template v-slot:item.working="item">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn :to="`/polygon/problem/${item.value}`" icon v-on="on">
+                  <v-btn :to="`problem/${item.value}`" icon v-on="on">
                     <v-icon color="success">
                       mdi-square-edit-outline
                     </v-icon>
@@ -129,7 +139,7 @@ export default {
           text: 'Archive ID',
           align: 'center',
           filterable: false,
-          value: 'id'
+          value: 'archive'
         },
         {
           text: 'Title',
@@ -175,7 +185,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['jwt'])
+    ...mapGetters(['profile'])
   },
   watch: {
     'page.index' () {
@@ -193,10 +203,10 @@ export default {
       api.getProblemList({
         page: this.page.index - 1,
         itemsPerPage: this.page.itemsPerPage
-      }, this.jwt).then((res) => {
+      }, this.profile.jwt).then((res) => {
         res.data.forEach((item) => {
           this.problemset.push({
-            id: item.archiveId !== null ? item.archiveId : '?',
+            archive: item.archiveId !== null ? item.archiveId : '?',
             name: item.title,
             owner: item.author,
             created: common.getTimeFormat(item.creationTime),
@@ -218,7 +228,7 @@ export default {
       if (this.$refs.form.validate()) {
         api.createProblem({
           title: this.inputTitle
-        }, this.jwt).then(() => {
+        }, this.profile.jwt).then(() => {
           this.newToast({
             text: 'A new problem has been created successfully.',
             color: 'success',

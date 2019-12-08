@@ -1,69 +1,43 @@
 import types from '../types'
-import api from '~/components/utils/api'
+import storage from '@/plugins/utils/storage'
+import { STORAGE_KEY } from '@/plugins/utils/constants'
 
 const state = () => ({
-  profile: {},
-  jwt: {}
+  profile: {
+    username: storage.get(STORAGE_KEY.USER_NAME) || null,
+    role: storage.get(STORAGE_KEY.ROLE) || null,
+    jwt: storage.get(STORAGE_KEY.JWT) || null
+  }
 })
 
 const getters = {
   profile: state => state.profile,
 
-  jwt: state => state.jwt,
+  isLogin: state => !!state.profile.jwt,
 
-  isLogin: (state, getters) => {
-    return !!getters.profile.username
-  },
-  isAdmin: (state, getters) => {
-    return getters.profile.isAdmin
-  }
+  isAdmin: state => state.profile.role
 }
 
 const mutations = {
-  [types.CHANGE_PROFILE] (state, { profile }) {
-    state.profile = profile
-  },
-  [types.CHANGE_JWT] (state, { jwt }) {
-    state.jwt = jwt
+  [types.CHANGE_PROFILE] (state, payload) {
+    state.profile = payload
+    storage.set(STORAGE_KEY.USER_NAME, payload.username)
+    storage.set(STORAGE_KEY.ROLE, payload.role)
+    storage.set(STORAGE_KEY.JWT, payload.jwt)
   }
 }
 
 const actions = {
-  setJwt ({ commit }, payload) {
-    commit(types.CHANGE_JWT, {
-      jwt: payload
-    })
-  },
-  getProfile ({ state, commit }, payload) {
-    return api.getUserInfo(payload, state.jwt).then((res) => {
-      commit(types.CHANGE_PROFILE, {
-        profile: res.data || {}
-      })
-    })
-  },
-  setProfile ({ state, commit }, payload) {
-    return api.changeUserInfo(state.profile.username, payload, state.jwt).then(() => {
-      const profile = Object.assign({}, state.profile)
-      Object.keys(payload).forEach((element) => {
-        if (profile[element] !== payload[element]) {
-          profile[element] = payload[element]
-        }
-      })
-      commit(types.CHANGE_PROFILE, { profile })
-    })
-  },
-  changePassword ({ state }, payload) {
-    return api.changeUserPassword(state.profile.username, payload, state.jwt)
+  setProfile ({ commit }, { username, role, jwt }) {
+    commit(types.CHANGE_PROFILE, { username, role, jwt })
   },
   clearProfile ({ commit }) {
     commit(types.CHANGE_PROFILE, {
-      profile: {}
+      username: null,
+      role: null,
+      jwt: null
     })
-  },
-  clearJwt ({ commit }) {
-    commit(types.CHANGE_JWT, {
-      jwt: {}
-    })
+    storage.clear()
   }
 }
 

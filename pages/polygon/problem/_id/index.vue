@@ -87,7 +87,9 @@
               </v-list-item-content>
               <v-list-item-content class="align-end">
                 <template v-if="!!problem.archiveId">
-                  {{ problem.archiveId }}
+                  <nuxt-link :to="`/problem/${problem.archiveId}`">
+                    {{ problem.archiveId }}
+                  </nuxt-link>
                 </template>
                 <template v-else>
                   <span class="grey--text">
@@ -283,14 +285,14 @@ export default {
     inputArchiveIdLoading: false
   }),
   computed: {
-    ...mapGetters(['jwt'])
+    ...mapGetters(['profile'])
   },
   watch: {
     'problem.difficulty' (value, oldValue) {
       if (oldValue >= 0) {
         api.editProblemDetail(this.$route.params.id, {
           difficulty: this.problem.difficulty * 2
-        }, this.jwt).catch(() => {
+        }, this.profile.jwt).catch(() => {
           this.newToast({
             text: 'Failed to change the difficulty.',
             color: 'error',
@@ -307,7 +309,7 @@ export default {
     ...mapActions(['newToast']),
     getGeneralInfo () {
       this.loading = true
-      api.getProblemDetail(this.$route.params.id, this.jwt).then((res) => {
+      api.getProblemDetail(this.$route.params.id, this.profile.jwt).then((res) => {
         Object.keys(this.problem).forEach((element) => {
           if (res.data[element] !== null) {
             this.problem[element] = res.data[element]
@@ -324,7 +326,7 @@ export default {
           timeLimit: this.problem.timeLimit,
           memoryLimit: this.problem.memoryLimit,
           judgeMode: problem.mapJudgeMode[this.problem.judgeMode]
-        }, this.jwt).then(() => {
+        }, this.profile.jwt).then(() => {
           this.newToast({
             text: 'Successfully updated.',
             color: 'success',
@@ -361,7 +363,7 @@ export default {
           api.addIntoPublicProblemList({
             id: this.$route.params.id,
             archiveId: this.inputArchiveId
-          }, this.jwt).then(() => {
+          }, this.profile.jwt).then(() => {
             this.problem.archiveId = this.inputArchiveId
             this.newToast({
               text: 'Successfully updated.',
@@ -381,7 +383,7 @@ export default {
           }).finally(() => { this.inputArchiveIdLoading = false })
         }
       } else {
-        api.deleteFromPublicProblemList([this.problem.archiveId], this.jwt).then(() => {
+        api.deleteFromPublicProblemList([this.problem.archiveId], this.profile.jwt).then(() => {
           this.problem.archiveId = null
           this.newToast({
             text: 'Successfully updated.',
@@ -406,7 +408,7 @@ export default {
     addTag () {
       if (this.$refs.tag.validate() && this.getErrorByAttributes('tag') === null) {
         this.inputTagLoading = true
-        api.addProblemTag(this.$route.params.id, [this.inputTag], this.jwt).then(() => {
+        api.addProblemTag(this.$route.params.id, [this.inputTag], this.profile.jwt).then(() => {
           this.problem.tags.push(this.inputTag)
           this.inputTag = ''
           this.resetTagValidation()
@@ -420,7 +422,7 @@ export default {
       }
     },
     removeTag (index) {
-      api.deleteProblemTag(this.$route.params.id, [this.problem.tags[index]], this.jwt).then(() => {
+      api.deleteProblemTag(this.$route.params.id, [this.problem.tags[index]], this.profile.jwt).then(() => {
         this.problem.tags.splice(index, 1)
       }).catch(() => {
         this.newToast({

@@ -77,7 +77,7 @@ export default {
     ...mapGetters(['isLogin'])
   },
   methods: {
-    ...mapActions(['setJwt', 'getProfile', 'newToast']),
+    ...mapActions(['setProfile', 'newToast']),
     getErrorByAttributes (field) {
       if (this.errorCode === 404 && field === 'username') {
         return '此用户名尚未注册'
@@ -92,19 +92,21 @@ export default {
         this.loading = true
         this.errorCode = 200
         api.login(this.formLogin).then((res) => {
-          this.setJwt(res.data.jwt)
-          this.getProfile(res.data.username).finally(() => {
-            this.newToast({
-              text: '登录成功！',
-              color: 'success',
-              icon: 'mdi-check-circle'
-            })
-            if (this.$route.query.back) {
-              this.$router.push(this.$route.query.back)
-            } else {
-              this.$router.go(-1)
-            }
+          this.setProfile({
+            username: res.data.username,
+            role: res.data.isAdmin,
+            jwt: res.data.jwt
           })
+          this.newToast({
+            text: '登录成功！',
+            color: 'success',
+            icon: 'mdi-check-circle'
+          })
+          if (this.$route.query.back) {
+            this.$router.push(this.$route.query.back)
+          } else {
+            this.$router.go(-1)
+          }
         }).catch((err) => {
           if (err !== undefined) {
             this.errorCode = err.status

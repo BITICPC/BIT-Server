@@ -95,7 +95,7 @@
               {{ profile.username }}
             </v-list-item-title>
             <v-list-item-subtitle>
-              {{ profile.isAdmin ? '管理员' : '普通用户' }}
+              {{ profile.role ? '管理员' : '普通用户' }}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
