@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-row justify="center">
-      <v-col cols="12" md="4">
-        <v-card>
+    <v-row>
+      <v-col class="d-flex justify-center" cols="12">
+        <v-card width="350">
           <v-card-title class="justify-center">
             登录
           </v-card-title>
