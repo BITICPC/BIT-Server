@@ -178,13 +178,8 @@
             <v-card-text>
               <b>创建：</b>{{ problem.creationTime }}<br>
               <b>修改：</b>{{ problem.lastUpdateTime }}<br>
-              <b>最后提交：</b>
-              <template v-if="problem.totalSubmissions > 0">
-                {{ problem.lastSubmissionTime }}
-              </template>
-              <template v-else>
-                None
-              </template><br>
+              <b>最后提交：</b><template v-if="problem.totalSubmissions > 0">{{ problem.lastSubmissionTime }}</template>
+              <template v-else>None</template><br>
               <b>来源: </b>{{ problem.source }}
             </v-card-text>
           </v-skeleton-loader>
