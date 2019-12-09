@@ -5,7 +5,7 @@ const md = require('markdown-it')().use(require('markdown-it-mathjax')())
 export default {
   md,
   getTimeFormat (time) {
-    return time.substr(0, 10) + ' ' + time.substr(11, 8)
+    return moment(time).format('YYYY-MM-DD HH:mm:ss')
   },
   getTimeDifferent (lastTime) {
     const dateLast = moment(lastTime)
