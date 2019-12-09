@@ -9,17 +9,21 @@
         </v-breadcrumbs>
         <v-card>
           <v-skeleton-loader :loading="skeleton" type="article, list-item-three-line">
-            <v-card-title class="headline">
+            <v-card-title class="headline mb-2">
               {{ announcement.title }}
             </v-card-title>
             <v-card-subtitle>
               <nuxt-link :to="`/user/${announcement.author}`">
-                {{ announcement.author }}
-              </nuxt-link>
-              发布于 {{ announcement.creationTime }}
-              <template v-if="announcement.creationTime !== announcement.lastUpdateTime">
-                ，修改于 {{ announcement.lastUpdateTime }}
-              </template>
+                <v-icon small left>
+                  mdi-account
+                </v-icon><span class="mr-2">{{ announcement.author }}</span>
+              </nuxt-link><br class="hidden-sm-and-up">
+              <v-icon small left>
+                mdi-calendar
+              </v-icon><span class="mr-2">{{ announcement.creationTime }}</span><br class="hidden-sm-and-up">
+              <v-icon small left>
+                mdi-square-edit-outline
+              </v-icon>{{ announcement.lastUpdateTime }}
             </v-card-subtitle>
             <v-card-text>
               <div class="content">
