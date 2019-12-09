@@ -38,6 +38,7 @@
 </template>
 <script>
 import api from '@/plugins/utils/api'
+import common from '@/plugins/utils/common'
 
 export default {
   data () {
@@ -102,7 +103,7 @@ export default {
             id: item.id,
             title: item.title,
             author: item.author,
-            time: item.creationTime.substr(0, 10) + ' ' + item.creationTime.substr(12, 7)
+            time: common.getTimeFormat(item.creationTime)
           })
         })
         if (this.page.count === -1) {
