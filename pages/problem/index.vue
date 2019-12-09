@@ -1,14 +1,14 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="12" md="10">
+      <v-col cols="12" md="10" lg="10" xl="8">
         <v-card>
-          <v-card-title>
+          <!-- <v-card-title>
             题目列表
           </v-card-title>
           <v-card-subtitle>
             Problem list
-          </v-card-subtitle>
+          </v-card-subtitle> -->
           <v-data-table
             :headers="headers"
             :items="problemset"

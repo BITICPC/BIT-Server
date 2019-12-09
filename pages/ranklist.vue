@@ -1,14 +1,14 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="12" md="8">
+      <v-col cols="12" sm="12" md="10" lg="8" xl="6">
         <v-card>
-          <v-card-title>
+          <!-- <v-card-title>
             用户排名
           </v-card-title>
           <v-card-subtitle>
             User Ranklist
-          </v-card-subtitle>
+          </v-card-subtitle> -->
           <v-data-table
             :headers="headers"
             :items="ranklist"
@@ -36,7 +36,7 @@
               </v-toolbar>
             </template> -->
             <template v-slot:item="user">
-              <tr :align="user.headers[0].align" class="hidden-sm-and-down">
+              <tr :align="user.headers[0].align" class="d-none d-sm-table-row">
                 <td>{{ page.itemsPerPage * (page.index - 1) + user.index + 1 }}</td>
                 <td>
                   <nuxt-link :to="`/user/${user.item.username}`">
