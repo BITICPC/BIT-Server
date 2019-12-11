@@ -12,59 +12,6 @@ const mapJudgeMode = {
   交互模式: 'Interactive'
 }
 
-const codeLanguage = [
-  {
-    title: 'C 11',
-    lang: 'c_cpp',
-    token: 'GCC 8.3.0'
-  },
-  {
-    title: 'C 17',
-    lang: 'c_cpp',
-    token: 'GCC 8.3.0'
-  },
-  {
-    title: 'C 11',
-    lang: 'c_cpp',
-    token: 'Clang 9.0.0'
-  },
-  {
-    title: 'C 17',
-    lang: 'c_cpp',
-    token: 'Clang 9.0.0'
-  },
-  {
-    title: 'C++ 11',
-    lang: 'c_cpp',
-    token: 'GCC 8.3.0'
-  },
-  {
-    title: 'C++ 14',
-    lang: 'c_cpp',
-    token: 'GCC 8.3.0'
-  },
-  {
-    title: 'C++ 17',
-    lang: 'c_cpp',
-    token: 'GCC 8.3.0'
-  },
-  {
-    title: 'Java',
-    lang: 'java',
-    token: 'Java SE 10.0.2'
-  },
-  {
-    title: 'Python 3',
-    lang: 'python',
-    token: 'GCC 8.3.0'
-  },
-  {
-    title: 'Rust',
-    lang: 'rust',
-    token: 'Rust 1.31'
-  }
-]
-
 const nameRules = [
   v => !!v || 'Field should not be empty',
   v => (v && v.length >= 1 && v.length <= 30) || 'Field should be at least 1 and no more than 30 characters'
@@ -84,7 +31,6 @@ export default {
   tags,
   judgeMode,
   mapJudgeMode,
-  codeLanguage,
   nameRules,
   timeRules,
   memoryRules,

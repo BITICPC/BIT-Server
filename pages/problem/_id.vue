@@ -3,12 +3,12 @@
     <v-row justify="center">
       <v-col cols="12" sm="9" md="9" lg="9" xl="7">
         <v-card>
-          <v-row v-show="skeleton" justify="center" no-gutters>
+          <v-row v-show="skeleton" justify="center"  no-gutters>
             <v-col md="3" cols="7">
               <v-skeleton-loader type="article" boilerplate />
             </v-col>
           </v-row>
-          <v-card-title v-show="!skeleton" class="headline mb-1 justify-center">
+          <v-card-title v-show="!skeleton" class="headline mb-1 justify-center text-center">
             #{{ $route.params.id }}. {{ problem.title }}
           </v-card-title>
           <v-card-subtitle v-show="!skeleton" class="text-center">
@@ -281,7 +281,7 @@
   </v-container>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import api from '@/plugins/utils/api'
 import problem from '@/plugins/utils/problem'
 import common from '@/plugins/utils/common'
@@ -314,12 +314,15 @@ export default {
       },
       code: '',
       selectLanguage: {
-        title: 'C++ 11',
-        lang: 'c_cpp',
-        token: 'GCC 8.3.0'
+        title: '',
+        lang: '',
+        token: ''
       },
-      languageOptions: problem.codeLanguage
+      languageOptions: []
     }
+  },
+  watch: {
+    ...mapGetters(['language'])
   },
   mounted () {
     this.skeleton = true
@@ -339,22 +342,37 @@ export default {
       this.problem.creationTime = common.getTimeDifferent(res.data.creationTime)
       this.problem.lastUpdateTime = common.getTimeDifferent(res.data.lastUpdateTime)
       this.problem.lastSubmissionTime = res.data.totalSubmissions > 0 ? common.getTimeDifferent(res.data.lastSubmissionTime) : 'None'
+
+      if (this.language !== null) {
+        api.getLanguages().then((res) => {
+          this.setLanguage(res.data)
+          this.languageOptions = common.getLanguageOptions(res.data)
+        })
+      } else {
+        this.languageOptions = common.getLanguageOptions(this.language)
+      }
       this.skeleton = false
+    }).catch(() => {
+      this.newToast({
+        text: '获取题目信息失败！',
+        color: 'error',
+        icon: 'mdi-alert'
+      })
     })
   },
   methods: {
-    ...mapActions(['newToast']),
+    ...mapActions(['newToast', 'setLanguage']),
     getTagColor: problem.getTagColor,
     onCopy (event) {
       this.newToast({
-        text: '复制成功',
+        text: '复制成功！',
         color: 'success',
         icon: 'mdi-check-circle'
       })
     },
     onCopyError (event) {
       this.newToast({
-        text: '复制失败',
+        text: '复制失败！',
         color: 'error',
         icon: 'mdi-alert'
       })

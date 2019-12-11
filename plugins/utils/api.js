@@ -127,6 +127,9 @@ export default {
     const cmd = '/archive/' + id
     return ajax(cmd, 'get')
   },
+  getLanguages () {
+    return ajax('/languages', 'get')
+  },
   getAnnouncements (params) {
     return ajax('/announcements', 'get', { params })
   },

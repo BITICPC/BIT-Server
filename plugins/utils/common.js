@@ -2,6 +2,46 @@ import moment from 'moment'
 
 const md = require('markdown-it')().use(require('markdown-it-mathjax')())
 
+const codeLang = {
+  C: {
+    name: 'C',
+    aceMode: 'c_cpp',
+    token: {
+      GNU: 'GCC 8.3.0',
+      Clang: 'Clang 9.0.0'
+    }
+  },
+  CPP: {
+    name: 'C++',
+    aceMode: 'c_cpp',
+    token: {
+      GNU: 'GCC 8.3.0',
+      Clang: 'Clang 9.0.0'
+    }
+  },
+  Java: {
+    name: 'Java',
+    aceMode: 'java',
+    token: {
+      JSE: 'Java SE 10.0.2'
+    }
+  },
+  Python: {
+    name: 'Python',
+    aceMode: 'python',
+    token: {
+      CPython: 'CPython 3'
+    }
+  },
+  Rust: {
+    name: 'Rust',
+    aceMode: 'rust',
+    token: {
+      Rust: 'Cargo 2.0'
+    }
+  }
+}
+
 export default {
   md,
   getTimeFormat (time) {
@@ -33,5 +73,16 @@ export default {
       return years + ' 年前'
     }
     return 'Invalid'
+  },
+  getLanguageOptions (languages) {
+    const options = []
+    for (const i in languages) {
+      options.push({
+        title: codeLang[languages[i].langId].name + ' ' + languages[i].version + ' (' + languages[i].dialect + ')',
+        lang: codeLang[languages[i].langId].aceMode,
+        token: codeLang[languages[i].langId].token[languages[i].dialect]
+      })
+    }
+    return options
   }
 }
