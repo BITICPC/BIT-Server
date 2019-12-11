@@ -38,21 +38,33 @@
             </v-row>
           </v-card-subtitle>
           <v-card-text>
-            <v-tabs v-model="tabs" color="purple" class="mb-4" centered>
+            <v-tabs
+              v-model="tabs"
+              color="purple"
+              class="mb-4"
+              centered
+              show-arrows
+            >
               <v-tab href="#statement">
-                <v-icon class="mr-1" small>
+                <v-icon left small>
                   fas fa-book
                 </v-icon>
                 题面
               </v-tab>
+              <v-tab href="#submit">
+                <v-icon left small>
+                  fas fa-edit
+                </v-icon>
+                提交
+              </v-tab>
               <v-tab href="#statistics" disabled>
-                <v-icon class="mr-1" small>
+                <v-icon left small>
                   fas fa-chart-pie
                 </v-icon>
-                统计数据
+                统计
               </v-tab>
               <v-tab href="#discussion" disabled>
-                <v-icon class="mr-1" small>
+                <v-icon left small>
                   fas fa-comments
                 </v-icon>
                 讨论
@@ -60,7 +72,7 @@
             </v-tabs>
             <v-tabs-items v-model="tabs">
               <v-tab-item value="statement">
-                <div id="statement">
+                <div>
                   <h3 class="title purple--text">
                     题目描述
                   </h3>
@@ -154,6 +166,39 @@
                   </div>
                 </div>
               </v-tab-item>
+              <v-tab-item value="submit">
+                <v-card outlined tile>
+                  <ace-editor
+                    v-model="code"
+                    :lang="selectLanguage.lang"
+                    theme="chrome"
+                    height="400"
+                    style="font-size: 11pt;"
+                  />
+                </v-card>
+                <v-card-actions class="pt-2 pb-0 px-0">
+                  <v-select
+                    v-model="selectLanguage"
+                    style="max-width: 150px;"
+                    color="purple"
+                    item-color="purple"
+                    :items="languageOptions"
+                    :hint="selectLanguage.token"
+                    item-text="title"
+                    item-value="title"
+                    label="语言"
+                    persistent-hint
+                    return-object
+                  />
+                  <v-spacer />
+                  <v-btn color="success">
+                    <v-icon small left>
+                      fas fa-paper-plane
+                    </v-icon>
+                    提交代码
+                  </v-btn>
+                </v-card-actions>
+              </v-tab-item>
               <v-tab-item value="statistics" />
               <v-tab-item value="discussion" />
             </v-tabs-items>
@@ -178,8 +223,7 @@
             <v-card-text>
               <b>创建：</b>{{ problem.creationTime }}<br>
               <b>修改：</b>{{ problem.lastUpdateTime }}<br>
-              <b>最后提交：</b><template v-if="problem.totalSubmissions > 0">{{ problem.lastSubmissionTime }}</template>
-              <template v-else>None</template><br>
+              <b>最后提交：</b>{{ problem.lastSubmissionTime }}<br>
               <b>来源: </b>{{ problem.source }}
             </v-card-text>
           </v-skeleton-loader>
@@ -198,6 +242,39 @@
               {{ tag }}
             </v-chip>
           </v-card-text>
+        </v-card>
+        <v-card class="mt-3">
+          <v-card-subtitle>提交代码</v-card-subtitle>
+          <v-card-text>
+            <v-select
+              v-model="selectLanguage"
+              color="purple"
+              item-color="purple"
+              :items="languageOptions"
+              :hint="selectLanguage.token"
+              item-text="title"
+              item-value="title"
+              label="语言"
+              persistent-hint
+              return-object
+            />
+            <v-file-input
+              prepend-icon=""
+              color="purple"
+              label="代码文件"
+              hide-details
+            />
+          </v-card-text>
+          <v-card-actions class="pt-0 pb-4">
+            <v-spacer />
+            <v-btn color="success" outlined depressed small>
+              <v-icon class="mr-2" x-small>
+                fas fa-paper-plane
+              </v-icon>
+              提交代码
+            </v-btn>
+            <v-spacer />
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -234,7 +311,14 @@ export default {
         creationTime: '',
         lastUpdateTime: '',
         lastSubmissionTime: ''
-      }
+      },
+      code: '',
+      selectLanguage: {
+        title: 'C++ 11',
+        lang: 'c_cpp',
+        token: 'GCC 8.3.0'
+      },
+      languageOptions: problem.codeLanguage
     }
   },
   mounted () {
@@ -254,7 +338,7 @@ export default {
       this.problem.judgeMode = problem.judgeMode[res.data.judgeMode]
       this.problem.creationTime = common.getTimeDifferent(res.data.creationTime)
       this.problem.lastUpdateTime = common.getTimeDifferent(res.data.lastUpdateTime)
-      this.problem.lastSubmissionTime = common.getTimeDifferent(res.data.lastSubmissionTime)
+      this.problem.lastSubmissionTime = res.data.totalSubmissions > 0 ? common.getTimeDifferent(res.data.lastSubmissionTime) : 'None'
       this.skeleton = false
     })
   },

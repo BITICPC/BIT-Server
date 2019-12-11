@@ -35,7 +35,8 @@ export default {
     { src: '@/plugins/font-awesome.js', ssr: false },
     { src: '@/plugins/material-design.js', ssr: false },
     { src: '@/plugins/vue-clipboard.js', ssr: false },
-    { src: '@/plugins/vue-simplemde.js', ssr: false }
+    { src: '@/plugins/vue-simplemde.js', ssr: false },
+    { src: '@/plugins/vue-ace-editor.js', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
