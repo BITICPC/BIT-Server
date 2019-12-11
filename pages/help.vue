@@ -172,12 +172,6 @@ export default {
           value: 'version'
         },
         {
-          text: '版本',
-          align: 'center',
-          sortable: false,
-          value: 'version'
-        },
-        {
           text: '标识',
           align: 'center',
           sortable: false,
