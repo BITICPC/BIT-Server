@@ -8,7 +8,7 @@
           </template>
         </v-breadcrumbs>
         <v-card>
-          <v-tabs v-model="tabs" color="purple" centered icons-and-text>
+          <v-tabs v-model="tabs" centered icons-and-text>
             <v-tab href="#profile">
               个人资料<v-icon>fas fa-address-card</v-icon>
             </v-tab>
