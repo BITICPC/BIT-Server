@@ -27,7 +27,6 @@
                     v-model="formProfile.nickname"
                     :rules="nicknameRules"
                     :loading="loading"
-                    color="purple"
                     prepend-icon="mdi-account"
                     label="昵称"
                   />
@@ -35,7 +34,6 @@
                     v-model="formProfile.phone"
                     :rules="phoneRules"
                     :loading="loading"
-                    color="purple"
                     prepend-icon="mdi-phone"
                     label="手机号"
                   />
@@ -43,7 +41,6 @@
                     v-model="formProfile.school"
                     :rules="schoolRules"
                     :loading="loading"
-                    color="purple"
                     prepend-icon="mdi-school"
                     label="学校名称"
                   />
@@ -52,7 +49,6 @@
                     :rules="studentIdRules"
                     :loading="loading"
                     type="number"
-                    color="purple"
                     prepend-icon="mdi-id-card"
                     label="学号"
                   />
@@ -60,7 +56,6 @@
                     v-model="formProfile.blogUrl"
                     :loading="loading"
                     type="url"
-                    color="purple"
                     prepend-icon="mdi-rss"
                     label="个人主页"
                   />
@@ -69,7 +64,6 @@
                     :rules="emailRules"
                     :loading="loading"
                     type="email"
-                    color="purple"
                     prepend-icon="mdi-email"
                     label="邮箱"
                     class="mb-2"
@@ -88,7 +82,6 @@
                     v-model="formAccount.username"
                     :rules="usernameRules"
                     :loading="loading"
-                    color="purple"
                     prepend-icon="mdi-account"
                     label="用户名"
                     disabled
@@ -99,7 +92,6 @@
                     :loading="loading"
                     :error-messages="getErrorByAttributes('oldPassword')"
                     type="password"
-                    color="purple"
                     prepend-icon="mdi-history"
                     label="旧密码"
                     required
@@ -111,7 +103,6 @@
                     :loading="loading"
                     :error-messages="getErrorByAttributes('password')"
                     type="password"
-                    color="purple"
                     prepend-icon="mdi-lock"
                     label="新密码"
                     required
@@ -122,7 +113,6 @@
                     :loading="loading"
                     :error-messages="getErrorByAttributes('confirm')"
                     type="password"
-                    color="purple"
                     prepend-icon="mdi-check-circle-outline"
                     label="确认密码"
                     class="mb-2"
