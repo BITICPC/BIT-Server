@@ -68,7 +68,7 @@
                     label="邮箱"
                     class="mb-2"
                   />
-                  <v-btn :loading="loading" color="primary" type="submit" block>
+                  <v-btn :loading="loading" color="primary" type="submit" depressed block>
                     <v-icon left>
                       mdi-cloud-upload
                     </v-icon>
@@ -118,7 +118,7 @@
                     class="mb-2"
                     required
                   />
-                  <v-btn :loading="loading" :color="errorCode !== 200 ? 'error' : 'primary'" type="submit" block>
+                  <v-btn :loading="loading" :color="errorCode !== 200 ? 'error' : 'primary'" type="submit" depressed block>
                     <v-icon left>
                       mdi-cloud-upload
                     </v-icon>

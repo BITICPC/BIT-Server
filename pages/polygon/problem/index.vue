@@ -30,7 +30,7 @@
                 <v-spacer />
                 <v-dialog v-model="dialog" persistent max-width="360px">
                   <template v-slot:activator="{ on }">
-                    <v-btn color="primary" dark v-on="on">
+                    <v-btn color="primary" dark depressed v-on="on">
                       <v-icon left>
                         mdi-plus
                       </v-icon>

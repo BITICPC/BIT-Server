@@ -193,7 +193,7 @@
                     return-object
                   />
                   <v-spacer />
-                  <v-btn color="success">
+                  <v-btn color="success" depressed>
                     <v-icon small left>
                       fas fa-paper-plane
                     </v-icon>

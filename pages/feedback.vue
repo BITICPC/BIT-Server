@@ -23,7 +23,7 @@
                 label="内容"
                 auto-grow
               />
-              <v-btn :loading="loading" color="success" type="submit">
+              <v-btn :loading="loading" color="success" type="submit" depressed>
                 <v-icon left>
                   mdi-cloud-upload
                 </v-icon>

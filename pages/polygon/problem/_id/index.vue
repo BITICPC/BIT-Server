@@ -55,7 +55,7 @@
                 hint="The mode to judge the problem (from &quot;standard I/O&quot; or &quot;interactive&quot; or &quot;special judge&quot;)"
                 class="mb-2"
               />
-              <v-btn :loading="loading" color="success" type="submit">
+              <v-btn :loading="loading" color="success" type="submit" depressed>
                 <v-icon left>
                   mdi-check
                 </v-icon>

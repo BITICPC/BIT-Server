@@ -61,7 +61,7 @@
                 color="purple"
                 required
               />
-              <v-btn :loading="loading" :color="errorCode !== 200 ? 'error' : 'primary'" type="submit" block>
+              <v-btn :loading="loading" :color="errorCode !== 200 ? 'error' : 'primary'" type="submit" depressed block>
                 <v-icon left small>
                   fas fa-registered
                 </v-icon>

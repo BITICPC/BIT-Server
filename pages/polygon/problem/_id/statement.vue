@@ -31,7 +31,7 @@
               <vue-simplemde v-model="problem.output" preview-class="markdown-body" :highlight="true" :configs="configs" />
               <span class="subtitle-1">Notes</span>
               <vue-simplemde v-model="problem.notes" preview-class="markdown-body" :highlight="true" :configs="configs" />
-              <v-btn :loading="loading" color="success" type="submit">
+              <v-btn :loading="loading" color="success" type="submit" depressed>
                 <v-icon left>
                   mdi-check
                 </v-icon>
