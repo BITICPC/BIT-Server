@@ -179,7 +179,7 @@
                 <v-card-actions class="pt-2 pb-0 px-0">
                   <v-select
                     v-model="selectLanguage"
-                    style="max-width: 160px;"
+                    style="max-width: 165px;"
                     color="purple"
                     item-color="purple"
                     menu-props="auto"
@@ -187,7 +187,7 @@
                     :hint="selectLanguage.token"
                     item-text="title"
                     item-value="title"
-                    label="语言"
+                    label="评测语言"
                     no-data-text="没有可用的评测语言"
                     persistent-hint
                     return-object
@@ -257,7 +257,7 @@
               :hint="selectLanguage.token"
               item-text="title"
               item-value="title"
-              label="语言"
+              label="评测语言"
               no-data-text="没有可用的评测语言"
               persistent-hint
               return-object
