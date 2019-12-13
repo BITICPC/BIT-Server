@@ -3,7 +3,7 @@
     <v-row justify="center">
       <v-col cols="12" sm="9" md="9" lg="9" xl="7">
         <v-card>
-          <v-row v-show="skeleton" justify="center"  no-gutters>
+          <v-row v-show="skeleton" justify="center" no-gutters>
             <v-col md="3" cols="7">
               <v-skeleton-loader type="article" boilerplate />
             </v-col>

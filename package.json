@@ -15,7 +15,7 @@
   "dependencies": {
     "@iktakahiro/markdown-it-katex": "^3.1.0",
     "@nuxtjs/axios": "^5.8.0",
-    "highlight.js": "^9.16.2",
+    "highlight.js": "^9.17.1",
     "markdown-it": "^10.0.0",
     "markdown-it-mathjax": "^2.0.0",
     "moment": "^2.24.0",
@@ -28,9 +28,9 @@
     "vue2-ace-editor": "^0.0.15"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.11.2",
-    "@mdi/font": "^4.6.95",
-    "@mdi/js": "^4.6.95",
+    "@fortawesome/fontawesome-free": "^5.12.0",
+    "@mdi/font": "^4.7.95",
+    "@mdi/js": "^4.7.95",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.1.0",
     "@nuxtjs/vuetify": "^1.9.1",
