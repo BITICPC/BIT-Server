@@ -13,7 +13,7 @@
       <v-icon>mdi-pencil</v-icon>
     </v-btn>
     <v-row justify="center">
-      <v-col cols="12" md="10">
+      <v-col cols="12" xl="9">
         <v-breadcrumbs class="pl-0 py-0" :items="items" divider=">">
           <template v-slot:divider>
             <v-icon>mdi-chevron-right</v-icon>
@@ -22,13 +22,19 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col class="py-0" cols="12" md="3">
+      <v-col class="py-0" cols="12" sm="3" md="3" xl="2">
         <v-skeleton-loader
           :loading="loading"
           type="card"
         >
           <v-card>
-            <v-img src="https://cdn.v2ex.com/gravatar/ff22233d2641a6df9cd6f4c9a825c2c8?s=1000&d=mm" />
+            <v-img :src="avatar" :lazy-src="avatar">
+              <template v-slot:placeholder>
+                <v-row class="fill-height ma-0" align="center" justify="center">
+                    <v-progress-circular indeterminate color="grey lighten-5" />
+                </v-row>
+              </template>
+            </v-img>
             <v-card-title class="pt-2">
               {{ $route.params.id }}
             </v-card-title>
@@ -38,7 +44,7 @@
           </v-card>
         </v-skeleton-loader>
       </v-col>
-      <v-col class="pt-md-0 pb-0 pl-md-0" cols="12" md="4">
+      <v-col class="pt-sm-0 pb-0 pl-sm-0" cols="12" sm="5" md="5" xl="4">
         <v-card>
           <v-card-title>用户资料</v-card-title>
           <v-card-subtitle>User Profile</v-card-subtitle>
@@ -60,7 +66,7 @@
           </v-list>
         </v-card>
       </v-col>
-      <v-col class="pt-md-0 pb-0 pl-md-0" cols="12" md="3">
+      <v-col class="pt-sm-0 pb-0 pl-sm-0" cols="12" sm="4" md="4" xl="3">
         <v-card>
           <v-card-title>用户统计</v-card-title>
           <v-card-subtitle>User Statistical</v-card-subtitle>
@@ -88,6 +94,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import api from '@/plugins/utils/api'
+import account from '@/plugins/utils/account'
 
 export default {
   layout ({ query }) {
@@ -172,6 +179,7 @@ export default {
           color: 'secondary'
         }
       ],
+      avatar: require('@/static/user.jpg'),
       isAdmin: false,
       loading: false
     }
@@ -186,6 +194,9 @@ export default {
         if (res.data[this.profileMenu[idx].type] !== null) {
           this.profileMenu[idx].value = res.data[this.profileMenu[idx].type]
         }
+      }
+      if (res.data.email !== null) {
+        this.avatar = 'https://www.gravatar.com/avatar/' + account.getGravatar(res.data.email) + '?s=300'
       }
       this.isAdmin = res.data.isAdmin
       this.statisticalMenu[0].value = res.data.rank

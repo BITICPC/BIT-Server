@@ -16,6 +16,7 @@
     "@iktakahiro/markdown-it-katex": "^3.1.0",
     "@nuxtjs/axios": "^5.8.0",
     "highlight.js": "^9.17.1",
+    "js-md5": "^0.7.3",
     "markdown-it": "^10.0.0",
     "markdown-it-mathjax": "^2.0.0",
     "moment": "^2.24.0",

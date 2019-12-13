@@ -1,3 +1,5 @@
+import md5 from 'js-md5'
+
 const usernameRules = [
   v => !!v || '用户名不能为空',
   v => (v && v.length >= 3 && v.length <= 10) || '用户名长度必须大于2个字符且小于11个字符'
@@ -29,6 +31,10 @@ const emailRules = [
   v => (!v || (v && /.+@.+\..+/.test(v))) || '邮箱格式不合法'
 ]
 
+function getGravatar (email) {
+  return md5(email)
+}
+
 export default {
   usernameRules,
   passwordRules,
@@ -36,5 +42,6 @@ export default {
   nicknameRules,
   schoolRules,
   studentIdRules,
-  emailRules
+  emailRules,
+  getGravatar
 }
