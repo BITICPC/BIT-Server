@@ -3,7 +3,7 @@
     <v-app-bar color="info" fixed app dark>
       <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer" />
       <v-avatar size="36">
-        <img src="~/static/BIT.png">
+        <img src="@/static/BIT.png">
       </v-avatar>
       <v-toolbar-title class="ma-3">
         BIT Online Judge
@@ -45,7 +45,7 @@
             <template v-slot:activator="{ on }">
               <v-btn text :to="{ path: `/user/${profile.username}`, query: { polygon: true } }" v-on="on">
                 <v-avatar size="36" class="mr-2">
-                  <img src="~/static/user.jpg">
+                  <v-img :src="avatar" />
                 </v-avatar>
                 <span>{{ profile.username }}</span>
                 <v-icon right>
@@ -88,7 +88,7 @@
       <template v-if="isLogin" v-slot:prepend>
         <v-list-item :to="{ path: `/user/${profile.username}/setting`, query: { polygon: true } }" two-line>
           <v-list-item-avatar>
-            <img src="~/static/user.jpg">
+            <v-img :src="avatar" />
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="title">
@@ -176,7 +176,8 @@ export default {
           title: 'Sign out',
           link: '/logout'
         }
-      ]
+      ],
+      avatar: require('@/static/user.jpg')
     }
   },
   computed: {
