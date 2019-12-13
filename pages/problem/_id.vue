@@ -51,7 +51,7 @@
                 </v-icon>
                 题面
               </v-tab>
-              <v-tab href="#submit">
+              <v-tab href="#submit" :disabled="!isLogin">
                 <v-icon left small>
                   fas fa-edit
                 </v-icon>
@@ -245,7 +245,7 @@
             </v-chip>
           </v-card-text>
         </v-card>
-        <v-card class="mt-3">
+        <v-card class="mt-3" :disabled="!isLogin">
           <v-card-subtitle>提交代码</v-card-subtitle>
           <v-card-text>
             <v-select
@@ -325,8 +325,8 @@ export default {
       languageOptions: []
     }
   },
-  watch: {
-    ...mapGetters(['language'])
+  computed: {
+    ...mapGetters(['language', 'isLogin'])
   },
   mounted () {
     this.skeleton = true
