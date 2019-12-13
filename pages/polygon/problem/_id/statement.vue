@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="12" md="12">
+      <v-col cols="12" md="12" xl="9">
         <v-card>
           <v-tabs>
             <v-tab :to="`/polygon/problem/${$route.params.id}`" exact>
