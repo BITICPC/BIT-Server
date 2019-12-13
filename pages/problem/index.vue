@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="12" md="10" lg="10" xl="8">
+      <v-col cols="12" md="12" lg="10" xl="8">
         <v-card>
           <!-- <v-card-title>
             题目列表
