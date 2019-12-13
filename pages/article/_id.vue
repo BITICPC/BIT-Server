@@ -8,7 +8,7 @@
           </template>
         </v-breadcrumbs>
         <v-card>
-          <v-skeleton-loader :loading="skeleton" type="article, list-item-three-line">
+          <v-skeleton-loader :loading="skeleton" type="article">
             <v-card-title class="headline mb-2">
               {{ announcement.title }}
             </v-card-title>
