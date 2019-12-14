@@ -245,41 +245,68 @@
             </v-chip>
           </v-card-text>
         </v-card>
-        <v-card class="mt-3" :disabled="!isLogin">
-          <v-card-subtitle>提交代码</v-card-subtitle>
-          <v-card-text>
-            <v-select
-              v-model="selectLanguage"
-              color="purple"
-              item-color="purple"
-              menu-props="auto"
-              :items="languageOptions"
-              :hint="selectLanguage.token"
-              item-text="title"
-              item-value="title"
-              label="评测语言"
-              no-data-text="没有可用的评测语言"
-              persistent-hint
-              return-object
-            />
-            <v-file-input
-              prepend-icon=""
-              color="purple"
-              label="代码文件"
-              hide-details
-            />
-          </v-card-text>
-          <v-card-actions class="pt-0 pb-4">
-            <v-spacer />
-            <v-btn color="success" outlined depressed small>
-              <v-icon class="mr-2" x-small>
-                fas fa-paper-plane
-              </v-icon>
-              提交代码
-            </v-btn>
-            <v-spacer />
-          </v-card-actions>
-        </v-card>
+        <v-hover>
+          <template v-slot:default="{ hover }">
+            <v-card class="mt-3">
+              <v-card-subtitle>提交代码</v-card-subtitle>
+              <v-card-text>
+                <v-select
+                  v-model="selectLanguage"
+                  color="purple"
+                  item-color="purple"
+                  menu-props="auto"
+                  :items="languageOptions"
+                  :hint="selectLanguage.token"
+                  item-text="title"
+                  item-value="title"
+                  label="评测语言"
+                  no-data-text="没有可用的评测语言"
+                  persistent-hint
+                  return-object
+                />
+                <v-file-input
+                  prepend-icon=""
+                  color="purple"
+                  label="代码文件"
+                  hide-details
+                />
+              </v-card-text>
+              <v-card-actions class="pt-0 pb-4">
+                <v-spacer />
+                <v-btn color="success" outlined depressed small>
+                  <v-icon class="mr-2" x-small>
+                    fas fa-paper-plane
+                  </v-icon>
+                  提交代码
+                </v-btn>
+                <v-spacer />
+              </v-card-actions>
+              <v-fade-transition>
+                <v-overlay v-if="hover && !isLogin" style="z-index: 0" absolute>
+                  <span>您尚未登录：</span>
+                  <v-row>
+                    <v-col class="pr-1">
+                      <v-btn class="subtitle-1" color="success" to="/login">
+                        <v-icon left small>
+                          fas fa-sign-in-alt
+                        </v-icon>
+                        登录
+                      </v-btn>
+                    </v-col>
+                    <v-col>
+                      <v-btn class="subtitle-1" color="primary" to="/join">
+                        <v-icon left small>
+                          fas fa-user-plus
+                        </v-icon>
+                        注册
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </v-overlay>
+              </v-fade-transition>
+            </v-card>
+          </template>
+        </v-hover>
       </v-col>
     </v-row>
   </v-container>
