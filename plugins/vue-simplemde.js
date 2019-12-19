@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueSimplemde from 'vue-simplemde'
+import VueSimplemde from '@/components/common/vue-simplemde'
 import 'simplemde/dist/simplemde.min.css'
 
 Vue.component('vue-simplemde', VueSimplemde)

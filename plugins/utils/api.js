@@ -136,6 +136,14 @@ export default {
   getAnnouncementDetail (id) {
     const cmd = '/announcements/' + id
     return ajax(cmd, 'get')
+  },
+  uploadContent (data, jwt) {
+    return ajax('/contents', 'post', {
+      data,
+      headers: {
+        Authorization: 'Jwt ' + jwt
+      }
+    })
   }
 }
 

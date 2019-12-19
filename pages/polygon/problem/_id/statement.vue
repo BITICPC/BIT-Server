@@ -72,6 +72,12 @@ export default {
   },
   mounted () {
     this.getStatement()
+    window.addEventListener('drop', (e) => {
+      e = e || event
+      if (e.target.className === 'CodeMirror-scroll') { // 如果进入到编辑器的话，将阻止默认事件
+        e.preventDefault()
+      }
+    }, false)
   },
   methods: {
     ...mapActions(['newToast']),
