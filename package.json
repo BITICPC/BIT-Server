@@ -15,6 +15,7 @@
   "dependencies": {
     "@iktakahiro/markdown-it-katex": "^3.1.0",
     "@nuxtjs/axios": "^5.8.0",
+    "anchor-js": "^4.2.2",
     "highlight.js": "^9.17.1",
     "js-md5": "^0.7.3",
     "markdown-it": "^10.0.0",

@@ -4,10 +4,10 @@
       <v-col cols="12">
         <v-card>
           <v-card-text class="markdown-body">
-            <h2 class="purple--text">
+            <h2>
               帮助
             </h2>
-            <h3 class="purple--text">
+            <h3>
               编译系统
             </h3>
             <p>
@@ -17,7 +17,7 @@
             <p>
               <b>Java 运行环境提示：</b>您的 Java 源程序必须包含一个名称为 <code>Main</code> 的公共主类 <code>public class</code>，否则系统将无法顺利评测您的程序。
             </p>
-            <h3 class="purple--text">
+            <h3>
               编译参数
             </h3>
             <p>
@@ -36,7 +36,7 @@ fn this_function_will_only_be_compiled_when_judged() {
   // Do something wonderful.
 }</code></pre>
             <p>对于其他程序设计语言，我们无法在编译期提供条件编译手段。</p>
-            <h3 class="purple--text">
+            <h3>
               运行环境
             </h3>
             <p>
@@ -58,7 +58,7 @@ if (oj == null || !oj.equals(&quot;TRUE&quot;)) {
   // Your code is under judge.
   doSomethingWonderful();
 }</code></pre>
-            <h3 class="purple--text">
+            <h3>
               评测模式
             </h3>
             <p>
@@ -72,7 +72,7 @@ if (oj == null || !oj.equals(&quot;TRUE&quot;)) {
                 在 Special Judge 模式下，用户的程序的输出将会连同测试用例的输入和标准输出被输入到由命题人提供的一个答案检查器程序中，由命题人编写的答案检查器对用户的输出进行检查。为了提高命题效率，减少答案检查器错误惨案的发生，请命题人使用 <code>WaveTestLib</code> 编写答案检查器。具体方法请参考 <code>WaveTestLib</code> 的文档。
               </li>
             </ul>
-            <h3 class="purple--text">
+            <h3>
               评测结果
             </h3>
             <p>评测端将可能产生如下几种评测结果：</p>
@@ -88,7 +88,7 @@ if (oj == null || !oj.equals(&quot;TRUE&quot;)) {
               <li>Idleness Limit Exceeded：您的程序对 CPU 的占用时间虽然没有超过限制，但其实际运行时间太长，超过了阈值。请检查您的程序是否触发了任何形式的死锁、长时间阻塞等；如果您提交的题目是一道交互题，请您务必检查您的程序是否正确地 flush 了底层输出缓冲区。</li>
               <li>Judgement Failed：评测系统貌似出现了严重的问题导致其无法继续评测您的程序。当您发现系统向您返回这一个评测结果时，请尽快联系 BITOJ 管理员以解决问题。</li>
             </ul>
-            <h3 class="purple--text">
+            <h3>
               常见问题
             </h3>
             <p>
@@ -149,6 +149,8 @@ int main() {
   </v-container>
 </template>
 <script>
+import common from '@/plugins/utils/common'
+
 export default {
   data () {
     return {
@@ -211,6 +213,12 @@ export default {
         { language: 'Rust', environment: 'Rust', version: '1.31', identification: 'Rust 1.31', comment: 'Rust 程序设计语言，支持 Rust 1.31 特性' }
       ]
     }
+  },
+  mounted () {
+    common.anchors.options = {
+      class: 'pl-0 grey--text'
+    }
+    common.anchors.add()
   }
 }
 </script>

@@ -1,4 +1,7 @@
 import moment from 'moment'
+import AnchorJS from 'anchor-js'
+
+const anchors = new AnchorJS()
 
 const md = require('markdown-it')().use(require('markdown-it-mathjax')())
 
@@ -44,6 +47,7 @@ const codeLang = {
 
 export default {
   md,
+  anchors,
   getTimeFormat (time) {
     return moment(time).format('YYYY-MM-DD HH:mm:ss')
   },
