@@ -9,7 +9,7 @@
         BIT Online Judge
       </v-toolbar-title>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn v-for="(btn, idx) in buttons" :key="idx" :to="btn.link" text>
+        <v-btn v-for="(btn, idx) in buttons" :key="idx" class="nav" :to="btn.link" text>
           <v-icon left small>
             fas fa-{{ btn.icon }}
           </v-icon>
@@ -43,7 +43,7 @@
         <template v-else>
           <v-menu open-on-hover offset-y>
             <template v-slot:activator="{ on }">
-              <v-btn text :to="`/user/${profile.username}`" v-on="on">
+              <v-btn class="nav" text :to="`/user/${profile.username}`" v-on="on">
                 <v-avatar size="36" class="mr-2">
                   <v-img :src="avatar" />
                 </v-avatar>

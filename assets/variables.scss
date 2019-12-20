@@ -10,10 +10,13 @@ $body-font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFan
 
 a {
   text-decoration: none;
-}
-
-.v-btn {
-  text-transform: none;
+  &.v-btn {
+    text-transform: none;
+  }
+  &.nav.v-btn--active {
+    padding-top: 2px;
+    border-bottom: 2px solid white;
+  }
 }
 
 code {
