@@ -144,6 +144,11 @@ export default {
         Authorization: 'Jwt ' + jwt
       }
     })
+  },
+  getSubmissions (params) {
+    return ajax('/submissions', 'get', {
+      params
+    })
   }
 }
 

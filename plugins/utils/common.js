@@ -45,9 +45,57 @@ const codeLang = {
   }
 }
 
+const verdictStatus = {
+  Accepted: {
+    title: 'Accepted',
+    class: 'green--text font-weight-bold'
+  },
+  CompilationFailed: {
+    title: 'Compilation Error',
+    class: 'blue-grey--text font-weight-bold'
+  },
+  WrongAnswer: {
+    title: 'Wrong Answer',
+    class: 'red--text text--lighten-1 font-weight-bold'
+  },
+  RuntimeError: {
+    title: 'Runtime Error',
+    class: 'yellow--text text--darken-2 font-weight-bold'
+  },
+  TimeLimitExceeded: {
+    title: 'Time Limit Exceeded',
+    class: 'orange--text text--darken-1 font-weight-bold'
+  },
+  MemoryLimitExceeded: {
+    title: 'Memory Limit Exceeded',
+    class: 'orange--text text--darken-1 font-weight-bold'
+  },
+  IdlenessLimitExceeded: {
+    title: 'Idleness Limit Exceeded',
+    class: 'orange--text text--darken-1 font-weight-bold'
+  },
+  BadSystemCall: {
+    title: 'Bad System Call',
+    class: 'blue-grey--text font-weight-bold'
+  },
+  CheckerFailed: {
+    title: 'Checker Failed',
+    class: 'orange--text text--darken-1 font-weight-bold'
+  },
+  InteractorFailed: {
+    title: 'Interactor Failed',
+    class: 'blue-grey--text font-weight-bold'
+  },
+  JudgeFailed: {
+    title: 'Judge Failed',
+    class: 'blue-grey--text font-weight-bold'
+  }
+}
+
 export default {
   md,
   anchors,
+  verdictStatus,
   getTimeFormat (time) {
     return moment(time).format('YYYY-MM-DD HH:mm:ss')
   },
@@ -82,7 +130,7 @@ export default {
     const options = []
     for (const i in languages) {
       options.push({
-        title: codeLang[languages[i].langId].name + ' ' + languages[i].version,
+        title: languages[i].displayName,
         lang: codeLang[languages[i].langId].aceMode,
         token: '使用 ' + codeLang[languages[i].langId].token[languages[i].dialect] + ' 进行编译'
       })
