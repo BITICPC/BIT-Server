@@ -61,7 +61,7 @@
               </v-btn>
             </template>
             <v-list dense>
-              <v-list-item>
+              <v-list-item :to="{ path: '/status', query: { author: profile.username } }">
                 <v-list-item-icon class="mr-3">
                   <v-icon>mdi-file-chart</v-icon>
                 </v-list-item-icon>

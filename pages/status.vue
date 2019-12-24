@@ -132,18 +132,16 @@ export default {
     this.getStatus()
   },
   methods: {
-    getStatus (payload) {
+    getStatus () {
       this.loading = true
       this.status = []
       const params = {
         page: this.page.index - 1,
         itemsPerPage: this.page.itemsPerPage
       }
-      if (payload !== undefined) {
-        Object.keys(payload).forEach((element) => {
-          params[element] = payload[element]
-        })
-      }
+      Object.keys(this.$route.query).forEach((element) => {
+        params[element] = this.$route.query[element]
+      })
       api.getSubmissions(params).then((res) => {
         res.data.forEach((item) => {
           this.status.push({
