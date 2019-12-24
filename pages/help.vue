@@ -77,16 +77,16 @@ if (oj == null || !oj.equals(&quot;TRUE&quot;)) {
             </h3>
             <p>评测端将可能产生如下几种评测结果：</p>
             <ul>
-              <li>Pending：您的程序正在评测队列中等待评测，请您耐心等待。</li>
-              <li>Compilation Error：编译器无法编译您的程序。评测系统将会返回编译器的错误输出，请参照编译器的错误输出检查您的源程序，修正任何的语法错误。</li>
-              <li>Judging：您的代码已经被成功编译，正在执行评测。</li>
-              <li>Accepted：恭喜，您的程序通过了所有的测试点。</li>
-              <li>Wrong Answer：您的程序在某些测试点上输出了错误的答案。</li>
-              <li>Runtime Error：您的程序在某些测试点上异常退出。通常情况下可能导致该问题的原因很多，例如数组访问越界、试图访问空指针（<code>nullptr</code>、<code>null</code>、<code>None</code>）、试图调用敏感的系统调用等。</li>
-              <li>Time Limit Exceeded：您的程序在某些测试点上没有在规定的时间范围内正常退出。请检查您程序中使用的算法，确保其时间开销符合要求。</li>
-              <li>Memory Limit Exceeded：您的程序在某些测试点上使用了超过限制范围的内存。请检查您程序中对内存的分配和使用情况，确保其空间开销符合要求。</li>
-              <li>Idleness Limit Exceeded：您的程序对 CPU 的占用时间虽然没有超过限制，但其实际运行时间太长，超过了阈值。请检查您的程序是否触发了任何形式的死锁、长时间阻塞等；如果您提交的题目是一道交互题，请您务必检查您的程序是否正确地 flush 了底层输出缓冲区。</li>
-              <li>Judgement Failed：评测系统貌似出现了严重的问题导致其无法继续评测您的程序。当您发现系统向您返回这一个评测结果时，请尽快联系 BITOJ 管理员以解决问题。</li>
+              <li><span :class="verdictStatus['Pending'].class">Pending</span> 您的程序正在评测队列中等待评测，请您耐心等待。</li>
+              <li><span :class="verdictStatus['CompilationFailed'].class">Compilation Error</span> 编译器无法编译您的程序。评测系统将会返回编译器的错误输出，请参照编译器的错误输出检查您的源程序，修正任何的语法错误。</li>
+              <li><span :class="verdictStatus['Judging'].class">Judging</span> 您的代码已经被成功编译，正在执行评测。</li>
+              <li><span :class="verdictStatus['Accepted'].class">Accepted</span> 恭喜，您的程序通过了所有的测试点。</li>
+              <li><span :class="verdictStatus['WrongAnswer'].class">Wrong Answer</span> 您的程序在某些测试点上输出了错误的答案。</li>
+              <li><span :class="verdictStatus['RuntimeError'].class">Runtime Error</span> 您的程序在某些测试点上异常退出。通常情况下可能导致该问题的原因很多，例如数组访问越界、试图访问空指针（<code>nullptr</code>、<code>null</code>、<code>None</code>）、试图调用敏感的系统调用等。</li>
+              <li><span :class="verdictStatus['TimeLimitExceeded'].class">Time Limit Exceeded</span> 您的程序在某些测试点上没有在规定的时间范围内正常退出。请检查您程序中使用的算法，确保其时间开销符合要求。</li>
+              <li><span :class="verdictStatus['MemoryLimitExceeded'].class">Memory Limit Exceeded</span> 您的程序在某些测试点上使用了超过限制范围的内存。请检查您程序中对内存的分配和使用情况，确保其空间开销符合要求。</li>
+              <li><span :class="verdictStatus['IdlenessLimitExceeded'].class">Idleness Limit Exceeded</span> 您的程序对 CPU 的占用时间虽然没有超过限制，但其实际运行时间太长，超过了阈值。请检查您的程序是否触发了任何形式的死锁、长时间阻塞等；如果您提交的题目是一道交互题，请您务必检查您的程序是否正确地 flush 了底层输出缓冲区。</li>
+              <li><span :class="verdictStatus['JudgeFailed'].class">Judgement Failed</span> 评测系统貌似出现了严重的问题导致其无法继续评测您的程序。当您发现系统向您返回这一个评测结果时，请尽快联系 BITOJ 管理员以解决问题。</li>
             </ul>
             <h3>
               常见问题
@@ -211,7 +211,8 @@ export default {
         { language: 'Python', environment: 'CPython', version: '3.8', identification: 'CPython 3.8', comment: 'Python 程序设计语言，使用 CPython 解释器实现，支持 Python3.8 语言特性' },
         { language: 'Java', environment: 'JSE', version: '10.0', identification: 'Java SE 10.0', comment: 'Java 程序设计语言，使用 JavaSE 运行环境，支持 JDK 1.10 特性' },
         { language: 'Rust', environment: 'Rust', version: '1.31', identification: 'Rust 1.31', comment: 'Rust 程序设计语言，支持 Rust 1.31 特性' }
-      ]
+      ],
+      verdictStatus: common.verdictStatus
     }
   },
   mounted () {

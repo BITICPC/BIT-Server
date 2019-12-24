@@ -149,7 +149,7 @@ export default {
             creationTime: common.getTimeFormat(item.creationTime),
             author: item.author,
             title: item.problemArchiveId + '. ' + item.problemTitle,
-            verdict: item.status === 'Finished' ? common.verdictStatus[item.verdict] : { title: item.status, class: 'grey--text font-weight-bold' },
+            verdict: common.verdictStatus[item.status === 'Finished' ? item.verdict : item.status],
             language: item.language,
             time: (item.status === 'Finished' ? item.time : '0') + ' ms',
             memory: (item.status === 'Finished' ? item.memory : '0') + ' MB',

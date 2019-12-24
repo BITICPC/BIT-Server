@@ -46,6 +46,14 @@ const codeLang = {
 }
 
 const verdictStatus = {
+  Pending: {
+    title: 'Pending',
+    class: 'grey--text font-weight-bold'
+  },
+  Judging: {
+    title: 'Judging',
+    class: 'blue--text font-weight-bold'
+  },
   Accepted: {
     title: 'Accepted',
     class: 'green--text font-weight-bold'
