@@ -7,6 +7,7 @@
             :headers="headers"
             :items="status"
             :loading="loading"
+            :items-per-page="page.itemsPerPage"
             loading-text="正在加载数据，请稍等..."
             no-data-text="没有任何提交记录"
             disable-filtering
@@ -66,7 +67,7 @@ export default {
           value: 'status'
         },
         {
-          text: '时间',
+          text: '提交时间',
           align: 'center',
           sortable: false,
           filterable: true,
@@ -126,6 +127,9 @@ export default {
   watch: {
     'page.index' () {
       this.getStatus()
+    },
+    $route (to, from) {
+      this.getStatus()
     }
   },
   mounted () {
@@ -157,6 +161,7 @@ export default {
           })
         })
         if (this.page.count === -1) {
+          console.log(res.headers['x-bitwaves-count'])
           this.page.count = Math.ceil(res.headers['x-bitwaves-count'] / this.page.itemsPerPage)
         }
       }).finally(() => { this.loading = false })

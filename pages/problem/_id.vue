@@ -167,39 +167,43 @@
                 </div>
               </v-tab-item>
               <v-tab-item value="submit">
-                <v-card outlined tile>
-                  <ace-editor
-                    v-model="code"
-                    :lang="selectLanguage.lang"
-                    theme="chrome"
-                    height="400"
-                    style="font-size: 11pt;"
-                  />
-                </v-card>
-                <v-card-actions class="pt-2 pb-0 px-0">
-                  <v-select
-                    v-model="selectLanguage"
-                    style="max-width: 165px;"
-                    color="purple"
-                    item-color="purple"
-                    menu-props="auto"
-                    :items="languageOptions"
-                    :hint="selectLanguage.token"
-                    item-text="title"
-                    item-value="title"
-                    label="评测语言"
-                    no-data-text="没有可用的评测语言"
-                    persistent-hint
-                    return-object
-                  />
-                  <v-spacer />
-                  <v-btn color="success" depressed>
-                    <v-icon small left>
-                      fas fa-paper-plane
-                    </v-icon>
-                    提交代码
-                  </v-btn>
-                </v-card-actions>
+                <v-form ref="code" @submit.prevent="submitCode(false)">
+                  <v-card outlined tile>
+                    <ace-editor
+                      v-model="code"
+                      :lang="selectLanguage.lang"
+                      theme="chrome"
+                      height="400"
+                      style="font-size: 11pt;"
+                    />
+                  </v-card>
+                  <v-card-actions class="pt-2 pb-0 px-0">
+                    <v-select
+                      v-model="selectLanguage"
+                      style="max-width: 165px;"
+                      color="purple"
+                      item-color="purple"
+                      menu-props="auto"
+                      :disabled="submitStatus === 1"
+                      :items="languageOptions"
+                      :rules="languageRules"
+                      :hint="selectLanguage.token"
+                      item-text="title"
+                      item-value="title"
+                      label="评测语言"
+                      no-data-text="没有可用的评测语言"
+                      persistent-hint
+                      return-object
+                    />
+                    <v-spacer />
+                    <v-btn :loading="submitStatus == 1" :color="submitStatus == 2 ? 'error' : 'success'" type="submit" depressed>
+                      <v-icon small left>
+                        fas fa-paper-plane
+                      </v-icon>
+                      提交代码
+                    </v-btn>
+                  </v-card-actions>
+                </v-form>
               </v-tab-item>
               <v-tab-item value="statistics" />
               <v-tab-item value="discussion" />
@@ -248,39 +252,54 @@
         <v-hover>
           <template v-slot:default="{ hover }">
             <v-card class="mt-3">
-              <v-card-subtitle>提交代码</v-card-subtitle>
-              <v-card-text>
-                <v-select
-                  v-model="selectLanguage"
-                  color="purple"
-                  item-color="purple"
-                  menu-props="auto"
-                  :items="languageOptions"
-                  :hint="selectLanguage.token"
-                  item-text="title"
-                  item-value="title"
-                  label="评测语言"
-                  no-data-text="没有可用的评测语言"
-                  persistent-hint
-                  return-object
-                />
-                <v-file-input
-                  prepend-icon=""
-                  color="purple"
-                  label="代码文件"
-                  hide-details
-                />
-              </v-card-text>
-              <v-card-actions class="pt-0 pb-4">
-                <v-spacer />
-                <v-btn color="success" outlined depressed small>
-                  <v-icon class="mr-2" x-small>
-                    fas fa-paper-plane
-                  </v-icon>
-                  提交代码
-                </v-btn>
-                <v-spacer />
-              </v-card-actions>
+              <v-form ref="file" @submit.prevent="submitCode">
+                <v-card-subtitle>提交代码</v-card-subtitle>
+                <v-card-text>
+                  <v-select
+                    v-model="selectLanguage"
+                    color="purple"
+                    item-color="purple"
+                    menu-props="auto"
+                    :disabled="submitStatus === 1"
+                    :items="languageOptions"
+                    :rules="languageRules"
+                    :hint="selectLanguage.token"
+                    item-text="title"
+                    item-value="title"
+                    label="评测语言"
+                    no-data-text="没有可用的评测语言"
+                    persistent-hint
+                    return-object
+                  />
+                  <v-file-input
+                    v-model="codeFile"
+                    prepend-icon=""
+                    color="purple"
+                    :disabled="submitStatus === 1"
+                    :rules="[v => !!v || '请上传代码文件']"
+                    accept=".c, .cpp, .java, .py, .rs"
+                    label="代码文件"
+                    show-size
+                  />
+                </v-card-text>
+                <v-card-actions class="pt-0 pb-4">
+                  <v-spacer />
+                  <v-btn
+                    :loading="submitStatus == 1"
+                    :color="submitStatus == 2 ? 'error' : 'success'"
+                    type="submit"
+                    outlined
+                    depressed
+                    small
+                  >
+                    <v-icon class="mr-2" x-small>
+                      fas fa-paper-plane
+                    </v-icon>
+                    提交代码
+                  </v-btn>
+                  <v-spacer />
+                </v-card-actions>
+              </v-form>
               <v-fade-transition>
                 <v-overlay v-if="hover && !isLogin" style="z-index: 0" absolute>
                   <span>您尚未登录：</span>
@@ -323,6 +342,7 @@ export default {
       tabs: null,
       skeleton: false,
       problem: {
+        id: '',
         title: '',
         legend: '',
         input: '',
@@ -344,16 +364,20 @@ export default {
         lastSubmissionTime: ''
       },
       code: '',
+      codeFile: null,
       selectLanguage: {
+        id: '',
         title: '',
         lang: '',
         token: ''
       },
-      languageOptions: []
+      languageOptions: [],
+      languageRules: problem.languageRules,
+      submitStatus: 0
     }
   },
   computed: {
-    ...mapGetters(['language', 'isLogin'])
+    ...mapGetters(['language', 'isLogin', 'profile'])
   },
   mounted () {
     this.skeleton = true
@@ -407,6 +431,81 @@ export default {
         color: 'error',
         icon: 'mdi-alert'
       })
+    },
+    submitCode (fromFile = false) {
+      this.submitStatus = 1
+      if (!this.isLogin) {
+        this.newToast({
+          text: '您尚未登陆，无法提交代码！',
+          color: 'error',
+          icon: 'mdi-alert'
+        })
+        this.submitStatus = 2
+        return
+      }
+      if (fromFile) {
+        if (this.$refs.file.validate()) {
+          const reader = new FileReader()
+          reader.readAsText(this.codeFile)
+          reader.onload = (e) => {
+            api.createSubmission({
+              problemId: this.problem.id,
+              languageId: this.selectLanguage.id,
+              code: e.target.result
+            }, this.profile.jwt).then(() => {
+              this.newToast({
+                text: '提交成功，请留意评测结果。',
+                color: 'blue',
+                icon: 'mdi-information'
+              })
+              this.submitStatus = 0
+              this.$router.push('/status')
+            }).catch(() => {
+              this.newToast({
+                text: '提交失败！',
+                color: 'error',
+                icon: 'mdi-alert'
+              })
+              this.submitStatus = 2
+            })
+          }
+          return
+        }
+        this.submitStatus = 2
+        return
+      }
+      if (this.$refs.code.validate()) {
+        if (this.code.length >= 3 && this.code.length <= 65536) {
+          api.createSubmission({
+            problemId: this.problem.id,
+            languageId: this.selectLanguage.id,
+            code: this.code
+          }, this.profile.jwt).then(() => {
+            this.newToast({
+              text: '提交成功，请留意评测结果。',
+              color: 'blue',
+              icon: 'mdi-information'
+            })
+            this.submitStatus = 0
+            this.$router.push('/status')
+          }).catch(() => {
+            this.newToast({
+              text: '提交失败！',
+              color: 'error',
+              icon: 'mdi-alert'
+            })
+            this.submitStatus = 2
+          })
+          return
+        } else {
+          this.newToast({
+            text: '代码不得小于 6 字节，不得超过 65536 字节。',
+            color: 'error',
+            icon: 'mdi-alert'
+          })
+        }
+      }
+      this.submitStatus = 2
     }
   }
 }

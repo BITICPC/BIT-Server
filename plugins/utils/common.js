@@ -138,6 +138,7 @@ export default {
     const options = []
     for (const i in languages) {
       options.push({
+        id: languages[i].id,
         title: languages[i].displayName,
         lang: codeLang[languages[i].langId].aceMode,
         token: '使用 ' + codeLang[languages[i].langId].token[languages[i].dialect] + ' 进行编译'

@@ -149,6 +149,14 @@ export default {
     return ajax('/submissions', 'get', {
       params
     })
+  },
+  createSubmission (data, jwt) {
+    return ajax('/submissions', 'post', {
+      data,
+      headers: {
+        Authorization: 'Jwt ' + jwt
+      }
+    })
   }
 }
 

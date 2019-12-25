@@ -1,6 +1,6 @@
 <template>
   <div class="vue-simplemde">
-    <textarea
+    <v-textarea
       class="vue-simplemde-textarea"
       :name="name"
       :value="modelVal"

@@ -27,6 +27,10 @@ const memoryRules = [
   v => (v && v >= 32 && v <= 1024) || 'Field should be at least 32 and no more than 1024'
 ]
 
+const languageRules = [
+  v => !!v.id || '请选择一种评测语言'
+]
+
 export default {
   tags,
   judgeMode,
@@ -34,6 +38,7 @@ export default {
   nameRules,
   timeRules,
   memoryRules,
+  languageRules,
   getTagColor (tag) {
     const index = tags.indexOf(tag)
     if (index < 5) {
