@@ -1,23 +1,20 @@
 <template>
-  <div class="vue-simplemde">
-    <v-textarea
+  <div class="vue-easymde">
+    <textarea
       class="vue-simplemde-textarea"
       :name="name"
       :value="modelVal"
       @input="handleInput($event.target.value)"
     />
-    <p class="pl-2 mt-n8" style="font-size: 12px;">
-      Attach images by dragging &amp; dropping, selecting or pasting them.
-    </p>
   </div>
 </template>
 
 <script>
-import SimpleMDE from 'simplemde'
+import EasyMDE from 'easymde'
 import marked from 'marked'
 
 export default {
-  name: 'VueSimplemde',
+  name: 'VueEasymde',
   props: {
     value: {
       type: String,
@@ -73,7 +70,7 @@ export default {
         this.isValueUpdateFromInner = false
         return
       }
-      this.simplemde.value(val)
+      this.easyMDE.value(val)
       this.modelVal = val
     }
   },
@@ -83,7 +80,7 @@ export default {
     }
   },
   deactivated () {
-    const editor = this.simplemde
+    const editor = this.easyMDE
     if (editor) {
       const isFullScreen = editor.codemirror.getOption('fullScreen')
       if (isFullScreen) {
@@ -92,7 +89,7 @@ export default {
     }
   },
   destroyed () {
-    this.simplemde = null
+    this.easyMDE = null
   },
   methods: {
     initialize () {
@@ -116,7 +113,7 @@ export default {
       marked.setOptions({ sanitize: this.sanitize })
 
       // 实例化编辑器
-      this.simplemde = new SimpleMDE(configs)
+      this.easyMDE = new EasyMDE(configs)
 
       // 添加自定义 previewClass
       const className = this.previewClass || ''
@@ -126,42 +123,42 @@ export default {
       this.bindingEvents()
     },
     bindingEvents () {
-      this.simplemde.codemirror.on('change', () => {
-        const val = this.simplemde.value()
+      this.easyMDE.codemirror.on('change', () => {
+        const val = this.easyMDE.value()
         this.handleInput(val)
       })
-      this.simplemde.codemirror.on('drop', (editor, e) => {
-        if (!(e.dataTransfer && e.dataTransfer.files)) {
-          // 弹窗说明，此浏览器不支持此操作
-          return
-        }
-        const dataList = e.dataTransfer.files
-        const imgFiles = []
-        for (let i = 0; i < dataList.length; i++) {
-          if (dataList[i].type.includes('image')) {
-            imgFiles.push(dataList[i])
-          }
-        }
-        this.uploadImages(editor, imgFiles)
-        e.preventDefault()
-      })
-      this.simplemde.codemirror.on('paste', (editor, e) => {
-        if (!(e.clipboardData && e.clipboardData.items)) {
-          // 弹窗说明，此浏览器不支持此操作
-          return
-        }
-        try {
-          const dataList = (e.clipboardData || e.originalEvent.clipboardData).items
-          if (dataList[0].kind === 'file' && dataList[0].getAsFile().type.includes('image')) {
-            this.uploadImages(editor, [dataList[0].getAsFile()])
-          }
-        } catch (e) {
-          // 弹窗说明，只能粘贴图片
-        }
-      })
+      // this.easyMDE.codemirror.on('drop', (editor, e) => {
+      //   if (!(e.dataTransfer && e.dataTransfer.files)) {
+      //     // 弹窗说明，此浏览器不支持此操作
+      //     return
+      //   }
+      //   const dataList = e.dataTransfer.files
+      //   const imgFiles = []
+      //   for (let i = 0; i < dataList.length; i++) {
+      //     if (dataList[i].type.includes('image')) {
+      //       imgFiles.push(dataList[i])
+      //     }
+      //   }
+      //   this.uploadImages(editor, imgFiles)
+      //   e.preventDefault()
+      // })
+      // this.easyMDE.codemirror.on('paste', (editor, e) => {
+      //   if (!(e.clipboardData && e.clipboardData.items)) {
+      //     // 弹窗说明，此浏览器不支持此操作
+      //     return
+      //   }
+      //   try {
+      //     const dataList = (e.clipboardData || e.originalEvent.clipboardData).items
+      //     if (dataList[0].kind === 'file' && dataList[0].getAsFile().type.includes('image')) {
+      //       this.uploadImages(editor, [dataList[0].getAsFile()])
+      //     }
+      //   } catch (e) {
+      //     // 弹窗说明，只能粘贴图片
+      //   }
+      // })
     },
     addPreviewClass (className) {
-      const wrapper = this.simplemde.codemirror.getWrapperElement()
+      const wrapper = this.easyMDE.codemirror.getWrapperElement()
       const preview = document.createElement('div')
       wrapper.nextSibling.className += ` ${className}`
       preview.className = `editor-preview ${className}`
@@ -170,22 +167,26 @@ export default {
     handleInput (val) {
       this.isValueUpdateFromInner = true
       this.$emit('input', val)
-    },
-    uploadImages (editor, images) {
-      for (const i in images) {
-        console.log(images[i])
-      }
     }
+    // uploadImages (editor, images) {
+    //   for (const i in images) {
+    //     console.log(images[i])
+    //   }
+    // }
   }
 }
 </script>
 
 <style>
-.vue-simplemde .markdown-body {
+.vue-easymde .markdown-body {
   padding: 0.5em
 }
 
-.vue-simplemde .editor-preview-active, .vue-simplemde .editor-preview-active-side {
+.vue-easymde .editor-preview-active, .vue-easymde .editor-preview-active-side {
   display: block;
+}
+
+.editor-toolbar {
+  border-color: #ddd !important;
 }
 </style>
