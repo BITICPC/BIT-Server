@@ -100,26 +100,26 @@
       </v-list-item>
       <div v-for="(testcase, index) in submission.testCases" :key="index">
         <div :class="index > 0 ? 'pt-4' : null"><b>测试点 #{{ index + 1 }}：</b>运行时间 {{ testcase.time }} ms，运行内存 {{ testcase.memory }} MB，程序返回值 {{ testcase.exitCode }}，评测结果 <span :class="verdictStatus[testcase.verdict].class">{{ verdictStatus[testcase.verdict].title }}</span></div>
-        <v-card outlined>
+        <v-card v-if="!!testcase.inputView && testcase.inputView.length > 0" outlined>
           <v-card-subtitle>标准输入</v-card-subtitle>
           <v-card-text class="sample">
             {{ testcase.inputView }}
           </v-card-text>
         </v-card>
-        <v-card class="mt-2" outlined>
+        <v-card v-if="!!testcase.answerView && testcase.answerView.length > 0" class="mt-2" outlined>
           <v-card-subtitle>标准输出</v-card-subtitle>
           <v-card-text class="sample">
             {{ testcase.answerView }}
           </v-card-text>
         </v-card>
-        <v-card class="mt-2" outlined>
+        <v-card v-if="!!testcase.outputView && testcase.outputView.length > 0" class="mt-2" outlined>
           <v-card-subtitle>用户输出</v-card-subtitle>
           <v-card-text class="sample">
             {{ testcase.outputView }}
           </v-card-text>
         </v-card>
-        <v-card class="mt-2" outlined>
-          <v-card-subtitle>Checker's comment</v-card-subtitle>
+        <v-card v-if="!!testcase.comment && testcase.comment.length > 0" class="mt-2" outlined>
+          <v-card-subtitle>答案检查器输出</v-card-subtitle>
           <v-card-text class="sample">
             {{ testcase.comment }}
           </v-card-text>

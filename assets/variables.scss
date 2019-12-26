@@ -8,6 +8,10 @@
 
 $body-font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif, Roboto, sans-serif;
 
+html {
+  overflow: auto !important;
+}
+
 a {
   text-decoration: none;
   &.v-btn {
