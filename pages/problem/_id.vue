@@ -387,10 +387,16 @@ export default {
           this.problem[element] = res.data[element]
         }
       })
-      this.problem.legend = common.md.render(res.data.legend)
-      this.problem.input = common.md.render(res.data.input)
-      this.problem.output = common.md.render(res.data.output)
-      if (res.data.notes) {
+      if (res.data.legend !== null) {
+        this.problem.legend = common.md.render(res.data.legend)
+      }
+      if (res.data.input !== null) {
+        this.problem.input = common.md.render(res.data.input)
+      }
+      if (res.data.output !== null) {
+        this.problem.output = common.md.render(res.data.output)
+      }
+      if (res.data.notes !== null) {
         this.problem.notes = common.md.render(res.data.notes)
       }
       this.problem.judgeMode = problem.judgeMode[res.data.judgeMode]

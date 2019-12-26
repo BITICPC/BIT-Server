@@ -12,11 +12,12 @@ html {
   overflow: auto !important;
 }
 
+.v-btn {
+  text-transform: none;
+}
+
 a {
   text-decoration: none;
-  &.v-btn {
-    text-transform: none;
-  }
   /* &.nav.v-btn {
     padding-top: 2px;
     border-bottom: 2px solid transparent;
