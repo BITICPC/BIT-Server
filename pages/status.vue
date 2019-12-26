@@ -191,6 +191,7 @@ export default {
       this.getStatus()
     },
     $route (to, from) {
+      this.page.count = -1
       this.getStatus()
     }
   },
