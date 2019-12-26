@@ -145,14 +145,22 @@ export default {
       }
     })
   },
+  createSubmission (data, jwt) {
+    return ajax('/submissions', 'post', {
+      data,
+      headers: {
+        Authorization: 'Jwt ' + jwt
+      }
+    })
+  },
   getSubmissions (params) {
     return ajax('/submissions', 'get', {
       params
     })
   },
-  createSubmission (data, jwt) {
-    return ajax('/submissions', 'post', {
-      data,
+  getSubmissionDetail (id, jwt) {
+    const cmd = '/submissions/' + id
+    return ajax(cmd, 'get', {
       headers: {
         Authorization: 'Jwt ' + jwt
       }

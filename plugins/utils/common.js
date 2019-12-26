@@ -51,8 +51,8 @@ const verdictStatus = {
     class: 'grey--text font-weight-bold'
   },
   Judging: {
-    title: 'Judging',
-    class: 'blue--text font-weight-bold'
+    title: 'Running',
+    class: 'indigo--text text--lighten-1 font-weight-bold'
   },
   Accepted: {
     title: 'Accepted',
@@ -145,5 +145,17 @@ export default {
       })
     }
     return options
+  },
+  mapAceLang (language) {
+    if (language.includes('Python')) {
+      return 'python'
+    } else if (language.includes('C')) {
+      return 'c_cpp'
+    } else if (language.includes('Java')) {
+      return 'java'
+    } else if (language.includes('Rust')) {
+      return 'rust'
+    }
+    return 'text'
   }
 }
