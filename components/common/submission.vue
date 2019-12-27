@@ -82,7 +82,7 @@
       theme="chrome"
       :lang="submission.aceLang"
       :options="aceOptions"
-      height="600"
+      height="543"
       class="mt-2"
       style="font-size: 11pt;"
     />

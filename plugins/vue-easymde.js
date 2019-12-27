@@ -14,7 +14,7 @@ export default {
       setTimeout(() => {
         preview.innerHTML = common.md.render(plainText)
         window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, window.document.getElementsByClassName('editor-preview')])
-      }, 250)
+      }, 100)
       return 'Loading...'
     }
   }

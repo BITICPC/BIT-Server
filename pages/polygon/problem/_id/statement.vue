@@ -50,16 +50,14 @@ import hljs from 'highlight.js'
 import api from '@/plugins/utils/api'
 import problem from '@/plugins/utils/problem'
 import easymde from '@/plugins/vue-easymde'
+
 window.hljs = hljs
 window.MathJax.Hub.Config({
-  extensions: ['tex2jax.js'],
-  jax: ['input/TeX', 'output/CommonHTML'],
-  tex2jax: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']],
-    displayMath: [['$$', '$$'], ['\\[', '\\]']],
-    processEscapes: true
-  }
+  config: ['MMLorHTML.js'],
+  jax: ['input/TeX', 'output/HTML-CSS', 'output/NativeMML'],
+  extensions: ['TeX/AMSmath.js', 'TeX/AMSsymbols.js', 'MathMenu.js', 'MathZoom.js']
 })
+
 export default {
   layout: 'polygon',
   middleware: 'login',
