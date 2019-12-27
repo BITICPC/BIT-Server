@@ -24,13 +24,13 @@
                 label="Name"
               />
               <span class="subtitle-1">Legend</span>
-              <vue-easymde v-model="problem.legend" preview-class="markdown-body" :highlight="true" :configs="configs" />
+              <vue-easymde v-model="problem.legend" preview-class="markdown-body" :highlight="true" :configs="mdeConfigs" />
               <span class="subtitle-1">Input</span>
-              <vue-easymde v-model="problem.input" preview-class="markdown-body" :highlight="true" :configs="configs" />
+              <vue-easymde v-model="problem.input" preview-class="markdown-body" :highlight="true" :configs="mdeConfigs" />
               <span class="subtitle-1">Output</span>
-              <vue-easymde v-model="problem.output" preview-class="markdown-body" :highlight="true" :configs="configs" />
+              <vue-easymde v-model="problem.output" preview-class="markdown-body" :highlight="true" :configs="mdeConfigs" />
               <span class="subtitle-1">Notes</span>
-              <vue-easymde v-model="problem.notes" preview-class="markdown-body" :highlight="true" :configs="configs" />
+              <vue-easymde v-model="problem.notes" preview-class="markdown-body" :highlight="true" :configs="mdeConfigs" />
               <v-btn :loading="loading" color="success" type="submit" depressed>
                 <v-icon left>
                   mdi-check
@@ -49,9 +49,8 @@ import { mapActions, mapGetters } from 'vuex'
 import hljs from 'highlight.js'
 import api from '@/plugins/utils/api'
 import problem from '@/plugins/utils/problem'
-import easymde from '@/plugins/vue-easymde'
+import common from '@/plugins/utils/common'
 
-window.hljs = hljs
 window.MathJax.Hub.Config({
   config: ['MMLorHTML.js'],
   jax: ['input/TeX', 'output/HTML-CSS', 'output/NativeMML'],
@@ -70,11 +69,44 @@ export default {
       notes: ''
     },
     nameRules: problem.nameRules,
-    configs: easymde.configs,
     loading: false
   }),
   computed: {
-    ...mapGetters(['profile'])
+    ...mapGetters(['profile']),
+    mdeConfigs () {
+      return {
+        spellChecker: false,
+        uploadImage: true,
+        imageUploadFunction: (file, onSuccess, onError) => {
+          if (!file.type.includes('image/')) {
+            onError('The image type is invalid.')
+            return
+          }
+          if (file.size > 1024 * 1024 * 14) {
+            onError('The image size should no more than 14 MB.')
+            return
+          }
+          const formData = new FormData()
+          formData.append('content', file)
+          api.uploadContent(formData, this.profile.jwt).then((res) => {
+            onSuccess('http://10.1.139.91/contents/' + res.data.id + '?attachment=false')
+          }).catch(() => {
+            onError('Failed to upload the image.')
+          })
+        },
+        previewClass: 'editor-preview markdown-body',
+        previewRender: (plainText, preview) => {
+          setTimeout(() => {
+            preview.innerHTML = common.md.render(plainText)
+            window.document.querySelectorAll('pre code').forEach((block) => {
+              hljs.highlightBlock(block)
+            })
+            window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, window.document.getElementsByClassName('editor-preview')])
+          }, 100)
+          return 'Loading...'
+        }
+      }
+    }
   },
   mounted () {
     this.getStatement()
