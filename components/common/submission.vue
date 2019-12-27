@@ -99,7 +99,9 @@
         </v-list-item-content>
       </v-list-item>
       <div v-for="(testcase, index) in submission.testCases" :key="index">
-        <div :class="index > 0 ? 'pt-4' : null"><b>测试点 #{{ index + 1 }}：</b>运行时间 {{ testcase.time }} ms，运行内存 {{ testcase.memory }} MB，程序返回值 {{ testcase.exitCode }}，评测结果 <span :class="verdictStatus[testcase.verdict].class">{{ verdictStatus[testcase.verdict].title }}</span></div>
+        <div :class="index > 0 ? 'pt-4' : null">
+          <b>测试点 #{{ index + 1 }}：</b>运行时间 {{ testcase.time }} ms，运行内存 {{ testcase.memory }} MB，程序返回值 {{ testcase.exitCode }}，评测结果 <span :class="verdictStatus[testcase.verdict].class">{{ verdictStatus[testcase.verdict].title }}</span>
+        </div>
         <v-card v-if="!!testcase.inputView && testcase.inputView.length > 0" outlined>
           <v-card-subtitle>标准输入</v-card-subtitle>
           <v-card-text class="sample">
