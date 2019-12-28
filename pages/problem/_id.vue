@@ -72,7 +72,7 @@
             </v-tabs>
             <v-tabs-items v-model="tabs">
               <v-tab-item value="statement">
-                <div>
+                <div id="statement">
                   <h3 class="title purple--text">
                     题目描述
                   </h3>
