@@ -46,16 +46,11 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import renderMathInElement from 'katex/contrib/auto-render/auto-render'
 import hljs from 'highlight.js'
 import api from '@/plugins/utils/api'
 import problem from '@/plugins/utils/problem'
 import common from '@/plugins/utils/common'
-
-window.MathJax.Hub.Config({
-  config: ['MMLorHTML.js'],
-  jax: ['input/TeX', 'output/HTML-CSS', 'output/NativeMML'],
-  extensions: ['TeX/AMSmath.js', 'TeX/AMSsymbols.js', 'MathMenu.js', 'MathZoom.js']
-})
 
 export default {
   layout: 'polygon',
@@ -98,10 +93,10 @@ export default {
         previewRender: (plainText, preview) => {
           setTimeout(() => {
             preview.innerHTML = common.md.render(plainText)
+            renderMathInElement(window.document.body)
             window.document.querySelectorAll('pre code').forEach((block) => {
               hljs.highlightBlock(block)
             })
-            window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, window.document.getElementsByClassName('editor-preview')])
           }, 100)
           return 'Loading...'
         }
