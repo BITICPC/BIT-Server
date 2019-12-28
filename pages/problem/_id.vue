@@ -326,17 +326,100 @@
             </v-card>
           </template>
         </v-hover>
+        <v-dialog v-model="dialog" width="1200">
+          <v-card>
+            <v-card-title>
+              提交记录
+              <v-spacer />
+              <v-btn icon @click="dialog = false">
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </v-card-title>
+            <v-card-text>
+              <SubmissionDetail :submission="submissionDetail" />
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+        <v-card v-if="isLogin && submissions.length > 0" class="mt-3">
+          <v-card-subtitle>最近提交记录</v-card-subtitle>
+          <v-simple-table>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-center">
+                    状态
+                  </th>
+                  <th class="text-center">
+                    提交时间
+                  </th>
+                  <th class="text-center">
+                    评测结果
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in submissions" :key="index" class="text-center">
+                  <td style="min-width: 60px;">
+                    <template v-if="item.status === 'Pending'">
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on }">
+                          <v-icon color="grey" small v-on="on">
+                            mdi-help
+                          </v-icon>
+                        </template>
+                        <span>等待评测</span>
+                      </v-tooltip>
+                    </template>
+                    <template v-else-if="item.status === 'Judging'">
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on }">
+                          <v-progress-circular :width="3" :size="16" color="indigo lighten-1" indeterminate v-on="on" />
+                        </template>
+                        <span>正在评测</span>
+                      </v-tooltip>
+                    </template>
+                    <template v-else>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on }">
+                          <v-icon color="success" small v-on="on">
+                            mdi-check
+                          </v-icon>
+                        </template>
+                        <span>评测完成</span>
+                      </v-tooltip>
+                    </template>
+                  </td>
+                  <td style="padding: 0px;">
+                    {{ item.creationTime }}
+                  </td>
+                  <td>
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <a :class="item.verdict.class" v-on="on" @click="showSubmissionDetail(item)">{{ item.verdict.title }}</a>
+                      </template>
+                      <span>查看详细内容</span>
+                    </v-tooltip>
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import SubmissionDetail from '@/components/common/submission'
 import api from '@/plugins/utils/api'
 import problem from '@/plugins/utils/problem'
 import common from '@/plugins/utils/common'
 
 export default {
+  components: {
+    SubmissionDetail
+  },
   data () {
     return {
       tabs: null,
@@ -373,7 +456,25 @@ export default {
       },
       languageOptions: [],
       languageRules: problem.languageRules,
-      submitStatus: 0
+      submitStatus: 0,
+      submissions: [],
+      dialog: false,
+      submissionDetail: {
+        status: '',
+        creationTime: '',
+        judgeTime: '',
+        author: '',
+        title: '',
+        verdict: '',
+        language: '',
+        aceLang: 'text',
+        time: '',
+        memory: '',
+        problemId: '',
+        submissionId: '',
+        code: 'Source code is not available',
+        testCases: []
+      }
     }
   },
   computed: {
@@ -411,6 +512,10 @@ export default {
         })
       } else {
         this.languageOptions = common.getLanguageOptions(this.language)
+      }
+
+      if (this.isLogin) {
+        this.getUserLatestSubmissions()
       }
       this.skeleton = false
     }).catch(() => {
@@ -458,14 +563,14 @@ export default {
               problemId: this.problem.id,
               languageId: this.selectLanguage.id,
               code: e.target.result
-            }, this.profile.jwt).then(() => {
+            }, this.profile.jwt).then((res) => {
               this.newToast({
                 text: '提交成功，请留意评测结果。',
                 color: 'blue',
                 icon: 'mdi-information'
               })
               this.submitStatus = 0
-              this.$router.push('/status')
+              this.getUserLatestSubmissions(true)
             }).catch(() => {
               this.newToast({
                 text: '提交失败！',
@@ -486,14 +591,14 @@ export default {
             problemId: this.problem.id,
             languageId: this.selectLanguage.id,
             code: this.code
-          }, this.profile.jwt).then(() => {
+          }, this.profile.jwt).then((res) => {
             this.newToast({
               text: '提交成功，请留意评测结果。',
               color: 'blue',
               icon: 'mdi-information'
             })
             this.submitStatus = 0
-            this.$router.push('/status')
+            this.getUserLatestSubmissions(true)
           }).catch(() => {
             this.newToast({
               text: '提交失败！',
@@ -512,6 +617,54 @@ export default {
         }
       }
       this.submitStatus = 2
+    },
+    getUserLatestSubmissions (showLatest = false) {
+      this.submissions = []
+      api.getSubmissions({
+        page: 0,
+        itemsPerPage: 5,
+        author: this.profile.username,
+        problem: this.problem.id
+      }).then((res) => {
+        res.data.forEach((item) => {
+          this.submissions.push({
+            status: item.status,
+            creationTime: common.getTimeFormat(item.creationTime),
+            judgeTime: common.getTimeFormat(item.judgeTime),
+            author: item.author,
+            title: item.problemArchiveId + '. ' + item.problemTitle,
+            verdict: common.verdictStatus[item.status === 'Finished' ? item.verdict : item.status],
+            language: item.language,
+            aceLang: common.mapAceLang(item.language),
+            time: (item.status === 'Finished' ? item.time : '0') + ' ms',
+            memory: (item.status === 'Finished' ? item.memory : '0') + ' MB',
+            problemId: item.problemArchiveId,
+            submissionId: item.id
+          })
+        })
+        if (showLatest) {
+          this.showSubmissionDetail(this.submissions[0])
+        }
+      })
+    },
+    showSubmissionDetail (payload) {
+      Object.keys(payload).forEach((element) => {
+        this.submissionDetail[element] = payload[element]
+      })
+      this.submissionDetail.testCases = []
+      api.getSubmissionDetail(payload.submissionId, this.profile.jwt).then((res) => {
+        if (res.data.judgeResult !== null) {
+          this.submissionDetail.testCases = res.data.judgeResult.testCases
+        }
+        this.submissionDetail.code = res.data.code
+        this.dialog = true
+      }).catch(() => {
+        this.newToast({
+          text: '无法加载详细信息！',
+          color: 'error',
+          icon: 'mdi-alert'
+        })
+      })
     }
   }
 }
