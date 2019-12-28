@@ -132,7 +132,7 @@ export default {
       const years = Math.floor(months / 12)
       return years + ' 年前'
     }
-    return 'Invalid'
+    return 'Invalid date'
   },
   getLanguageOptions (languages) {
     const options = []
