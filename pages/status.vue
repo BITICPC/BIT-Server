@@ -3,7 +3,7 @@
     <v-row justify="center">
       <v-col>
         <v-card>
-          <v-dialog v-model="dialog" width="1200">
+          <v-dialog v-model="dialog" width="1200" scrollable>
             <v-card>
               <v-card-title>
                 提交记录
