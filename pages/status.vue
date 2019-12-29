@@ -13,7 +13,7 @@
                 </v-btn>
               </v-card-title>
               <v-card-text>
-                <SubmissionDetail :submission="submissionDetail" />
+                <SubmissionDetail v-if="dialog" :submission="submissionDetail" />
               </v-card-text>
             </v-card>
           </v-dialog>
@@ -173,7 +173,6 @@ export default {
         title: '',
         verdict: '',
         language: '',
-        aceLang: 'text',
         time: '',
         memory: '',
         problemId: '',
@@ -220,7 +219,6 @@ export default {
             title: item.problemArchiveId + '. ' + item.problemTitle,
             verdict: common.verdictStatus[item.status === 'Finished' ? item.verdict : item.status],
             language: item.language,
-            aceLang: common.mapAceLang(item.language),
             time: (item.status === 'Finished' ? item.time : '0') + ' ms',
             memory: (item.status === 'Finished' ? item.memory : '0') + ' MB',
             problemId: item.problemArchiveId,

@@ -46,9 +46,7 @@
               <template v-else-if="submission.status === 'Judging'">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
-                    <v-icon color="indigo lighten-1" v-on="on">
-                      mdi-timer-sand
-                    </v-icon>
+                    <v-progress-circular :width="3" :size="16" color="indigo lighten-1" indeterminate v-on="on" />
                   </template>
                   <span>正在评测</span>
                 </v-tooltip>
@@ -77,15 +75,9 @@
         </tbody>
       </template>
     </v-simple-table>
-    <ace-editor
-      v-model="submission.code"
-      theme="chrome"
-      :lang="submission.aceLang"
-      :options="aceOptions"
-      height="543"
-      class="mt-2"
-      style="font-size: 11pt;"
-    />
+    <div class="mt-2 markdown-body">
+      <pre v-highlight><code>{{ submission.code }}</code></pre>
+    </div>
     <template v-if="submission.testCases.length > 0">
       <v-list-item class="pl-0">
         <v-list-item-icon class="mr-2">
@@ -146,7 +138,6 @@ export default {
           title: '',
           verdict: '',
           language: '',
-          aceLang: 'text',
           time: '',
           memory: '',
           problemId: '',
@@ -159,9 +150,6 @@ export default {
   },
   data () {
     return {
-      aceOptions: {
-        readOnly: true
-      },
       verdictStatus: common.verdictStatus
     }
   }

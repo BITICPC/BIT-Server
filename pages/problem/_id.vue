@@ -336,7 +336,7 @@
               </v-btn>
             </v-card-title>
             <v-card-text>
-              <SubmissionDetail :submission="submissionDetail" />
+              <SubmissionDetail v-if="dialog" :submission="submissionDetail" />
             </v-card-text>
           </v-card>
         </v-dialog>
