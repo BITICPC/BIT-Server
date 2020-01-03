@@ -61,6 +61,14 @@
               </v-btn>
             </template>
             <v-list dense>
+              <v-list-item v-if="isAdmin" to="/jury">
+                <v-list-item-icon class="mr-3">
+                  <v-icon>mdi-tools</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>后台管理</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
               <v-list-item :to="{ path: '/status', query: { author: profile.username } }">
                 <v-list-item-icon class="mr-3">
                   <v-icon>mdi-file-chart</v-icon>
@@ -188,7 +196,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['profile', 'isLogin'])
+    ...mapGetters(['profile', 'isLogin', 'isAdmin'])
   }
 }
 </script>
