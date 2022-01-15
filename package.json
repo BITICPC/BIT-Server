@@ -21,7 +21,7 @@
     "js-md5": "^0.7.3",
     "markdown-it": "^10.0.0",
     "markdown-it-mathjax": "^2.0.0",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "moment": "^2.24.0",
     "nuxt": "^2.11.0",
     "stylus": "^0.54.7",
